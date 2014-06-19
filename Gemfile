@@ -38,3 +38,9 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+
+# Stavovy stroj
+gem 'aasm'
+
+# Komunikace s FIO bankou
+gem 'fio_api'
