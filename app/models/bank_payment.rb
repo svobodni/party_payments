@@ -12,7 +12,7 @@ class BankPayment < ActiveRecord::Base
 
   def self.import
     list = FioAPI::List.new
-    list.set_last_fetch_date("2014-01-01")
+    list.set_last_fetch_date((Date.today-10.days).to_s)
     list.from_last_fetch
 
     response = list.response

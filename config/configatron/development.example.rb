@@ -2,3 +2,5 @@
 # 
 # Example:
 #   configatron.file.storage = :local
+
+configatron.fio.token="tajnytoken"
