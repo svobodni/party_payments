@@ -38,6 +38,8 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Konfigurace
+gem 'configatron'
 
 # Stavovy stroj
 gem 'aasm'
