@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619131101) do
+ActiveRecord::Schema.define(version: 20140619164523) do
 
   create_table "bank_payments", force: true do |t|
     t.string   "accounting_status"
@@ -27,6 +27,20 @@ ActiveRecord::Schema.define(version: 20140619131101) do
     t.string   "ks"
     t.string   "account_number"
     t.string   "bank_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "payments", force: true do |t|
+    t.string   "type"
+    t.integer  "bank_payment_id"
+    t.decimal  "amount"
+    t.date     "paid_on"
+    t.integer  "person_id"
+    t.string   "name"
+    t.string   "address"
+    t.date     "born_on"
+    t.string   "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

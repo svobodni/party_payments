@@ -1,0 +1,2 @@
+class MembershipFee < Payment
+end

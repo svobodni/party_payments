@@ -1,13 +1,23 @@
 # -*- encoding : utf-8 -*-
 class BankPayment < ActiveRecord::Base
 
+  scope :unpaired, -> { where(accounting_status: :pending) }
+
   validate unique: :transaction_id
+
+  has_one :payment
+  has_one :membership_fee
+  has_one :supporter_fee
 
   include AASM
 
   aasm :column => 'accounting_status' do
     state :pending, :initial => true
     state :completed
+
+    event :process_payment do
+      transitions :from => :pending, :to => :completed
+    end
   end
 
   def self.import

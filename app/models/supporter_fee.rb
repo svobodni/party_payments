@@ -1,0 +1,2 @@
+class SupporterFee < Payment
+end
