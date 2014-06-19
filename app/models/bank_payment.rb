@@ -43,5 +43,25 @@ class BankPayment < ActiveRecord::Base
     end
   end
 
+  def pair
+  	# sestaví seznam nespárovaných plateb se stejným variabilním symbolem
+  	bank_payments =  BankPayment.unpaired.where(vs: vs)
+  	# odešle seznam do registru Svobodných
+  	options = { body: {payments: bank_payments.to_json(only: [:payed_on, :amount])} }
+    response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/payments.json", options)
+    # získané údaje zapíšeme k platbám
+    bank_payments.each{ |bank_payment|
+      payment = response["payment"].except('membership_type','accounting_note'
+      		).merge({paid_on: bank_payment.paid_on, amount: bank_payment.amount})
+      if response["payment"]["membership_type"]=="member"
+      	bank_payment.build_membership_fee(payment)
+      else
+      	bank_payment.build_supporter_fee(payment)
+      end
+      bank_payment.accounting_note=response['payment']['accounting_note']
+      bank_payment.process_payment!
+    } if response.success?
+  end
+
 end
 

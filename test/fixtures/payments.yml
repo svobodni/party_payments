@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person_id: 1
+  name: MyString
+  address: MyString
+  born_on: 2014-06-19
+  region_id: MyString
+
+two:
+  person_id: 1
+  name: MyString
+  address: MyString
+  born_on: 2014-06-19
+  region_id: MyString
