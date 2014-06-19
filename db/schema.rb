@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20140619131101) do
     t.string   "accounting_status"
     t.string   "accounting_note"
     t.integer  "transaction_id"
-    t.date     "payed_on"
+    t.date     "paid_on"
     t.decimal  "amount",            precision: 10, scale: 2
     t.string   "currency"
     t.string   "account_name"
