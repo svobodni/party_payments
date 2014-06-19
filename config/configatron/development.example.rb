@@ -4,3 +4,4 @@
 #   configatron.file.storage = :local
 
 configatron.fio.token="tajnytoken"
+configatron.registry.uri="http://localhost:3001"

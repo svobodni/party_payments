@@ -4,3 +4,4 @@
 #   configatron.file.storage = :s3
 
 configatron.fio.token="tajnytoken"
+configatron.registry.uri="https://registr.svobodni.cz"
