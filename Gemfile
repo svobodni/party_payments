@@ -46,3 +46,10 @@ gem 'aasm'
 
 # Komunikace s FIO bankou
 gem 'fio_api'
+
+source 'https://rails-assets.org'
+gem 'rails-assets-bootstrap'
+gem 'rails-assets-angular'
+gem 'rails-assets-angular-ui-router'
+gem 'rails-assets-ng-grid'
+

@@ -1,0 +1,26 @@
+<div ng-controller="BankPaymentIndexCtrl">
+<!-- public/templates/restaurants/index.html -->
+
+    <style>
+        .navbar { border-radius:0; }
+
+        .gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 100%; 
+    height: 600px;
+}
+    </style>
+    ahoj
+<a href="/#">index</a>
+
+<button ng-click="filterOptions.filterText = 'accounting_status:pending'">nespárované</button>
+<button ng-click="filterOptions.filterText = 'accounting_status:completed'">vyřízené</button>
+
+     <div class="gridStyle" ng-grid="gridOptions"></div>
+
+<!--     
+<ul ng-repeat="restaurant in bank_payments">
+  <li><a ng-click="viewRestaurant(restaurant.id)">{{ restaurant.amount }}</a></li>
+</ul>
+-->
+</div>

@@ -1,0 +1,26 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "homepage": "https://github.com/svobodni/party_payments",
+  "authors": [
+    "Jiří Kubíček <jiri.kubicek@kraxnet.cz>"
+  ],
+  "description": "Incoming payments processing",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.2.18",
+    "underscore": "1.6.0",
+    "angular-ui-router": "0.2.10",
+    "ng-grid": "2.0.11",
+    "jquery": "1.11.1"
+  }
+}

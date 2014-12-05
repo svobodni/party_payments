@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html ng-app="party_payments">
+<head lang="cs">
   <title>PartyPayments</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+    <style>
+        .navbar { border-radius:0; }
+
+        .gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 100%; 
+    height: 600px;
+}
+    </style>
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 </head>
 <body>
 
-<%= yield %>
+<!-- NAVIGATION -->
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="#">Svobodní API klient</a>
+    </div>
+    <ul class="nav navbar-nav">
+        <li><a ui-sref="bank_payments">Přijaté platby</a></li>
+        <li><a ui-sref="membership_fees">Členské příspěvky</a></li>
+        <li><a ui-sref="supporter_fees">Příspěvky příznivců</a></li>
+        <li ng-show="signed_in"><a ui-sref="people">Občané</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right" ng-switch on="signed_in">
+        <li ng-switch-when="true"><a ui-sref="profile">{{ profile.name }}</a></li>
+        <li ng-switch-default>NE</li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+	<!-- THIS IS WHERE WE WILL INJECT OUR CONTENT ============================== -->
+    <div ui-view>
+    	<%= yield %>
+    </div>
+
+</div>
+
 
 </body>
 </html>
+

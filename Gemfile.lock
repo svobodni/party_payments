@@ -1,5 +1,6 @@
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     aasm (2.4.0)
       activerecord
@@ -77,6 +78,13 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.1)
       sprockets-rails (~> 2.0)
+    rails-assets-angular (1.2.18)
+    rails-assets-angular-ui-router (0.2.10)
+      rails-assets-angular (>= 1.0.8)
+    rails-assets-bootstrap (3.1.1)
+      rails-assets-jquery (>= 1.9.0)
+    rails-assets-jquery (2.1.1)
+    rails-assets-ng-grid (2.0.7)
     railties (4.1.1)
       actionpack (= 4.1.1)
       activesupport (= 4.1.1)
@@ -131,6 +139,10 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.1.1)
+  rails-assets-angular
+  rails-assets-angular-ui-router
+  rails-assets-bootstrap
+  rails-assets-ng-grid
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
