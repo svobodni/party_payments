@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619164523) do
+ActiveRecord::Schema.define(version: 20141208012541) do
 
   create_table "bank_payments", force: true do |t|
     t.string   "accounting_status"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20140619164523) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "organizations", force: true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "organizations", ["slug"], name: "index_organizations_on_slug", unique: true
 
   create_table "payments", force: true do |t|
     t.string   "type"

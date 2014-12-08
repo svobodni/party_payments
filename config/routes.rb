@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :organizations, only: [:index, :show]
+
   get 'static_pages/index'
 
   resources :restaurants
