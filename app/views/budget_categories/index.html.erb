@@ -1,0 +1,26 @@
+<% page_title "Rozpočet - #{@organization.name} - #{@year}" %>
+
+<table class="table table-stripped">
+  <thead>
+    <tr>
+      <th>Název</th>
+      <th>Rozpočtováno</th>
+      <th>Čerpáno</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @budget_categories.each do |budget_category| %>
+      <tr>
+        <td><%= budget_category.name %></td>
+        <td>n/a</td>
+        <td>n/a</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Budget category', new_budget_category_path(organization_id: params[:organization_id], year: params[:year]) %>

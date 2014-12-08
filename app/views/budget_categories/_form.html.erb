@@ -1,0 +1,29 @@
+<%= form_for(@budget_category) do |f| %>
+  <% if @budget_category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@budget_category.errors.count, "error") %> prohibited this budget_category from being saved:</h2>
+
+      <ul>
+      <% @budget_category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :organization_id %><br>
+    <%= f.select :organization_id, @organizations.collect {|p| [ p.name, p.id ] }%>
+  </div>
+  <div class="field">
+    <%= f.label :year %><br>    
+    <%= f.select :year, (2014..2016) %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

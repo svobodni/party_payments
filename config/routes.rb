@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :organizations, only: [:index, :show]
+
+  resources :budget_categories
+
+  resources :organizations, only: [:index, :show] do
+    resources :budget_categories, only: [:index]
+  end
 
   get 'static_pages/index'
-
-  resources :restaurants
 
   get 'bank_payments', controller: :bank_payments, action: :index
   get 'supporter_fees', controller: :supporter_fees, action: :index

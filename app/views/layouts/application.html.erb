@@ -59,7 +59,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
           <% @organizations.each do |organization| %>
-            <li><%= link_to organization.name, organization %></li> 
+            <li><%= link_to organization.name, organization_budget_categories_path(organization, year: Date.today.year) %></li> 
           <% end %>
           </ul>
         </div>
