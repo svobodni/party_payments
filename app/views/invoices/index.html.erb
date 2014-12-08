@@ -1,0 +1,38 @@
+<% page_title "Faktury - #{@organization.try(:name)}" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <% unless @organization %>
+      <th>Organizace</th>
+      <% end %>
+      <th>Částka</th>
+      <th>VS</th>
+      <th>Popis</th>
+      <th colspan="6"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <% unless @organization %>
+        <td><%= invoice.organization.try(:name) %></td>
+        <% end %>
+        <td><%= invoice.amount %></td>
+        <td><%= link_to invoice.vs, invoice %></td>
+        <td><%= link_to invoice.description, invoice %></td>
+        <td><%= link_to "Stáhnout", invoice.document.url %></td>
+        <td><%= link_to 'Zaplatit', invoice.document.url if invoice.payment_remainder!=0%></td>
+        <td><%= link_to 'Zaúčtovat', invoice_accountings_path(invoice) if invoice.accounting_remainder!=0 %></td>
+        <td><%#= link_to 'Detail', invoice %></td>
+        <td><%= link_to 'Upravit', edit_invoice_path(invoice) %></td>
+        <td><%#= link_to 'Smazat', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Invoice', new_invoice_path(organization_id: @organization) %>

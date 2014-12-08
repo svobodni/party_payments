@@ -1,0 +1,16 @@
+<h1>Editing invoice</h1>
+
+<div class="row">
+
+<div class="col-xs-8">
+<object type="application/pdf" data="<%= @invoice.document.url%>" width="800" height="1100">this is not working as expected</object>
+</div>
+
+<div class="col-xs-4">
+<%= render 'form' %>
+</div>
+
+</div>
+
+<%= link_to 'Show', @invoice %> |
+<%= link_to 'Back', invoices_path %>

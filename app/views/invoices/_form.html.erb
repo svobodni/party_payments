@@ -1,0 +1,56 @@
+<%= form_for(@invoice) do |f| %>
+  <% if @invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+      <% @invoice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :document %><br>
+    <%= f.file_field :document %>
+  </div>
+
+  <div class="field">
+    <%= f.label :organization_id %><br>
+    <%= f.select :organization_id, @organizations.collect {|p| [ p.name, p.id ]},include_blank: true %>
+  </div>
+
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :vs %><br>
+    <%= f.text_field :vs %>
+  </div>
+  <div class="field">
+    <%= f.label :ss %><br>
+    <%= f.text_field :ss %>
+  </div>
+  <div class="field">
+    <%= f.label :ks %><br>
+    <%= f.text_field :ks %>
+  </div>
+  <div class="field">
+    <%= f.label :account_number %><br>
+    <%= f.text_field :account_number %>
+  </div>
+  <div class="field">
+    <%= f.label :bank_code %><br>
+    <%= f.text_field :bank_code %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,15 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  accountable_type: MyString
+  accountable_id: 1
+  budget_category_id: 1
   payment_type: MyString
   payment_id: 1
   amount: 9.99
-  payable_type: MyString
-  payable_id: 1
 
 two:
+  accountable_type: MyString
+  accountable_id: 1
+  budget_category_id: 1
   payment_type: MyString
   payment_id: 1
   amount: 9.99
-  payable_type: MyString
-  payable_id: 1

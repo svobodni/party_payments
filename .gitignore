@@ -19,3 +19,5 @@
 config/configatron/development.rb
 config/configatron/production.rb
 
+public/system
+

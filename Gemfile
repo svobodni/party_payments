@@ -47,6 +47,9 @@ gem 'aasm'
 # Komunikace s FIO bankou
 gem 'fio_api'
 
+# Nahrávání souborů
+gem "paperclip", "~> 4.2"
+
 source 'https://rails-assets.org'
 gem 'rails-assets-bootstrap'
 gem 'rails-assets-angular'

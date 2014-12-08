@@ -1,0 +1,19 @@
+<% page_title "Nová faktura" %>
+
+<%= form_for @invoice, :url => invoices_path, :html => { :multipart => true } do |f| %>
+  <div class="field">
+    <%= f.label :document %><br>
+    <%= f.file_field :document %>
+  </div>
+  <div class="field">
+    <%= f.label :organization_id %><br>
+    <%= f.select :organization_id, @organizations.collect {|p| [ p.name, p.id ]},include_blank: true %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description, size: 40 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

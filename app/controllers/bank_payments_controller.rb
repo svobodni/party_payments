@@ -1,8 +1,15 @@
 class BankPaymentsController < ApplicationController
+
+  # GET /bank_payments
+  # GET /bank_payments.json
   def index
-    @bank_payments = BankPayment.where("amount > 0")
-    respond_to do |format|
-      format.json { render json: @bank_payments }
+    @organization = Organization.find_by_id(params[:organization_id])
+    if @organization
+      @bank_payments = @organization.bank_payments
+    else
+      @bank_payments = BankPayment.all
     end
+    @bank_payments = @bank_payments.order(paid_on: :desc)
   end
+
 end

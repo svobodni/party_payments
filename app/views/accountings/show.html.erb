@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Accountable type:</strong>
+  <%= @accounting.accountable_type %>
+</p>
+
+<p>
+  <strong>Accountable:</strong>
+  <%= @accounting.accountable_id %>
+</p>
+
+<p>
+  <strong>Budget category:</strong>
+  <%= @accounting.budget_category_id %>
+</p>
+
+<p>
+  <strong>Payment type:</strong>
+  <%= @accounting.payment_type %>
+</p>
+
+<p>
+  <strong>Payment:</strong>
+  <%= @accounting.payment_id %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @accounting.amount %>
+</p>
+
+<%= link_to 'Edit', edit_accounting_path(@accounting) %> |
+<%= link_to 'Back', accountings_path %>

@@ -6,3 +6,5 @@
 	<li><%=link_to year, organization_budget_categories_path(@organization, :year=>year)%></li>
 	<%end%>
 </ul>
+
+<h2><%= link_to 'Faktury', organization_invoices_path(@organization, :year=>year)%></h2>

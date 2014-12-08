@@ -1,3 +1,4 @@
 class Payment < ActiveRecord::Base
-  belongs_to :bank_payment
+  belongs_to :payable, polymorphic: true
+  belongs_to :payment, polymorphic: true
 end

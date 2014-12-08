@@ -1,0 +1,51 @@
+<% page_title "Přijatá faktura" %>
+
+<div class="jumbotrons">
+  <h2><small><%= @invoice.organization.try(:name) %>: </small>
+      <%= @invoice.description %></h2>
+  <p>[<%= link_to "PDF", @invoice.document.url %>]</p>
+</div>
+
+<div class="row">
+  <div class="col-xs-4">
+    <h2>Platební instrukce</h2>
+    <table class="table">
+      <tr><th>Částka:</th><td><%= @invoice.amount %></td></tr>
+      <tr><th>Variabilní symbol:</th><td><%= @invoice.vs %></td></tr>
+      <% unless @invoice.ss.blank? %>
+      <tr><th>Specifický symbol:</th><td><%= @invoice.ss %></td></tr>
+      <% end %>
+      <% unless @invoice.ks.blank? %>
+      <tr><th>Konstantní symbol:</th><td><%= @invoice.ks %></td></tr>
+      <% end %>
+      <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.  bank_code  %></td></tr>
+    </table>
+  </div>
+  <div class="col-xs-4">
+    <h2>Úhrada</h2>
+    <table class="table">
+    <thead>
+      <tr><th>Datum úhrady</th><th>Částka</th></tr>
+    </thead>
+    <tbody>
+      <% for payment in @invoice.payments %>
+      <tr><td><%= payment.payment.paid_on %></td><td><%= payment.amount %></td></tr>
+      <% end %>
+    <tbody>
+    </table>
+  </div>
+  <div class="col-xs-4">
+    <h2>Zaúčtování v rozpočtu</h2>
+    <table class="table">
+    <thead>
+      <tr><th>Kategorie</th><th>Částka</th></tr>
+    </thead>
+    <tbody>
+      <% for accounting in @invoice.accountings %>
+      <tr><td><%= link_to accounting.budget_category.name, accounting.budget_category if accounting.budget_category %></td><td><%= accounting.    amount %></td></tr>
+      <% end %>
+    <tbody>
+    </table>
+  </div>
+</div>
+<%= button_to 'Upravit', edit_invoice_path(@invoice), method: :get %>

@@ -1,0 +1,28 @@
+<% page_title "Pohyby na bankovním účtu" %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Částka</th>
+      <th>Spárovat zbývá</th>
+      <th>Protiúčet / poznámka</th>
+      <th>VS</th>
+      <th>Číslo účtu</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bank_payments.each do |bank_payment| %>
+      <tr>
+        <td><%= bank_payment.paid_on %></td>
+        <td><%= bank_payment.amount %></td>
+        <td><%= bank_payment.remaining_amount %></td>
+        <td><%= bank_payment.account_name %></td>
+        <td><%= bank_payment.vs %></td>
+        <td><%= bank_payment.account_number %>/<%= bank_payment.bank_code %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
