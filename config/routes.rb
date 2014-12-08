@@ -6,13 +6,15 @@ Rails.application.routes.draw do
 
   resources :budget_categories
   resources :invoices do
-    resources :accountings, only: :index
+ #   resources :accountings, only: :index
   end
 
   resources :organizations, only: [:index, :show] do
     resources :bank_payments, only: [:index]
     resources :budget_categories, only: [:index]
     resources :invoices, only: [:index]
+    resources :tags, only: [:index]
+    resources :accountings, only: [:index]
   end
 
   get 'static_pages/index'

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   def load_organizations
   	@organizations = Organization.order(:id).all
+  	@organization = Organization.find(params[:organization_id]) if params[:organization_id]
   end
 
 end

@@ -69,7 +69,7 @@
           <% if @organization %>
           <ul class="nav nav-sidebar">
             <li><%=link_to "Rozpočty", organization_budget_categories_path(@organization, year: @year) %></li>
-            <li><%=link_to "Podúčty", organization_budget_categories_path(@organization, year: @year) %></li>
+            <li><%=link_to "Tagy", organization_tags_path(@organization, year: @year) %></li>
             <li><%=link_to "Faktury", organization_invoices_path(@organization) %></li>
             <% if @organization.id==100 %>
             <li><%=link_to "Členské příspěvky", organization_invoices_path(@organization, year: @year) %></li>

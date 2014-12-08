@@ -42,7 +42,7 @@
     </thead>
     <tbody>
       <% for accounting in @invoice.accountings %>
-      <tr><td><%= link_to accounting.budget_category.name, accounting.budget_category if accounting.budget_category %></td><td><%= accounting.    amount %></td></tr>
+      <tr><td><%= link_to accounting.budget_category.name, accounting.budget_category if accounting.budget_category %><br/><%= accounting.tag_list %></td><td><%= accounting.amount %></td><td><%= link_to "Upravit", edit_accounting_path(accounting) %></td></tr>
       <% end %>
     <tbody>
     </table>

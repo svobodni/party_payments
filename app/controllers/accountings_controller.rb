@@ -4,9 +4,15 @@ class AccountingsController < ApplicationController
   # GET /accountings
   # GET /accountings.json
   def index
-    @invoice = Invoice.find(params[:invoice_id])
+    #@invoice = Invoice.find(params[:invoice_id])
     @accountings = Accounting.all #[]#@invoice.accountings
-    @accounting = @invoice.accountings.build(amount: @invoice.accounting_remainder)
+    @accounting = Accounting.new
+    #@accounting = @invoice.accountings.build(amount: @invoice.accounting_remainder)
+    if params[:tag]
+      @accountings = Accounting.tagged_with(params[:tag])
+    else
+      @accountings = Accounting.all
+    end
   end
 
   # GET /accountings/1
@@ -71,6 +77,6 @@ class AccountingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def accounting_params
-      params.require(:accounting).permit(:accountable_type, :accountable_id, :budget_category_id, :payment_type, :payment_id, :amount)
+      params.require(:accounting).permit(:accountable_type, :accountable_id, :budget_category_id, :amount, :tag_list)
     end
 end

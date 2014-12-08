@@ -1,0 +1,5 @@
+<% page_title "Výpis tagů" %>
+<ul>
+<% @tags.each do |tag| %>
+<li><h2><%=link_to tag.name, organization_accountings_path(@organization, tag: tag.name)%></h2></li>
+<% end %>
