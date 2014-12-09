@@ -12,13 +12,14 @@
 
     <!-- Bootstrap core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.css">
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track'   => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
 
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -33,7 +34,7 @@
 
   <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav id="custom-bootstrap-menu" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -68,14 +69,34 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <% if @organization %>
           <ul class="nav nav-sidebar">
-            <li><%=link_to "Rozpočty", organization_budget_categories_path(@organization, year: @year) %></li>
-            <li><%=link_to "Tagy", organization_tags_path(@organization, year: @year) %></li>
-            <li><%=link_to "Faktury", organization_invoices_path(@organization) %></li>
+            <li><%=link_to "Rozpočty", organization_budget_categories_path(@organization, year: @year) %>
+              <ul>
+                <% for year in (2014..2015).to_a.reverse %>
+                <li><%=link_to year, organization_budget_categories_path(@organization, year: year) %></li>
+                <% end %>
+              </ul>
+            </li>
+            <li><%=link_to "Banka", organization_bank_payments_path(@organization, year: @year) %>
+              <ul>
+                <li><%=link_to "Nespárované", organization_bank_payments_path(@organization, year: @year, only: :unpaired) %></li>
+                <li><%=link_to "Příjmy", organization_bank_payments_path(@organization, year: @year, only: :incoming) %></li>
+                <li><%=link_to "Výdaje", organization_bank_payments_path(@organization, year: @year, only: :outgoing) %></li>
+              </ul>
+            </li>
+            <li><%=link_to "Faktury", organization_invoices_path(@organization) %>
+              <ul>
+                <li><%=link_to "Nepřiřazené", organization_invoices_path(@organization, year: @year, only: :unrecognized) %></li>
+                <li><%=link_to "Nevytěžené", organization_invoices_path(@organization, year: @year, only: :unreaded) %></li>
+                <li><%=link_to "Nezaplacené", organization_invoices_path(@organization, year: @year, only: :unpaid) %></li>
+                <li><%=link_to "Nezaúčtované", organization_invoices_path(@organization, year: @year, only: :unpaired) %></li>
+                <li><%=link_to "Nahrát novou", new_organization_invoice_path(@organization, year: @year) %></li>
+              </ul>
+            </li>
             <% if @organization.id==100 %>
             <li><%=link_to "Členské příspěvky", organization_invoices_path(@organization, year: @year) %></li>
             <% end %>
             <li><%=link_to "Přijaté dary", organization_invoices_path(@organization, year: @year) %></li>
-            <li><%=link_to "Banka", organization_bank_payments_path(@organization, year: @year) %></li>
+            <li><%=link_to "Tagy", organization_tags_path(@organization, year: @year) %></li>            
           </ul>
           <% end %>
         </div>
@@ -92,9 +113,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>

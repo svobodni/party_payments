@@ -10,6 +10,13 @@ class BankPaymentsController < ApplicationController
       @bank_payments = BankPayment.all
     end
     @bank_payments = @bank_payments.order(paid_on: :desc)
+    if params[:only]=="unpaired"
+      @bank_payments = @bank_payments.reject{|p| p.remaining_amount == 0}
+    elsif params[:only]=="incoming"
+      @bank_payments = @bank_payments.select{|p| p.amount > 0}
+    elsif params[:only]=="outgoing"
+      @bank_payments = @bank_payments.select{|p| p.amount < 0}
+    end
   end
 
 end

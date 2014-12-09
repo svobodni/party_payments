@@ -34,6 +34,7 @@ class BankPayment < ActiveRecord::Base
   
       response = list.response
       response.transactions.each do |row|
+        puts row.inspect
         create!(
           :organization_id => id,
           :amount => row.amount,
@@ -46,7 +47,7 @@ class BankPayment < ActiveRecord::Base
           :ks => row.ks || '',
           :ss => row.ss || '',
           :info => row.message_for_recipient || '',
-          :account_name => row.user_identification || '',
+          :account_name => row.user_identification || ''
         ) unless find_by_transaction_id(row.transaction_id)
       end
     }

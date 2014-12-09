@@ -3,49 +3,67 @@
 <div class="jumbotrons">
   <h2><small><%= @invoice.organization.try(:name) %>: </small>
       <%= @invoice.description %></h2>
-  <p>[<%= link_to "PDF", @invoice.document.url %>]</p>
+  <p><%= link_to "Zobrazit PDF", @invoice.document.url, class: "btn btn-default" %></p>
 </div>
 
 <div class="row">
   <div class="col-xs-4">
-    <h2>Platební instrukce</h2>
-    <table class="table">
-      <tr><th>Částka:</th><td><%= @invoice.amount %></td></tr>
-      <tr><th>Variabilní symbol:</th><td><%= @invoice.vs %></td></tr>
-      <% unless @invoice.ss.blank? %>
-      <tr><th>Specifický symbol:</th><td><%= @invoice.ss %></td></tr>
-      <% end %>
-      <% unless @invoice.ks.blank? %>
-      <tr><th>Konstantní symbol:</th><td><%= @invoice.ks %></td></tr>
-      <% end %>
-      <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.  bank_code  %></td></tr>
-    </table>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Platební instrukce</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <tr><th>Částka:</th><td><%= @invoice.amount %></td></tr>
+          <tr><th>Variabilní symbol:</th><td><%= @invoice.vs %></td></tr>
+          <% unless @invoice.ss.blank? %>
+          <tr><th>Specifický symbol:</th><td><%= @invoice.ss %></td></tr>
+          <% end %>
+          <% unless @invoice.ks.blank? %>
+          <tr><th>Konstantní symbol:</th><td><%= @invoice.ks %></td></tr>
+          <% end %>
+          <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.      bank_code  %></td></tr>
+        </table>
+       <%= link_to 'Upravit', edit_invoice_path(@invoice), class: "btn btn-default" %>
+      </div>
+    </div>
   </div>
   <div class="col-xs-4">
-    <h2>Úhrada</h2>
-    <table class="table">
-    <thead>
-      <tr><th>Datum úhrady</th><th>Částka</th></tr>
-    </thead>
-    <tbody>
-      <% for payment in @invoice.payments %>
-      <tr><td><%= payment.payment.paid_on %></td><td><%= payment.amount %></td></tr>
-      <% end %>
-    <tbody>
-    </table>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Úhrada</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+        <thead>
+          <tr><th>Datum úhrady</th><th>Částka</th></tr>
+        </thead>
+        <tbody>
+          <% for payment in @invoice.payments %>
+          <tr><td><%= link_to payment.payment.paid_on, payment %></td><td><%= payment.    amount %></td></tr>
+          <% end %>
+        <tbody>
+        </table>
+      </div>
+    </div>
   </div>
   <div class="col-xs-4">
-    <h2>Zaúčtování v rozpočtu</h2>
-    <table class="table">
-    <thead>
-      <tr><th>Kategorie</th><th>Částka</th></tr>
-    </thead>
-    <tbody>
-      <% for accounting in @invoice.accountings %>
-      <tr><td><%= link_to accounting.budget_category.name, accounting.budget_category if accounting.budget_category %><br/><%= accounting.tag_list %></td><td><%= accounting.amount %></td><td><%= link_to "Upravit", edit_accounting_path(accounting) %></td></tr>
-      <% end %>
-    <tbody>
-    </table>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Zaúčtování v rozpočtu</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+        <thead>
+          <tr><th>Kategorie</th><th>Částka</th></tr>
+        </thead>
+        <tbody>
+          <% for accounting in @invoice.accountings %>
+          <tr><td><%= link_to accounting.budget_category.name, accounting.    budget_category if accounting.budget_category %><br/><%= accounting.    tag_list %></td><td><%= accounting.amount %></td><td><%= link_to "Upravit",     edit_accounting_path(accounting) %></td></tr>
+          <% end %>
+        <tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
-<%= button_to 'Upravit', edit_invoice_path(@invoice), method: :get %>

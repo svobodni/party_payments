@@ -8,11 +8,11 @@ class Invoice < ActiveRecord::Base
   validates_attachment :document, content_type: { content_type: "application/pdf" }
 
   def accounting_remainder
-  	amount-accountings.sum(:amount)
+  	amount.to_f-accountings.sum(:amount)
   end
 
   def payment_remainder
-  	amount-payments.sum(:amount)
+  	amount.to_f-payments.sum(:amount)
   end
 
 end

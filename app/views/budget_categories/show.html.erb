@@ -1,18 +1,21 @@
-<% page_title "Rozpočet - #{@budget_category.organization.try(:name)} - #{@budget_category.year} - #{@budget_category.name}" %>
+<% page_title "Rozpočet - #{@budget_category.name}" %>
 
-<%= link_to 'Edit', edit_budget_category_path(@budget_category) %> |
 <table class="table">
-	<tr><th>Rozpočet:</th><td>n/a</td></tr>
+  <tr><th>Organizace:</th><td><%=link_to @budget_category.organization.try(:name), @budget_category.organization%></td></tr>
+  <tr><th>Hospodářský rok:</th><td><%=@budget_category.year%></td></tr>
+  <tr><th>Název:</th><td><%=@budget_category.name%></td></tr>
+	<tr><th>Rozpočtovaná částka:</th><td><%=@budget_category.amount%></td></tr>
 	<tr><th>Vyúčtováno:</th><td><%=@budget_category.accounted_amount%></td></tr>
 </table>
 
-<h2>Detatilní plnění rozpočtu</h2>
+<h2>Detailní plnění rozpočtu</h2>
 
 <table class="table">
   <thead>
     <tr>
       <th>Doklad</th>
       <th>Popis</th>
+      <th>Tagy</th>
       <th>Částka</th>
     </tr>
   </thead>
@@ -22,10 +25,9 @@
       <tr>
         <td><%= link_to accounting.accountable_type, accounting.accountable %></td>
         <td><%= link_to accounting.accountable.try(:description), accounting.accountable %></td>
+        <td><%= accounting.tags.collect(&:name).join(', ')%></td>
         <td><%= accounting.amount %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>

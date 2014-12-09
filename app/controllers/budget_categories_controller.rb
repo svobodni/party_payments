@@ -33,10 +33,11 @@ class BudgetCategoriesController < ApplicationController
   # POST /budget_categories.json
   def create
     @budget_category = BudgetCategory.new(budget_category_params)
+    @organization = @budget_category.organization
 
     respond_to do |format|
       if @budget_category.save
-        format.html { redirect_to @budget_category, notice: 'Budget category was successfully created.' }
+        format.html { redirect_to organization_budget_categories_path(@organization), notice: 'Budget category was successfully created.' }
         format.json { render :show, status: :created, location: @budget_category }
       else
         format.html { render :new }
@@ -50,7 +51,7 @@ class BudgetCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @budget_category.update(budget_category_params)
-        format.html { redirect_to @budget_category, notice: 'Budget category was successfully updated.' }
+        format.html { redirect_to organization_budget_categories_path(@organization), notice: 'Budget category was successfully updated.' }
         format.json { render :show, status: :ok, location: @budget_category }
       else
         format.html { render :edit }
@@ -73,10 +74,11 @@ class BudgetCategoriesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_budget_category
       @budget_category = BudgetCategory.find(params[:id])
+      @organization = @budget_category.organization
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def budget_category_params
-      params.require(:budget_category).permit(:organization_id, :year, :name)
+      params.require(:budget_category).permit(:organization_id, :year, :name, :amount)
     end
 end

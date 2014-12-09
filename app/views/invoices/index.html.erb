@@ -1,15 +1,22 @@
 <% page_title "Faktury - #{@organization.try(:name)}" %>
 
-<table class="table">
+<table id="invoices" class="table table-striped">
   <thead>
     <tr>
       <% unless @organization %>
       <th>Organizace</th>
       <% end %>
+      <% if params[:only]!="unreaded" %>
       <th>Částka</th>
+      <th>K úhradě</th>
       <th>VS</th>
+      <% end %>
       <th>Popis</th>
-      <th colspan="6"></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -19,15 +26,17 @@
         <% unless @organization %>
         <td><%= invoice.organization.try(:name) %></td>
         <% end %>
+        <% if params[:only]!="unreaded" %>
         <td><%= invoice.amount %></td>
+        <td><%= invoice.payment_remainder==0 ? "zaplaceno" : invoice.payment_remainder  %></td>
         <td><%= link_to invoice.vs, invoice %></td>
+        <% end %>
         <td><%= link_to invoice.description, invoice %></td>
-        <td><%= link_to "Stáhnout", invoice.document.url %></td>
-        <td><%= link_to 'Zaplatit', invoice.document.url if invoice.payment_remainder!=0%></td>
-        <td><%= link_to 'Zaúčtovat', invoice_accountings_path(invoice) if invoice.accounting_remainder!=0 %></td>
-        <td><%#= link_to 'Detail', invoice %></td>
-        <td><%= link_to 'Upravit', edit_invoice_path(invoice) %></td>
-        <td><%#= link_to 'Smazat', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "Detail", invoice, class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to "Stáhnout", invoice.document.url, class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to 'Zaplatit', invoice.document.url, class: "btn btn-default btn-xs" if invoice.payment_remainder!=0%></td>
+        <td><%= link_to 'Zaúčtovat', invoice_accountings_path(invoice), class: "btn btn-default btn-xs" if invoice.accounting_remainder!=0 %></td>
+        <td><%= link_to 'Upravit', edit_invoice_path(invoice), class: "btn btn-default btn-xs" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -35,4 +44,4 @@
 
 <br>
 
-<%= link_to 'New Invoice', new_invoice_path(organization_id: @organization) %>
+<%= datatable(:invoices) %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208223658) do
+ActiveRecord::Schema.define(version: 20141209023800) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20141208223658) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "amount"
   end
 
   create_table "invoices", force: true do |t|

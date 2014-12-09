@@ -10,6 +10,16 @@ class InvoicesController < ApplicationController
     else
       @invoices = Invoice.all
     end
+    if params[:only]=="unpaid"
+      @invoices = @invoices.reject{|p| p.payment_remainder == 0}
+    elsif params[:only]=="unpaired"
+      @invoices = @invoices.reject{|p| p.accounting_remainder == 0}
+    elsif params[:only]=="unrecognized"
+      @invoices = @invoices.select{|p| p.organization.blank?}
+    elsif params[:only]=="unreaded"
+      @invoices = @invoices.select{|p| p.account_number.blank?}
+    end
+
   end
 
   # GET /invoices/1
