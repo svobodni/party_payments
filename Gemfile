@@ -56,9 +56,14 @@ gem 'acts-as-taggable-on', '~> 3.4'
 # Formulare
 gem 'simple_form'
 
-source 'https://rails-assets.org'
-gem 'rails-assets-bootstrap'
-gem 'rails-assets-angular'
-gem 'rails-assets-angular-ui-router'
-gem 'rails-assets-ng-grid'
+#twitter bootstrap
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
+
+#source 'https://rails-assets.org'
+#gem 'rails-assets-bootstrap'
+#gem 'rails-assets-angular'
+#gem 'rails-assets-angular-ui-router'
+#gem 'rails-assets-ng-grid'
 
