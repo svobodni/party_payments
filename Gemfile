@@ -53,6 +53,9 @@ gem "paperclip", "~> 4.2"
 # Tagy
 gem 'acts-as-taggable-on', '~> 3.4'
 
+# Formulare
+gem 'simple_form'
+
 source 'https://rails-assets.org'
 gem 'rails-assets-bootstrap'
 gem 'rails-assets-angular'
