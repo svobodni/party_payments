@@ -2,7 +2,7 @@
 
 <%= link_to 'Edit', edit_budget_category_path(@budget_category) %> |
 <table class="table">
-	<tr><th>Rozpočet:</th><td>n/a</td></tr>
+	<tr><th>Rozpočet:</th><td><%=@budget_category.amount%></td></tr>
 	<tr><th>Vyúčtováno:</th><td><%=@budget_category.accounted_amount%></td></tr>
 </table>
 

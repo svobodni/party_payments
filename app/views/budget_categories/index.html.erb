@@ -20,7 +20,7 @@
         <td><%= budget_category.year %></td>
         <% end %>
         <td><%= link_to budget_category.name, budget_category %></td>
-        <td>n/a</td>
+        <td><%= budget_category.amount %></td>
         <td><%= budget_category.accounted_amount %></td>
       </tr>
     <% end %>
