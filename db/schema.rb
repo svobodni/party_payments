@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20141209023800) do
     t.integer  "budget_category_id"
     t.string   "payment_type"
     t.integer  "payment_id"
-    t.decimal  "amount"
+    t.decimal  "amount",             precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20141209023800) do
     t.integer  "organization_id"
     t.integer  "year"
     t.string   "name"
+    t.decimal  "amount",          precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "amount"
@@ -55,7 +56,7 @@ ActiveRecord::Schema.define(version: 20141209023800) do
   create_table "invoices", force: true do |t|
     t.integer  "organization_id"
     t.string   "description"
-    t.decimal  "amount"
+    t.decimal  "amount",                precision: 10, scale: 2
     t.string   "vs"
     t.string   "ss"
     t.string   "ks"
@@ -76,12 +77,12 @@ ActiveRecord::Schema.define(version: 20141209023800) do
     t.datetime "updated_at"
   end
 
-  add_index "organizations", ["slug"], name: "index_organizations_on_slug", unique: true
+  add_index "organizations", ["slug"], name: "index_organizations_on_slug", unique: true, using: :btree
 
   create_table "payments", force: true do |t|
     t.string   "payment_type"
     t.integer  "payment_id"
-    t.decimal  "amount"
+    t.decimal  "amount",       precision: 10, scale: 2
     t.string   "payable_type"
     t.integer  "payable_id"
     t.datetime "created_at"

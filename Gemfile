@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+# Use mysql as the database for Active Record
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -60,10 +60,3 @@ gem 'simple_form'
 gem "therubyracer"
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
-
-#source 'https://rails-assets.org'
-#gem 'rails-assets-bootstrap'
-#gem 'rails-assets-angular'
-#gem 'rails-assets-angular-ui-router'
-#gem 'rails-assets-ng-grid'
-
