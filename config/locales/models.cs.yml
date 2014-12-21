@@ -1,0 +1,15 @@
+cs:
+  activerecord:
+    models:
+      donation: Dar
+    attributes:
+      donation:
+        organization_id: "Organizace"
+        donor_type: "Typ dárce"
+        amount: "Částka"
+        name: "Jméno"
+        ic: "IČ"
+        date_of_birth: "Datum narození"
+        street: "Ulice a číslo"
+        city: "Obec"
+        zip: "PSČ"
