@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :donations
+
   resources :payments
 
   resources :accountings
@@ -15,6 +17,7 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index, :new]
     resources :tags, only: [:index]
     resources :accountings, only: [:index]
+    resources :donations, only: [:index]
   end
 
   get 'static_pages/index'

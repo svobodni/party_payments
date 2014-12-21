@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization_id: 1
+  amount: 9.99
+  donor_type: MyString
+  person_id: 1
+  name: MyString
+  ic: MyString
+  date_of_birth: MyString
+  street: MyString
+  city: MyString
+  zip: MyString
+  email: MyString
+
+two:
+  organization_id: 1
+  amount: 9.99
+  donor_type: MyString
+  person_id: 1
+  name: MyString
+  ic: MyString
+  date_of_birth: MyString
+  street: MyString
+  city: MyString
+  zip: MyString
+  email: MyString

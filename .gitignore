@@ -21,3 +21,4 @@ config/configatron/production.rb
 
 public/system
 
+/data

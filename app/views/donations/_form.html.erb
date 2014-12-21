@@ -1,0 +1,51 @@
+<%= simple_form_for(@donation, html: { class: 'form-horizontal' }) do |f| %>
+
+  <%= f.error_notification %>
+  <%= f.hidden_field :bank_payment_id %>
+  <%= f.hidden_field :budget_category_id %>
+  <%= f.input :organization_id, collection: @organizations%>
+  <%= f.input :amount %>
+  <%= f.input :donor_type %>
+  <%= f.input :person_id, wrapper: :horizontal_input_group do %>
+    
+    <%= f.input_field :person_id, class: "form-control" %>
+    <span class="input-group-addon"><a href="#" id="load_person">Načíst z registru</a></span>
+  <% end %>
+  
+  <%= f.input :name %>
+  <%= f.input :ic %>
+  <%= f.input :date_of_birth %>
+  <%= f.input :street %>
+  <%= f.input :city %>
+  <%= f.input :zip %>
+  <%= f.input :email %>
+  <%= f.button :submit %>
+<% end %>
+
+
+<script>
+$( 'form' ).on( 'click', '#load_person' , function( event ) {
+     console.log("Clicked")
+    // set ID
+    var person_id = $('#donation_person_id').val();
+    // get record
+    $.ajax({
+        type: 'GET',
+        url: 'http://localhost:3001/people/'+person_id+'/export.json',
+        dataType: 'json',
+        success: function ( data ) {
+            // display dialog
+            var person = data.person
+            console.log(person)
+            $( '#donation_person_id' ).val( person.id );
+            $( '#donation_name' ).val( person.name );
+            $( '#donation_donor_type' ).val( 'natural' );
+            $( '#donation_date_of_birth' ).val( person.date_of_birth );
+            $( '#donation_email' ).val( person.email );
+            $( '#donation_street' ).val( person.street );
+            $( '#donation_city' ).val( person.city );
+            $( '#donation_zip' ).val( person.zip );
+        }
+    })
+})
+</script>           

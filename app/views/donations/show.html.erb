@@ -1,0 +1,74 @@
+<% page_title "Přijatý dar" %>
+
+<div class="jumbotrons">
+  <h2><small><%= @donation.organization.try(:name) %>: </small>
+      <%= @donation.name %></h2>
+  <p><%#= link_to "Zobrazit PDF", @invoice.document.url, class: "btn btn-default" %></p>
+</div>
+
+<div class="row">
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Detaily daru</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <tr><th>Částka:</th><td><%= @donation.amount %></td></tr>
+          <tr><th>Jméno:</th><td><%= @donation.name %></td></tr>
+          <% unless @donation.ic.blank? %>
+          <tr><th>IČ:</th><td><%= @donation.ic %></td></tr>
+          <% end %>
+          <tr><th>Datum narození:</th><td><%= @donation.date_of_birth %></td></tr>
+          <tr><th>Ulice:</th><td><%= @donation.street %></td></tr>
+          <tr><th>Město:</th><td><%= @donation.city %></td></tr>
+          <tr><th>PSČ:</th><td><%= @donation.zip %></td></tr>
+          <% unless @donation.email.blank? %>
+          <tr><th>Email:</th><td><%= @donation.email %></td></tr>
+          <% end %>
+        </table>
+       <%= link_to 'Upravit', edit_donation_path(@donation), class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Úhrada</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+        <thead>
+          <tr><th>Datum úhrady</th><th>Částka</th></tr>
+        </thead>
+        <tbody>
+          <% for payment in @donation.payments %>
+          <tr><td><%= link_to payment.payment.paid_on, payment %></td><td><%= payment.    amount %></td></tr>
+          <% end %>
+        <tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2 class="panel-title">Zaúčtování v rozpočtu</h2>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+        <thead>
+          <tr><th>Kategorie</th><th>Částka</th></tr>
+        </thead>
+        <tbody>
+          <% for accounting in @donation.accountings %>
+          <tr><td><%= link_to accounting.budget_category.name, accounting.    budget_category if accounting.budget_category %><br/><%= accounting.    tag_list %></td><td><%= accounting.amount %></td><td><%= link_to "Upravit",     edit_accounting_path(accounting) %></td></tr>
+          <% end %>
+        <tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+

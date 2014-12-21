@@ -1,0 +1,29 @@
+<% page_title "Přijaté dary" %>
+
+<table id="donations" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Částka</th>
+      <th>Dárce</th>
+      <th>Identifikace</th>
+      <th>Adresa</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donations.each do |donation| %>
+      <tr>
+        <td><%= donation.amount %></td>
+        <td><%= donation.name %></td>
+        <td><%= [donation.ic,donation.date_of_birth].reject(&:empty?).join('/') %></td>
+        <td><%= donation.address %></td>
+        <td><%= link_to 'Show', donation, class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to 'Edit', edit_donation_path(donation), class: "btn btn-default btn-xs" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= datatable(:donations)%>

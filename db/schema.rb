@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209023800) do
+ActiveRecord::Schema.define(version: 20141209035333) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -50,7 +50,22 @@ ActiveRecord::Schema.define(version: 20141209023800) do
     t.decimal  "amount",          precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "amount"
+  end
+
+  create_table "donations", force: true do |t|
+    t.integer  "organization_id"
+    t.decimal  "amount",          precision: 10, scale: 0
+    t.string   "donor_type"
+    t.integer  "person_id"
+    t.string   "name"
+    t.string   "ic"
+    t.string   "date_of_birth"
+    t.string   "street"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "invoices", force: true do |t|
@@ -99,14 +114,14 @@ ActiveRecord::Schema.define(version: 20141209023800) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: true do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
 
-  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
 end
