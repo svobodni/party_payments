@@ -7,11 +7,11 @@
   <%= f.input :amount %>
   <%= f.input :donor_type %>
   <%= f.input :person_id, wrapper: :horizontal_input_group do %>
-    
+
     <%= f.input_field :person_id, class: "form-control" %>
     <span class="input-group-addon"><a href="#" id="load_person">Načíst z registru</a></span>
   <% end %>
-  
+
   <%= f.input :name %>
   <%= f.input :ic %>
   <%= f.input :date_of_birth %>
@@ -31,7 +31,7 @@ $( 'form' ).on( 'click', '#load_person' , function( event ) {
     // get record
     $.ajax({
         type: 'GET',
-        url: 'http://localhost:3001/people/'+person_id+'/export.json',
+        url: 'http://registr.dev/people/'+person_id+'/export.json',
         dataType: 'json',
         success: function ( data ) {
             // display dialog
@@ -48,4 +48,4 @@ $( 'form' ).on( 'click', '#load_person' , function( event ) {
         }
     })
 })
-</script>           
+</script>

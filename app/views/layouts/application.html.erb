@@ -51,7 +51,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= @organization.try(:name) || "Organizace" %> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                 <% @organizations.each do |organization| %>
-                  <li><%= link_to organization.name, organization %><!--#organization_budget_categories_path(organization, year: Date.today.year) --></li> 
+                  <li><%= link_to organization.name, organization %><!--#organization_budget_categories_path(organization, year: Date.today.year) --></li>
                 <% end %>
 <!--                  <li class="divider"></li>
                   <li class="dropdown-header">Nav header</li>
@@ -95,8 +95,8 @@
             <% if @organization.id==100 %>
             <li><%=link_to "Členské příspěvky", organization_invoices_path(@organization, year: @year) %></li>
             <% end %>
-            <li><%=link_to "Přijaté dary", organization_invoices_path(@organization, year: @year) %></li>
-            <li><%=link_to "Tagy", organization_tags_path(@organization, year: @year) %></li>            
+            <li><%=link_to "Přijaté dary", organization_donations_path(@organization, year: @year) %></li>
+            <li><%=link_to "Tagy", organization_tags_path(@organization, year: @year) %></li>
           </ul>
           <% end %>
         </div>
