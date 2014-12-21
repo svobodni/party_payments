@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20141209035333) do
   create_table "bank_payments", force: true do |t|
     t.string   "accounting_status"
     t.string   "accounting_note"
-    t.integer  "transaction_id"
+    t.string   "transaction_id"
     t.date     "paid_on"
     t.decimal  "amount",            precision: 10, scale: 2
     t.string   "currency"

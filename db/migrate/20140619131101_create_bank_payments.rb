@@ -4,8 +4,8 @@ class CreateBankPayments < ActiveRecord::Migration
       t.string   :accounting_status
       t.string   :accounting_note
 
-      t.integer  :transaction_id
-      t.date	 :paid_on
+      t.string   :transaction_id
+      t.date	   :paid_on
       t.decimal  :amount,        precision: 10, scale: 2
       t.string   :currency
       t.string   :account_name
