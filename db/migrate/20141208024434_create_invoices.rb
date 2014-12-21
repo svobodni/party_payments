@@ -3,7 +3,7 @@ class CreateInvoices < ActiveRecord::Migration
     create_table :invoices do |t|
       t.integer :organization_id
       t.string :description
-      t.decimal :amount
+      t.decimal :amount, precision: 10, scale: 2
       t.string :vs
       t.string :ss
       t.string :ks
