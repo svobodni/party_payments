@@ -3,6 +3,7 @@
 <table id="invoices" class="table table-striped">
   <thead>
     <tr>
+      <th>Datum vložení</th>
       <% unless @organization %>
       <th>Organizace</th>
       <% end %>
@@ -12,31 +13,22 @@
       <th>VS</th>
       <% end %>
       <th>Popis</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @invoices.each do |invoice| %>
       <tr>
+        <td>Před <%= time_ago_in_words(invoice.created_at) %></td>
         <% unless @organization %>
         <td><%= invoice.organization.try(:name) %></td>
         <% end %>
         <% if params[:only]!="unreaded" %>
         <td><%= invoice.amount %></td>
         <td><%= invoice.payment_remainder==0 ? "zaplaceno" : invoice.payment_remainder  %></td>
-        <td><%= link_to invoice.vs, invoice %></td>
+        <td><%= invoice.vs %></td>
         <% end %>
-        <td><%= link_to invoice.description, invoice %></td>
-        <td><%= link_to "Detail", invoice, class: "btn btn-default btn-xs" %></td>
-        <td><%= link_to "Stáhnout", invoice.document.url, class: "btn btn-default btn-xs" %></td>
-        <td><%= link_to 'Zaplatit', invoice.document.url, class: "btn btn-default btn-xs" if invoice.payment_remainder!=0%></td>
-        <td><%= link_to 'Zaúčtovat', invoice_accountings_path(invoice), class: "btn btn-default btn-xs" if invoice.accounting_remainder!=0 %></td>
-        <td><%= link_to 'Upravit', edit_invoice_path(invoice), class: "btn btn-default btn-xs" %></td>
+        <td><%= link_to invoice.description.blank? ? "- bez popisu -" : invoice.description, invoice %></td>
       </tr>
     <% end %>
   </tbody>

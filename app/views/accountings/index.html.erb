@@ -1,4 +1,4 @@
-<% page_title "Výpis" %>
+<% page_title "Výpis #{params[:tag]}" %>
 
 <table class="table">
   <thead>
@@ -12,8 +12,8 @@
   <tbody>
     <% @accountings.each do |accounting| %>
       <tr>
-        <td><%= link_to accounting.accountable.try(:description), accounting.accountable %></td>
-        <td><%= accounting.amount %></td>        
+        <td><%= accounting.accountable.class.model_name.human %>: <%= link_to accounting.accountable.try(:description) || accounting.accountable.try(:name), accounting.accountable %></td>
+        <td><%= accounting.amount %></td>
         <td><%= link_to "#{accounting.budget_category.try(:year)} : #{accounting.budget_category.try(:name)}", accounting.budget_category %></td>
       </tr>
     <% end %>
@@ -21,37 +21,3 @@
 </table>
 
 <br>
-
-<%= form_for(@accounting) do |f| %>
-  <% if @accounting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@accounting.errors.count, "error") %> prohibited this accounting from being saved:</h2>
-
-      <ul>
-      <% @accounting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :accountable_type %><br>
-    <%= f.hidden_field :accountable_type %>
-  </div>
-  <div class="field">
-    <%= f.label :accountable_id %><br>
-    <%= f.hidden_field :accountable_id %>
-  </div>
-  <div class="field">
-    <%= f.label :budget_category_id %><br>
-    <%= f.select :budget_category_id, BudgetCategory.all.collect {|p| [ "#{p.year} - #{p.organization.name} - #{p.name}", p.id ]} %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

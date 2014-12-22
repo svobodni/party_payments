@@ -23,7 +23,7 @@
   <tbody>
     <% @budget_category.accountings.each do |accounting| %>
       <tr>
-        <td><%= link_to accounting.accountable_type, accounting.accountable %></td>
+        <td><%= link_to accounting.accountable.class.model_name.human, accounting.accountable %></td>
         <td><%= link_to accounting.accountable.try(:description), accounting.accountable %></td>
         <td><%= accounting.tags.collect(&:name).join(', ')%></td>
         <td><%= accounting.amount %></td>

@@ -2,6 +2,8 @@ cs:
   activerecord:
     models:
       donation: Dar
+      accounting: Zaúčtování
+      invoice: Faktura
     attributes:
       donation:
         organization_id: "Organizace"
@@ -13,3 +15,7 @@ cs:
         street: "Ulice a číslo"
         city: "Obec"
         zip: "PSČ"
+      accounting:
+        budget_categorie_id: "Rozpočet"
+        amount: "Částka"
+        tag_list: "Tagy"

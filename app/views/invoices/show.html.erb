@@ -59,10 +59,19 @@
         </thead>
         <tbody>
           <% for accounting in @invoice.accountings %>
-          <tr><td><%= link_to accounting.budget_category.name, accounting.    budget_category if accounting.budget_category %><br/><%= accounting.    tag_list %></td><td><%= accounting.amount %></td><td><%= link_to "Upravit",     edit_accounting_path(accounting) %></td></tr>
+          <tr><td><%= link_to accounting.budget_category.name, accounting.    budget_category if accounting.budget_category %><br/><%= accounting.tag_list %></td><td><%= accounting.amount %></td><td><%= link_to "Upravit",     edit_accounting_path(accounting) %></td></tr>
           <% end %>
         <tbody>
         </table>
+
+        <%= simple_form_for(@invoice.accountings.build(amount: @invoice.accounting_remainder), html: { class: 'form-horizontal' }) do |f| %>
+          <%= f.hidden_field :accountable_type %>
+          <%= f.hidden_field :accountable_id %>
+          <%= f.input :budget_category_id, collection: BudgetCategory.all, label_method: ->(p){ "#{p.year} - #{p.organization.name} - #{p.name}"} %>
+          <%= f.input :amount %>
+          <%= f.input :tag_list %>
+          <%= f.submit %>
+        <% end unless @invoice.accounting_remainder == 0%>
       </div>
     </div>
   </div>
