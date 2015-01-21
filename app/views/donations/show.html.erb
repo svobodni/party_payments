@@ -28,6 +28,8 @@
           <% end %>
         </table>
        <%= link_to 'Upravit', edit_donation_path(@donation), class: "btn btn-default" %>
+       <%= link_to 'Potvrzení', confirmation_donation_path(@donation, format: :pdf), class: "btn btn-default" %>
+       <%= link_to 'Smlouva', agreement_donation_path(@donation, format: :pdf), class: "btn btn-default" %>
       </div>
     </div>
   </div>

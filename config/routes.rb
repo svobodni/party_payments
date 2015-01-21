@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :donations
+  resources :donations do
+    member do
+      get 'confirmation'
+      get 'agreement'
+    end
+  end
 
   resources :payments
 

@@ -1,5 +1,6 @@
 class DonationsController < ApplicationController
-  before_action :set_donation, only: [:show, :edit, :update, :destroy]
+  before_action :set_donation, only: [:show, :edit, :update, :destroy, :confirmation, :agreement]
+  respond_to :pdf, only: [:confirmation, :agreement]
 
   # GET /donations
   # GET /donations.json
@@ -69,6 +70,26 @@ class DonationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to donations_url, notice: 'Donation was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def confirmation
+    respond_to do |format|
+      format.pdf {
+        send_data @donation.confirmation_pdf,
+          :filename => "confirmation-#{@donation.id}.pdf",
+          :type => 'application/pdf'
+      }
+    end
+  end
+
+  def agreement
+    respond_to do |format|
+      format.pdf {
+        send_data @donation.agreement_pdf,
+          :filename => "agreement-#{@donation.id}.pdf",
+          :type => 'application/pdf'
+      }
     end
   end
 

@@ -46,4 +46,14 @@ class DonationsControllerTest < ActionController::TestCase
 
     assert_redirected_to donations_path
   end
+
+  test 'should get donation confirmation PDF' do
+    get :confirmation, id: @donation, format: :pdf
+    assert_response :success
+  end
+
+  test 'should get donation agreement PDF' do
+    get :agreement, id: @donation, format: :pdf
+    assert_response :success
+  end
 end
