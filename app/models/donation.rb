@@ -7,7 +7,13 @@ class Donation < ActiveRecord::Base
   attr_accessor :bank_payment_id, :budget_category_id
 
   def address
-  	"#{street}, #{zip} #{city}"
+    "#{street}, #{zip} #{city}"
+  end
+
+  def confirmation_pdf
+  end
+
+  def agreement_pdf
   end
 
 end
