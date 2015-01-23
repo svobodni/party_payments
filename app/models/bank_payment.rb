@@ -26,17 +26,17 @@ class BankPayment < ActiveRecord::Base
   end
 
   def self.import
-    configatron.fio.tokens.each {|id, token|
-      FioAPI.token = token
+    Organization.all.each {|organization|
+      FioAPI.token = organization.token
       list = FioAPI::List.new
       list.set_last_fetch_date('2013-12-31')
       list.from_last_fetch
-  
+
       response = list.response
       response.transactions.each do |row|
         puts row.inspect
         create!(
-          :organization_id => id,
+          :organization_id => organization.id,
           :amount => row.amount,
           :paid_on => Date.parse(row.date),
           :currency => row.currency,
@@ -69,7 +69,7 @@ class BankPayment < ActiveRecord::Base
     if remaining_amount < 0
       if invoice = Invoice.where(amount: positive_amount).detect{|i| i.vs==vs && i.account_number==account_number}
         payments.create(payable: invoice, amount: positive_amount)
-      end        
+      end
     end
   end
 #  def pair
@@ -93,4 +93,3 @@ class BankPayment < ActiveRecord::Base
 #  end
 
 end
-

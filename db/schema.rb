@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123185709) do
+ActiveRecord::Schema.define(version: 20150123201413) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -90,6 +90,8 @@ ActiveRecord::Schema.define(version: 20150123185709) do
     t.string   "slug"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "account_number"
+    t.string   "token"
   end
 
   add_index "organizations", ["slug"], name: "index_organizations_on_slug", unique: true, using: :btree
