@@ -29,7 +29,6 @@ class BankPayment < ActiveRecord::Base
     Organization.all.each {|organization|
       FioAPI.token = organization.token
       list = FioAPI::List.new
-      list.set_last_fetch_date('2013-12-31')
       list.from_last_fetch
 
       response = list.response
