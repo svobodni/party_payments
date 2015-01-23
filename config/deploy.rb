@@ -6,8 +6,7 @@ module GitStrategy
   end
 end
 
-# config valid only for Capistrano 3.1
-lock '3.1.0'
+lock '3.3.5'
 
 set :application, 'party_payments'
 set :repo_url, 'git@github.com:svobodni/party_payments.git'
