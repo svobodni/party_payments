@@ -24,7 +24,13 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/1
   # GET /invoices/1.json
+  # GET /invoices/1.pdf
   def show
+    respond_to do |format|
+      format.html
+      format.json
+      format.pdf { send_file  @invoice.document.path, type: @invoice.document_content_type, disposition: :inline }
+    end
   end
 
   # GET /invoices/new
