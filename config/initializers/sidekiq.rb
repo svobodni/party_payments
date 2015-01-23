@@ -11,3 +11,5 @@ Sidekiq.configure_client do |config|
     namespace: 'svobodni_finance'
   }
 end
+
+Sidekiq::Cron::Job.load_from_hash YAML.load_file("config/schedule.yml")

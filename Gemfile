@@ -39,6 +39,9 @@ gem 'capistrano-sidekiq', group: :development
 # sidekiq UI
 gem 'sinatra', :require => nil
 
+# sidekiq scheduler
+gem "sidekiq-cron", "~> 0.2.0"
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 

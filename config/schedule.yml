@@ -1,0 +1,5 @@
+{
+ 'name'  => 'import_bank_payments',
+ 'cron'  => '*/10 * * * *',
+ 'klass' => 'BankImportWorker',
+}
