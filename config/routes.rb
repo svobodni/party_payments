@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   get 'bank_payments', controller: :bank_payments, action: :index
   get 'supporter_fees', controller: :supporter_fees, action: :index
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
   root 'static_pages#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

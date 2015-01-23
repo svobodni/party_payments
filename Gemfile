@@ -36,6 +36,9 @@ gem 'spring', group: :development
 gem 'capistrano-rails', group: :development
 gem 'capistrano-sidekiq', group: :development
 
+# sidekiq UI
+gem 'sinatra', :require => nil
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
