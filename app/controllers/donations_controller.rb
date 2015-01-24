@@ -75,21 +75,13 @@ class DonationsController < ApplicationController
 
   def confirmation
     respond_to do |format|
-      format.pdf {
-        send_data @donation.confirmation_pdf,
-          :filename => "confirmation-#{@donation.id}.pdf",
-          :type => 'application/pdf'
-      }
+      format.pdf {}
     end
   end
 
   def agreement
     respond_to do |format|
-      format.pdf {
-        send_data @donation.agreement_pdf,
-          :filename => "agreement-#{@donation.id}.pdf",
-          :type => 'application/pdf'
-      }
+      format.pdf {}
     end
   end
 

@@ -72,6 +72,7 @@ gem 'rails-assets-ng-grid'
 # PDF
 gem 'prawn'
 gem 'prawn-table'
+gem 'prawn-rails'
 
 # testování
 gem 'factory_girl_rails', group: :test
