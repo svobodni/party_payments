@@ -3,11 +3,11 @@
 <table id="donations" class="table table-striped">
   <thead>
     <tr>
+      <th>ID</th>
+      <th>Datum</th>
       <th>Částka</th>
       <th>Dárce</th>
-      <th>Identifikace</th>
       <th>Adresa</th>
-      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -15,12 +15,15 @@
   <tbody>
     <% @donations.each do |donation| %>
       <tr>
+        <td><%= link_to donation.id, donation %></td>
+        <td><%= l donation.received_on %></td>
         <td><%= donation.amount %></td>
         <td><%= donation.name %></td>
-        <td><%= [donation.ic,donation.date_of_birth].reject(&:blank?).join('/') %></td>
         <td><%= donation.address %></td>
-        <td><%= link_to 'Show', donation, class: "btn btn-default btn-xs" %></td>
-        <td><%= link_to 'Edit', edit_donation_path(donation), class: "btn btn-default btn-xs" %></td>
+        <td>
+        <%= link_to 'Potvrzení', confirmation_donation_path(donation, format: :pdf), class: "btn btn-default" %>
+        <%= link_to 'Smlouva', agreement_donation_path(donation, format: :pdf), class: "btn btn-default" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
