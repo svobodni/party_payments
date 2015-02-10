@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Datum</Data></Cell>
+        <Cell><Data ss:Type="String">Částka</Data></Cell>
+        <Cell><Data ss:Type="String">Jméno</Data></Cell>
+        <Cell><Data ss:Type="String">Identifikace</Data></Cell>
+        <Cell><Data ss:Type="String">Ulice</Data></Cell>
+        <Cell><Data ss:Type="String">Město</Data></Cell>
+        <Cell><Data ss:Type="String">PSČ</Data></Cell>
+      </Row>
+      <% @donations.each do |donation| %>
+      <Row>
+        <Cell><Data ss:Type="Date"><%= donation.received_on %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= donation.amount %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= donation.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= donation.date_of_birth %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= donation.street %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= donation.city %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= donation.zip %></Data></Cell>
+      </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
