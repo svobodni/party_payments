@@ -76,3 +76,6 @@ gem 'prawn-rails'
 
 # testování
 gem 'factory_girl_rails', group: :test
+
+# oauth2
+gem 'omniauth-oauth2'

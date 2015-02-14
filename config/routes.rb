@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   get 'bank_payments', controller: :bank_payments, action: :index
   get 'supporter_fees', controller: :supporter_fees, action: :index
 
+  get '/auth/:provider/callback', to: 'sessions#create'
+  get '/sessions/destroy'
+
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
 

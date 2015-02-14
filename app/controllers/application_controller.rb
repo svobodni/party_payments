@@ -10,4 +10,9 @@ class ApplicationController < ActionController::Base
   	@organization = Organization.find(params[:organization_id]) if params[:organization_id]
   end
 
+  def current_user
+    session[:person]
+  end
+  helper_method :current_user
+
 end
