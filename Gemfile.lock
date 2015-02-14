@@ -33,6 +33,7 @@ GEM
       activerecord (>= 3.2, < 5)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
+    cancancan (1.10.1)
     capistrano (3.3.5)
       capistrano-stats (~> 1.1.0)
       i18n
@@ -229,6 +230,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   acts-as-taggable-on (~> 3.4)
+  cancancan (~> 1.10)
   capistrano-rails
   capistrano-sidekiq
   coffee-rails (~> 4.0.0)

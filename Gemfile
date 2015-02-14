@@ -77,5 +77,6 @@ gem 'prawn-rails'
 # testování
 gem 'factory_girl_rails', group: :test
 
-# oauth2
+# autorizace
 gem 'omniauth-oauth2'
+gem 'cancancan', '~> 1.10'
