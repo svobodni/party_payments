@@ -27,6 +27,7 @@ class BudgetCategoriesController < ApplicationController
 
   # GET /budget_categories/1/edit
   def edit
+    authorize! :update, @budget_category
   end
 
   # POST /budget_categories
@@ -34,6 +35,7 @@ class BudgetCategoriesController < ApplicationController
   def create
     @budget_category = BudgetCategory.new(budget_category_params)
     @organization = @budget_category.organization
+    authorize! :create, @budget_category
 
     respond_to do |format|
       if @budget_category.save
@@ -49,6 +51,7 @@ class BudgetCategoriesController < ApplicationController
   # PATCH/PUT /budget_categories/1
   # PATCH/PUT /budget_categories/1.json
   def update
+    authorize! :update, @budget_category
     respond_to do |format|
       if @budget_category.update(budget_category_params)
         format.html { redirect_to organization_budget_categories_path(@organization), notice: 'Budget category was successfully updated.' }
@@ -63,6 +66,7 @@ class BudgetCategoriesController < ApplicationController
   # DELETE /budget_categories/1
   # DELETE /budget_categories/1.json
   def destroy
+    authorize! :destroy, @budget_category
     @budget_category.destroy
     respond_to do |format|
       format.html { redirect_to budget_categories_url, notice: 'Budget category was successfully destroyed.' }

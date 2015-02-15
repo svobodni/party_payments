@@ -22,7 +22,7 @@
         <td><%= link_to budget_category.name, budget_category %></td>
         <td><%= budget_category.amount %></td>
         <td><%= budget_category.accounted_amount %></td>
-        <td><%= link_to "Upravit", edit_budget_category_path(budget_category), class: "btn btn-default btn-xs" %></td>
+        <td><% if can? :update, budget_category %><%= link_to "Upravit", edit_budget_category_path(budget_category), class: "btn btn-default btn-xs" %><% end %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +30,6 @@
 
 <br>
 
+<% if can? :create, BudgetCategory.new(organization_id: params[:organization_id]) %>
 <%= link_to 'Nová položka rozpočtu', new_budget_category_path(organization_id: params[:organization_id], year: params[:year]), class: "btn btn-default" %>
+<% end %>
