@@ -5,12 +5,18 @@ class DonationsController < ApplicationController
   # GET /donations
   # GET /donations.json
   def index
-    @donations = Donation.all
+    @organization = Organization.find_by_id(params[:organization_id])
+    if @organization
+      @donations = @organization.donations
+    else
+      @donations = Donation.all
+    end
   end
 
   # GET /donations/1
   # GET /donations/1.json
   def show
+    authorize! :read, @donation
   end
 
   # GET /donations/new
@@ -22,10 +28,12 @@ class DonationsController < ApplicationController
       budget_category_id: 4,
       person_id: params[:vs][1..-1]
     )
+    authorize! :create, @donation
   end
 
   # GET /donations/1/edit
   def edit
+    authorize! :update, @donation
   end
 
   # POST /donations
@@ -36,7 +44,7 @@ class DonationsController < ApplicationController
     @donation.payments.first.amount = params[:donation][:amount]
     @donation.accountings.build(budget_category_id: params[:donation][:budget_category_id])
     @donation.accountings.first.amount = params[:donation][:amount]
-
+    authorize! :create, @donation
 
     respond_to do |format|
       if @donation.save
@@ -52,6 +60,7 @@ class DonationsController < ApplicationController
   # PATCH/PUT /donations/1
   # PATCH/PUT /donations/1.json
   def update
+    authorize! :update, @donation
     respond_to do |format|
       if @donation.update(donation_params)
         format.html { redirect_to @donation, notice: 'Donation was successfully updated.' }
@@ -66,6 +75,7 @@ class DonationsController < ApplicationController
   # DELETE /donations/1
   # DELETE /donations/1.json
   def destroy
+    authorize! :destroy, @donation
     @donation.destroy
     respond_to do |format|
       format.html { redirect_to donations_url, notice: 'Donation was successfully destroyed.' }
@@ -74,12 +84,14 @@ class DonationsController < ApplicationController
   end
 
   def confirmation
+    authorize! :read, @donation
     respond_to do |format|
       format.pdf {}
     end
   end
 
   def agreement
+    authorize! :read, @donation
     respond_to do |format|
       format.pdf {}
     end

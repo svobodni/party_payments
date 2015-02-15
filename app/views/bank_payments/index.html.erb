@@ -24,7 +24,11 @@
         <td><%= bank_payment.info %></td>
         <td><%= bank_payment.vs %></td>
         <td><%= bank_payment.account_number %>/<%= bank_payment.bank_code %></td>
-        <td><%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 %></td>
+        <td>
+          <% if can? :create, Donation.new(organization: @organization)%>
+          <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
