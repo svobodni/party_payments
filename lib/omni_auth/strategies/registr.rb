@@ -28,7 +28,9 @@ module OmniAuth
       info do
         {
           :name => raw_info['person']['name'],
-          :email => raw_info['person']['email']
+          :email => raw_info['person']['email'],
+          :access_token => access_token.token,
+          :refresh_token => access_token.refresh_token
         }
       end
 
