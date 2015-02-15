@@ -94,7 +94,9 @@
                 <li><%=link_to "Nevytěžené", organization_invoices_path(@organization, year: @year, only: :unreaded) %></li>
                 <li><%=link_to "Nezaplacené", organization_invoices_path(@organization, year: @year, only: :unpaid) %></li>
                 <li><%=link_to "Nezaúčtované", organization_invoices_path(@organization, year: @year, only: :unpaired) %></li>
+                <% if can?(:create, Invoice.new(organization_id: @organization.id)) %>
                 <li><%=link_to "Nahrát novou", new_organization_invoice_path(@organization, year: @year) %></li>
+                <% end %>
               </ul>
             </li>
             <% if @organization.id==100 %>
@@ -110,6 +112,7 @@
           <%= flash_messages %>
 
           <h1 class="page-header"><%= @page_title %></h1>
+          <pre><%=session[:person]['info']['person']['roles'].inspect%></pre>
           <%= yield %>
         </div>
       </div>

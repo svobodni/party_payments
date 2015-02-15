@@ -40,12 +40,14 @@ class InvoicesController < ApplicationController
 
   # GET /invoices/1/edit
   def edit
+    authorize! :update, @invoice
   end
 
   # POST /invoices
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
+    authorize! :create, @invoice
 
     respond_to do |format|
       if @invoice.save
@@ -61,6 +63,7 @@ class InvoicesController < ApplicationController
   # PATCH/PUT /invoices/1
   # PATCH/PUT /invoices/1.json
   def update
+    authorize! :update, @invoice
     respond_to do |format|
       if @invoice.update(invoice_params)
         format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }

@@ -24,7 +24,9 @@
           <% end %>
           <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.      bank_code  %></td></tr>
         </table>
+       <% if can? :update, @invoice %>
        <%= link_to 'Upravit', edit_invoice_path(@invoice), class: "btn btn-default" %>
+       <% end %>
       </div>
     </div>
   </div>
