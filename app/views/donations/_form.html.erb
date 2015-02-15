@@ -31,8 +31,11 @@ $( 'form' ).on( 'click', '#load_person' , function( event ) {
     // get record
     $.ajax({
         type: 'GET',
-        url: 'http://registr.dev/people/'+person_id+'/export.json',
+        url: 'http://registr.dev/people/'+person_id+'/private.json',
         dataType: 'json',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "Bearer #{current_user.access_token}")
+        },
         success: function ( data ) {
             // display dialog
             var person = data.person
