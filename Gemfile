@@ -52,7 +52,7 @@ gem 'configatron'
 gem 'aasm'
 
 # Komunikace s FIO bankou
-gem 'fio_api'
+gem 'fio_api', :git => 'https://github.com/kubicek/fio_api', :branch => 'import'
 
 # Nahrávání souborů
 gem "paperclip", "~> 4.2"

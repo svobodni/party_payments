@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/kubicek/fio_api
+  revision: ccea1892e795c83fc782c404f7cd6e257aff2698
+  branch: import
+  specs:
+    fio_api (0.0.4)
+      builder
+      httmultiparty
+
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -74,11 +83,13 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
-    fio_api (0.0.4)
-      httparty (>= 0.9.0)
     hashie (3.4.0)
     hike (1.2.3)
     hitimes (1.2.2)
+    httmultiparty (0.3.16)
+      httparty (>= 0.7.3)
+      mimemagic
+      multipart-post
     httparty (0.13.3)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -95,6 +106,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mimemagic (0.2.1)
     minitest (5.5.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
@@ -236,7 +248,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   configatron
   factory_girl_rails
-  fio_api
+  fio_api!
   jbuilder (~> 2.0)
   jquery-rails
   mysql2

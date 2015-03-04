@@ -13,6 +13,9 @@ Rails.application.routes.draw do
 
   resources :budget_categories
   resources :invoices do
+    member do
+      post 'export_to_fio'
+    end
     resources :accountings, only: :index
   end
 

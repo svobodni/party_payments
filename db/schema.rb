@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123201413) do
+ActiveRecord::Schema.define(version: 20150304162954) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150123201413) do
     t.datetime "document_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "exported_to_fio"
   end
 
   create_table "organizations", force: true do |t|

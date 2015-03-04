@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :export_to_fio]
 
   # GET /invoices
   # GET /invoices.json
@@ -78,12 +78,22 @@ class InvoicesController < ApplicationController
   # DELETE /invoices/1
   # DELETE /invoices/1.json
   def destroy
+    authorize! :destroy, @invoice
     @invoice.destroy
     respond_to do |format|
       format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+
+  def export_to_fio
+    authorize! :pay, @invoice
+
+    result = @invoice.import_transaction_to_fio
+
+    redirect_to(:back, :notice => "Import do Fio banky proběhl. Výsledek: #{result.inspect}")
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
