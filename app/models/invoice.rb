@@ -5,7 +5,7 @@ class Invoice < ActiveRecord::Base
   has_many :payments, as: :payable
 
   has_attached_file :document, path: ":rails_root/data/invoices/:id.pdf", url: "/invoices/:id.pdf"
-  validates_attachment :document, content_type: { content_type: "application/pdf" }
+  validates_attachment :document, content_type: { content_type: ["application/pdf", "application/vnd.ms-excel"] }
 
   def accounting_remainder
   	amount.to_f-accountings.sum(:amount)
