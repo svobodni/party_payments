@@ -26,7 +26,8 @@ class Invoice < ActiveRecord::Base
     :bank_code => bank_code,
     :vs => vs || '',
     :date => Date.today,
-    :message_for_recipient => description
+    :message_for_recipient => description,
+    :comment => description
     )
 
     result = domestic_transaction.import
