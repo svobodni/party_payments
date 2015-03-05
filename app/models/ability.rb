@@ -17,7 +17,7 @@ class Ability
       end
     end
 
-    if [342, 344, 4039].member?(user['id'])
+    if [42, 342, 344, 4039, 2804].member?(user['id'])
       can :manage, :all
     end
 
