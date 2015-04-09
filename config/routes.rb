@@ -26,6 +26,11 @@ Rails.application.routes.draw do
     resources :tags, only: [:index]
     resources :accountings, only: [:index]
     resources :donations, only: [:index]
+    resources :membership_fees, only: [:index] do
+      collection do
+        get 'distribution'
+      end
+    end
   end
 
   get 'static_pages/index'

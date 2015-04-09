@@ -1,0 +1,19 @@
+<% page_title "Rozúčtování členských příspěvků #{[params[:quarter],params[:year]].compact.join("/")}" %>
+
+<%= form_tag(nil, :method => :get) do %>
+  <%= select_tag(:year, options_for_select((2014..Date.today.year).to_a.reverse, params[:year])) %>
+  <%= select_tag(:quarter, options_for_select(1..4, params[:quarter])) %>
+  <%= submit_tag(nil, :class => 'btn btn-primary') %>
+<% end %>
+
+<% @membership_fees_distribution.each do |key, membership_fees| %>
+<h2><%= Region.find(key[-2..-1]).name %></h2>
+
+<table class="table table-striped">
+<% for membership_fee in membership_fees do %>
+<tr><td><%= membership_fee.name %></td><td><%=membership_fee.amount%></td></tr>
+<% end %>
+<tr><th>CELKEM</th><th><%=total=membership_fees.sum{|mf| mf.amount}%></th></tr>
+<tr><th>POLOVINA</th><th><%=total/2%></th></tr>
+</table>
+<% end %>

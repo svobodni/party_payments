@@ -100,7 +100,10 @@
               </ul>
             </li>
             <% if @organization.id==100 %>
-            <li><%=link_to "Členské příspěvky", organization_invoices_path(@organization, year: @year) %></li>
+            <li><%=link_to "Členské příspěvky", distribution_organization_membership_fees_path(@organization, year: @year) %>
+            <ul><li><%=link_to "Rozúčtování", distribution_organization_membership_fees_path(@organization, year: @year) %></li></ul>
+            </li>
+
             <% end %>
             <li><%=link_to "Přijaté dary", organization_donations_path(@organization, year: @year) %></li>
             <li><%=link_to "Tagy", organization_tags_path(@organization, year: @year) %></li>
