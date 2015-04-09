@@ -16,6 +16,10 @@ class Invoice < ActiveRecord::Base
   	amount.to_f-payments.sum(:amount)
   end
 
+  def is_exportable?
+    !(exported_to_fio? || payment_remainder==0 || account_number.blank? || bank_code.blank?)
+  end
+
   def import_transaction_to_fio
     FioAPI.token = organization.token
 

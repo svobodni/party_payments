@@ -9,7 +9,7 @@
 <% @membership_fees_distribution.each do |key, membership_fees| %>
 <h2><%= Region.find(key[-2..-1]).name %></h2>
 
-<table class="table table-striped">
+<table class="table table-condensed">
 <% for membership_fee in membership_fees do %>
 <tr><td><%= membership_fee.name %></td><td><%=membership_fee.amount%></td></tr>
 <% end %>
