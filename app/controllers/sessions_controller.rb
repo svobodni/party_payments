@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class SessionsController < ApplicationController
+  skip_before_filter :authenticate_person!
+
   def create
     session[:person]={
       id: auth_hash[:uid],
