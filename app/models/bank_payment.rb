@@ -72,7 +72,7 @@ class BankPayment < ActiveRecord::Base
     elsif remaining_amount > 0 && organization.id==100 && vs.length==5 && (vs[0]=="1" || vs[0]=="5")
       response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/payments.json", basic_auth: configatron.registry.auth)
       if response.success?
-        if response["payment"]["membership_type"]=="member"
+        if response["payment"]["membership_type"]=="member" && vs[0]=="1"
           membership_fee = MembershipFee.create(
             region_id: response["payment"]["region_id"],
             amount: amount,
