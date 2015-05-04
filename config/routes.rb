@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :membership_fees
+
   resources :donations do
     member do
       get 'confirmation'

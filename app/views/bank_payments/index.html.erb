@@ -3,12 +3,14 @@
 <table id="bank_payments" class="table table-striped">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Datum</th>
       <th>Částka</th>
       <th>Spárovat zbývá</th>
       <th>Protiúčet / poznámka</th>
       <th>Zpráva</th>
       <th>VS</th>
+      <th>SS</th>
       <th>Číslo účtu</th>
       <th></th>
     </tr>
@@ -17,12 +19,14 @@
   <tbody>
     <% @bank_payments.each do |bank_payment| %>
       <tr>
-        <td><%= bank_payment.paid_on %></td>
+        <td><%= bank_payment.id %></td>
+        <td data-order="<%=bank_payment.paid_on%>"><%= l bank_payment.paid_on %></td>
         <td><%= bank_payment.amount %></td>
         <td><%= bank_payment.remaining_amount %></td>
         <td><%= bank_payment.account_name unless bank_payment.account_name==bank_payment.info%></td>
         <td><%= bank_payment.info %></td>
         <td><%= bank_payment.vs %></td>
+        <td><%= bank_payment.ss %></td>
         <td><%= bank_payment.account_number %>/<%= bank_payment.bank_code %></td>
         <td>
           <% if can? :create, Donation.new(organization: @organization)%>

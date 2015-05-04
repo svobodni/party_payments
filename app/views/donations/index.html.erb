@@ -16,7 +16,7 @@
     <% @donations.each do |donation| %>
       <tr>
         <td><%= link_to donation.id, donation %></td>
-        <td><%= l donation.received_on %></td>
+        <td data-order="<%=donation.received_on%>"><%= l donation.received_on %></td>
         <td><%= donation.amount %></td>
         <td><%= donation.name %></td>
         <td><%= donation.address %></td>

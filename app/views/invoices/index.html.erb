@@ -20,7 +20,7 @@
   <tbody>
     <% @invoices.each do |invoice| %>
       <tr>
-        <td>Před <%= time_ago_in_words(invoice.created_at) %></td>
+        <td data-order="<%=invoice.created_at%>">Před <%= time_ago_in_words(invoice.created_at) %></td>
         <% unless @organization %>
         <td><%= invoice.organization.try(:name) %></td>
         <% end %>

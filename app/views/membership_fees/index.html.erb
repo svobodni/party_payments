@@ -1,0 +1,29 @@
+<% page_title "Přijaté členské příspěvky" %>
+
+<table id="membership_fees" class="table table-striped">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Člen</th>
+      <th>Kraj</th>
+      <th>Částka</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @membership_fees.each do |membership_fee| %>
+      <tr>
+        <td data-order="<%= membership_fee.received_on %>"><%= l membership_fee.received_on %></td>
+        <td><%= link_to membership_fee.name, "#{configatron.registry.uri}/people/#{membership_fee.person_id}" %></td>
+        <td><%= link_to membership_fee.region.name, organization_membership_fees_path(membership_fee.region) %></td>
+        <td><%= membership_fee.amount %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= datatable(:membership_fees)%>
+
+<%#= link_to "Export", {format: :xls}, class: "btn btn-primary" %>

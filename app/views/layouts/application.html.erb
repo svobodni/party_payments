@@ -63,7 +63,7 @@
               </li>
             <% else %>
             <li><a href="/auth/registr">LOGIN</a></li>
-            <% end %>  
+            <% end %>
           </ul>
         </div>
       </div>
@@ -100,7 +100,7 @@
               </ul>
             </li>
             <% if @organization.id==100 %>
-            <li><%=link_to "Členské příspěvky", distribution_organization_membership_fees_path(@organization, year: @year) %>
+            <li><%=link_to "Členské příspěvky", organization_membership_fees_path(@organization, year: @year) %>
             <ul><li><%=link_to "Rozúčtování", distribution_organization_membership_fees_path(@organization, year: @year) %></li></ul>
             </li>
 

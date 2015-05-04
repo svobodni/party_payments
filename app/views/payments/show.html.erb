@@ -1,31 +1,14 @@
-<p id="notice"><%= notice %></p>
+<% @page_title = "Detail úhrady" %>
+<table class="table">
+  <tr><th><%=t :payment_type%></th><td><%= @payment.payment_type %></td></tr>
+  <tr><th><%=t :paid_on%></th><td><%= l @payment.payment.paid_on %></td></tr>
+  <tr><th><%=t :amount%></th><td><%= @payment.payment.amount %></td></tr>
+  <tr><th><%=t :account_name%></th><td><%= @payment.payment.account_name %></td></tr>
+  <tr><th><%=t :info%></th><td><%= @payment.payment.info %></td></tr>
+  <tr><th><%=t :vs%></th><td><%= @payment.payment.vs %></td></tr>
+  <tr><th><%=t :ss%></th><td><%= @payment.payment.ss %></td></tr>
+  <tr><th><%=t :ks%></th><td><%= @payment.payment.ks %></td></tr>
 
-<p>
-  <strong>Payment type:</strong>
-  <%= @payment.payment_type %>
-</p>
+  <tr><th><%=t :payable_type %></th><td><%= link_to t(@payment.payable_type), @payment.payable %></td></tr>
 
-<p>
-  <strong>Payment:</strong>
-  <pre>
-    <%= @payment.payment.to_yaml %>
-  </pre>
-</p>
-
-<p>
-  <strong>Amount:</strong>
-  <%= @payment.amount %>
-</p>
-
-<p>
-  <strong>Payable type:</strong>
-  <%= @payment.payable_type %>
-</p>
-
-<p>
-  <strong>Payable:</strong>
-  <%= @payment.payable_id %>
-</p>
-
-<%= link_to 'Edit', edit_payment_path(@payment) %> |
-<%= link_to 'Back', payments_path %>
+</table>
