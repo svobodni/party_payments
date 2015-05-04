@@ -69,18 +69,34 @@ class BankPayment < ActiveRecord::Base
       if invoice = Invoice.where(amount: positive_amount).detect{|i| i.vs==vs && i.account_number==account_number}
         payments.create(payable: invoice, amount: positive_amount)
       end
-    elsif remaining_amount > 0 && vs.length==5 && vs[0]=="1"
+    elsif remaining_amount > 0 && organization.id==100 && vs.length==5 && (vs[0]=="1" || vs[0]=="5")
       response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/payments.json", basic_auth: configatron.registry.auth)
-      if response["payment"]["membership_type"]=="member"
-        membership_fee = MembershipFee.create(
-          region_id: response["payment"]["region_id"],
-          amount: amount,
-          person_id: response["payment"]["id"],
-          name: response["payment"]["name"],
-          received_on: paid_on
-        )
-        payments.create(payable: membership_fee, amount: positive_amount)
-      end if response.success?
+      if response.success?
+        if response["payment"]["membership_type"]=="member"
+          membership_fee = MembershipFee.create(
+            region_id: response["payment"]["region_id"],
+            amount: amount,
+            person_id: response["payment"]["id"],
+            name: response["payment"]["name"],
+            received_on: paid_on
+          )
+          payments.create(payable: membership_fee, amount: positive_amount)
+        elsif response["payment"]["membership_type"]=="supporter" && vs[0]=="5"
+          donation = Donation.create(
+            organization_id: 100,
+            amount: amount,
+            donor_type: 'natural',
+            person_id: response["payment"]["id"],
+            name: response["payment"]["name"],
+            date_of_birth: response["payment"]["date_of_birth"],
+            street: response["payment"]["street"],
+            city: response["payment"]["city"],
+            zip: response["payment"]["zip"],
+            email: response["payment"]["email"]
+          )
+          payments.create(payable: donation, amount: positive_amount)
+        end
+      end
     end
   end
 
