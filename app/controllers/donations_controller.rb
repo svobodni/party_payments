@@ -42,8 +42,8 @@ class DonationsController < ApplicationController
     @donation = Donation.new(donation_params)
     @donation.payments.build(payment: BankPayment.find(params[:donation][:bank_payment_id]))
     @donation.payments.first.amount = params[:donation][:amount]
-    @donation.accountings.build(budget_category_id: params[:donation][:budget_category_id])
-    @donation.accountings.first.amount = params[:donation][:amount]
+    #@donation.accountings.build(budget_category_id: params[:donation][:budget_category_id])
+    #@donation.accountings.first.amount = params[:donation][:amount]
     authorize! :create, @donation
 
     respond_to do |format|
