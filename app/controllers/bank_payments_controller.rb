@@ -5,7 +5,7 @@ class BankPaymentsController < ApplicationController
   def index
     @organization = Organization.find_by_id(params[:organization_id])
     if @organization
-      @bank_payments = @organization.bank_payments
+      @bank_payments = BankPayment.where(organization_id: @organization.id).includes(:payments)
     else
       @bank_payments = BankPayment.all
     end
