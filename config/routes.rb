@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :organizations, only: [:index, :show] do
     resources :bank_payments, only: [:index]
+    resources :gopay_payments, only: [:index]
     resources :budget_categories, only: [:index]
     resources :invoices, only: [:index, :new]
     resources :tags, only: [:index]

@@ -1,0 +1,40 @@
+<% page_title "Pohyby na GoPay" %>
+
+<table id="gopay_payments" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Datum</th>
+      <th>Částka</th>
+      <th>Spárovat zbývá</th>
+      <th>Protiúčet / poznámka</th>
+      <th>Zpráva</th>
+      <th>VS</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gopay_payments.each do |gopay_payment| %>
+      <tr>
+        <td><%= gopay_payment.id %></td>
+        <td data-order="<%=gopay_payment.paid_on%>"><%= l gopay_payment.paid_on %></td>
+        <td><%= gopay_payment.amount %></td>
+        <td><%= gopay_payment.remaining_amount %></td>
+        <td><%= gopay_payment.account_name %></td>
+        <td><%= gopay_payment.info %></td>
+        <td><%= gopay_payment.vs %></td>
+        <td>
+          <% if can? :create, Donation.new %>
+          <%#= link_to "Nový dar", new_donation_path(organization_id: 100, vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 %>
+          <% end %>
+          <% if can? :create, MembershipFee.new %>
+          <%#= link_to "Nový příspěvek", new_membership_fee_path(vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= datatable(:gopay_payments) %>

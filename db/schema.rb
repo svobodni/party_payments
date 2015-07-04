@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150408213404) do
+ActiveRecord::Schema.define(version: 20150704184652) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -64,6 +64,20 @@ ActiveRecord::Schema.define(version: 20150408213404) do
     t.string   "city"
     t.string   "zip"
     t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gopay_payments", force: true do |t|
+    t.string   "transaction_id"
+    t.date     "paid_on"
+    t.float    "amount"
+    t.string   "currency"
+    t.string   "account_name"
+    t.string   "info"
+    t.string   "vs"
+    t.string   "reference_id"
+    t.datetime "paid_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
