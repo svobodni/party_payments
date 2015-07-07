@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150704184652) do
+ActiveRecord::Schema.define(version: 20150707101254) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -48,6 +48,12 @@ ActiveRecord::Schema.define(version: 20150704184652) do
     t.integer  "year"
     t.string   "name"
     t.decimal  "amount",          precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "donation_form_submissions", force: true do |t|
+    t.text     "params"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

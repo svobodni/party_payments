@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources 'donation_form_submissions', only: [:create]
+
   resources :membership_fees
 
   resources :donations do
