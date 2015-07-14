@@ -13,6 +13,17 @@ class DonationsController < ApplicationController
     end
   end
 
+  def above_limit
+    @organization = Organization.find_by_id(params[:organization_id])
+    if @organization
+      @donations = @organization.donations
+    else
+      @donations = Donation.all
+    end
+    @donations = @donations.where("amount > 5000")
+    render action: :index
+  end
+
   # GET /donations/1
   # GET /donations/1.json
   def show

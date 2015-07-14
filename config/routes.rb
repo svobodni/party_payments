@@ -30,7 +30,11 @@ Rails.application.routes.draw do
     resources :invoices, only: [:index, :new]
     resources :tags, only: [:index]
     resources :accountings, only: [:index]
-    resources :donations, only: [:index]
+    resources :donations, only: [:index] do
+      collection do
+        get 'above_limit'
+      end
+    end
     resources :membership_fees, only: [:index] do
       collection do
         get 'distribution'
