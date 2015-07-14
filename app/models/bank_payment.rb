@@ -64,6 +64,10 @@ class BankPayment < ActiveRecord::Base
     end
   end
 
+  def registry_payment?
+    organization.id==100 && vs.length==5 && (vs[0]=="1" || vs[0]=="5")
+  end
+
   def pair
     if remaining_amount < 0
       if invoice = Invoice.where(amount: positive_amount).detect{|i| i.vs==vs && i.account_number==account_number}
