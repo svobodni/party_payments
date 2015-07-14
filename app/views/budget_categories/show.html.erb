@@ -13,6 +13,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>Datum</th>
       <th>Doklad</th>
       <th>Popis</th>
       <th>Tagy</th>
@@ -23,6 +24,7 @@
   <tbody>
     <% @budget_category.accountings.each do |accounting| %>
       <tr>
+	    <td data-order="accounting.accountable.try(:payments).try(:last)"><%= l accounting.accountable.try(:payments).try(:last) %></td>
         <td><%= link_to accounting.accountable.class.model_name.human, accounting.accountable %></td>
         <td><%= link_to accounting.accountable.try(:description), accounting.accountable %></td>
         <td><%= accounting.tags.collect(&:name).join(', ')%></td>
