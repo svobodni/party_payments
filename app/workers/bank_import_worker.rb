@@ -3,6 +3,6 @@ class BankImportWorker
 
   def perform
     BankPayment.import
-    BankPayment.all.each{|bp| bp.pair}
+    BankPayment.where("paid_on>'2014-12-31'").each{|bp| bp.pair}
   end
 end
