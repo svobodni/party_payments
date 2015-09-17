@@ -5,7 +5,7 @@ class Donation < ActiveRecord::Base
   has_many :payments, as: :payable
   before_create :set_accounting
 
-  attr_accessor :bank_payment_id, :budget_category_id
+  attr_accessor :bank_payment_id, :budget_category_id, :received_on
 
   def address
     "#{street}, #{zip} #{city}"
@@ -20,7 +20,7 @@ class Donation < ActiveRecord::Base
   end
 
   def received_on
-    payments.try(:first).try(:payment).try(:paid_on)
+    @received_on ||= payments.try(:first).try(:payment).try(:paid_on)
   end
 
   def number

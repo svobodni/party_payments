@@ -96,7 +96,8 @@ class BankPayment < ActiveRecord::Base
             street: response["payment"]["street"],
             city: response["payment"]["city"],
             zip: response["payment"]["zip"],
-            email: response["payment"]["email"]
+            email: response["payment"]["email"],
+            received_on: paid_on
           )
           payments.create(payable: donation, amount: positive_amount)
         end
