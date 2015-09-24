@@ -9,6 +9,9 @@ class BankPaymentsController < ApplicationController
     else
       @bank_payments = BankPayment.all
     end
+    if params[:year]
+      @bank_payments = @bank_payments.where("paid_on >= '?-01-01' AND paid_on <= '?-12-31'", params[:year], params[:year])
+    end
     @bank_payments = @bank_payments.order(paid_on: :desc)
     if params[:only]=="unpaired"
       @bank_payments = @bank_payments.reject{|p| p.remaining_amount == 0}
