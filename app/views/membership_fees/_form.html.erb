@@ -1,0 +1,41 @@
+<%= simple_form_for(@membership_fee, html: { class: 'form-horizontal' }) do |f| %>
+
+  <%= f.error_notification %>
+  <%= f.hidden_field :bank_payment_id %>
+  <%= f.input :region_id, collection: @organizations%>
+  <%= f.input :amount %>
+  <%= f.input :person_id, wrapper: :horizontal_input_group do %>
+
+    <%= f.input_field :person_id, class: "form-control" %>
+    <span class="input-group-addon"><a href="#" id="load_person">Načíst z registru</a></span>
+  <% end %>
+
+  <%= f.input :name %>
+  <%= f.button :submit %>
+<% end %>
+
+
+<script>
+$( 'form' ).on( 'click', '#load_person' , function( event ) {
+     console.log("Clicked")
+    // set ID
+    var person_id = $('#membership_fee_person_id').val();
+    // get record
+    $.ajax({
+        type: 'GET',
+        url: '<%="#{configatron.registry.uri}"%>/people/'+person_id+'/private.json',
+        dataType: 'json',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader("Authorization", "Bearer <%=current_user['access_token']%>")
+        },
+        success: function ( data ) {
+            // display dialog
+            var person = data.person
+            console.log(person)
+            $( '#membership_fee_person_id' ).val( person.id );
+            $( '#membership_fee_name' ).val( person.name );
+            $( '#membership_fee_region_id' ).val( person.domestic_region_id );
+        }
+    })
+})
+</script>

@@ -19,31 +19,42 @@ class MembershipFeesController < ApplicationController
 #  # GET /membership_fees/1.json
 #  def show
 #  end
-#
-#  # GET /membership_fees/new
-#  def new
-#    @membership_fee = MembershipFee.new
-#  end
-#
+
+  # GET /membership_fees/new
+  def new
+    @membership_fee = MembershipFee.new(
+      amount: params[:amount],
+      bank_payment_id: params[:bank_payment_id],
+      person_id: params[:vs][1..-1]
+    )
+    authorize! :create, @donation
+  end
+
 #  # GET /membership_fees/1/edit
 #  def edit
 #  end
 #
-#  # POST /membership_fees
-#  # POST /membership_fees.json
-#  def create
-#    @membership_fee = MembershipFee.new(membership_fee_params)
-#
-#    respond_to do |format|
-#      if @membership_fee.save
-#        format.html { redirect_to @membership_fee, notice: 'Membership fee was successfully created.' }
-#        format.json { render :show, status: :created, location: @membership_fee }
-#      else
-#        format.html { render :new }
-#        format.json { render json: @membership_fee.errors, status: :unprocessable_entity }
-#      end
-#    end
-#  end
+  # POST /membership_fees
+  # POST /membership_fees.json
+  def create
+    @bank_payment = BankPayment.find(params[:membership_fee][:bank_payment_id])
+    @membership_fee = MembershipFee.new(membership_fee_params)
+    @membership_fee.payments.build(payment: @bank_payment)
+    @membership_fee.payments.first.amount = params[:membership_fee][:amount]
+    @membership_fee.received_on = @bank_payment.paid_on
+    authorize! :create, @membership_fee
+
+    respond_to do |format|
+      if @membership_fee.save
+        format.html { redirect_to @membership_fee, notice: 'Membership fee was successfully created.' }
+        format.json { render :show, status: :created, location: @membership_fee }
+      else
+        format.html { render :new }
+        format.json { render json: @membership_fee.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 #
 #  # PATCH/PUT /membership_fees/1
 #  # PATCH/PUT /membership_fees/1.json
@@ -75,8 +86,8 @@ class MembershipFeesController < ApplicationController
       @membership_fee = MembershipFee.find(params[:id])
     end
 #
-#    # Never trust parameters from the scary internet, only allow the white list through.
-#    def membership_fee_params
-#      params.require(:membership_fee).permit(:region_id, :amount, :person_id, :name)
-#    end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def membership_fee_params
+      params.require(:membership_fee).permit(:region_id, :amount, :person_id, :name)
+    end
 end
