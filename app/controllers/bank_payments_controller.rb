@@ -10,7 +10,7 @@ class BankPaymentsController < ApplicationController
       @bank_payments = BankPayment.all
     end
     if params[:year]
-      @bank_payments = @bank_payments.where("paid_on >= '?-01-01' AND paid_on <= '?-12-31'", params[:year], params[:year])
+      @bank_payments = @bank_payments.where("paid_on >= ? AND paid_on <= ?", "#{params[:year]}-01-01", "#{params[:year]}-12-31")
     end
     @bank_payments = @bank_payments.order(paid_on: :desc)
     if params[:only]=="unpaired"
