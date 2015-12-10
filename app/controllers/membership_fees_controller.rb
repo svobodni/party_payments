@@ -15,10 +15,10 @@ class MembershipFeesController < ApplicationController
     @membership_fees_distribution = MembershipFee.find_by_year_and_quarter(params[:year],params[:quarter])
   end
 
-#  # GET /membership_fees/1
+  # GET /membership_fees/1
 #  # GET /membership_fees/1.json
-#  def show
-#  end
+  def show
+  end
 
   # GET /membership_fees/new
   def new

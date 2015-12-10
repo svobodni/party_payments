@@ -1,0 +1,8 @@
+<% @page_title = "Detail úhrady členského příspěvku" %>
+<table class="table">
+  <tr><th><%=t :region_id%></th><td><%= @membership_fee.region.try(:name) %></td></tr>
+  <tr><th><%=t :received_on%></th><td><%= l @membership_fee.received_on %></td></tr>
+  <tr><th><%=t :amount%></th><td><%= @membership_fee.amount %></td></tr>
+  <tr><th><%=t :person_id%></th><td><%= @membership_fee.person_id %></td></tr>
+  <tr><th><%=t :name%></th><td><%= @membership_fee.name %></td></tr>
+</table>
