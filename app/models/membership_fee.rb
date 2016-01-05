@@ -16,7 +16,9 @@ class MembershipFee < ActiveRecord::Base
   end
 
   def set_accounting
-    if received_on > Date.parse("2014-12-31")
+    if received_on > Date.parse("2015-12-31")
+      self.accountings.build(budget_category_id: 49, amount: amount)
+    elsif received_on > Date.parse("2014-12-31")
       self.accountings.build(budget_category_id: 8, amount: amount)
     end if accountings.empty?
   end
