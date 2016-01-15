@@ -21,11 +21,19 @@ prawn_document(:left_margin => 60, :right_margin => 60) do |pdf|
 
   pdf.text('I. Smluvní strany')
 
-  pdf.table([
-    ['Jméno a příjmení:', @donation.name],
-    ['Bydliště:', @donation.address],
-    ['Datum narození:', l(@donation.date_of_birth)]
-    ], :width => 550, :column_widths => [150, 400], :cell_style => { :border_width => 0, :padding => [0,0,0,5] })
+  if @donation.donor_type=="juristic"
+    pdf.table([
+      ['Právnická osoba:', @donation.name],
+      ['Sídlo:', @donation.address],
+      ['IČ:', @donation.ic]
+      ], :width => 550, :column_widths => [150, 400], :cell_style => { :border_width => 0, :padding => [0,0,0,5] })
+  else
+    pdf.table([
+      ['Jméno a příjmení:', @donation.name],
+      ['Bydliště:', @donation.address],
+      ['Datum narození:', l(@donation.date_of_birth)]
+      ], :width => 550, :column_widths => [150, 400], :cell_style => { :border_width => 0, :padding => [0,0,0,5] })
+  end
 
   pdf.text('(dále jen Dárce)')
 
