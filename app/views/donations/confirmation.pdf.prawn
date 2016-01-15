@@ -50,6 +50,12 @@ prawn_document(:left_margin => 60, :right_margin => 120, :bottom_margin => 25) d
 
   pdf.move_down vspace*3
 
+  pdf.stroke do
+    pdf.horizontal_line(0, 135)
+    pdf.move_down 5
+    pdf.text("Za Stranu svobodných občanů")
+  end
+
   #pdf.text("Ing. Jiří Kubíček")
   #pdf.text("předseda krajského sdružení Praha", :color => "00654E")
 
