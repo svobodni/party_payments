@@ -1,0 +1,29 @@
+<% page_title "Darovací formulář" %>
+
+<table id="donation_form_submissions" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Datum vyplnění</th>
+      <th>Jméno</th>
+      <th>Částka</th>
+      <th>Akce</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donation_form_submissions.each do |submission| %>
+      <tr>
+        <td><%= submission.id %></td>
+        <td data-order="<%=submission.created_at%>">Před <%= time_ago_in_words(submission.created_at) %></td>
+        <td><%= submission.params[:firstName] %> <%= submission.params[:lastName] %> <%= submission.params[:companyName] %></td>
+        <td><%= number_to_currency(submission.params[:totalPrice].to_i/100) %></td>
+        <td><%= link_to "Detail", organization_donation_form_submission_path(100, submission) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= datatable(:donation_form_submissions) %>

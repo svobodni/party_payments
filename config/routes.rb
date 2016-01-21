@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations, only: [:index, :show] do
+    resources :donation_form_submissions, only: [:index, :show]
     resources :bank_payments, only: [:index]
     resources :gopay_payments, only: [:index]
     resources :budget_categories, only: [:index]

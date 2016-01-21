@@ -1,0 +1,11 @@
+<% @page_title = "Detail vyplněného darovacího formuláře" %>
+<table class="table">
+  <tr><th><%=t :id%></th><td><%= @donation_form_submission.id %></td></tr>
+  <% @donation_form_submission.params.each do |param, value| %>
+    <% if param=="totalPrice" %>
+      <tr><th><%=t param%></th><td><%= value.to_i/100 %></td></tr>
+    <% else %>
+      <tr><th><%=t param%></th><td><%= value %></td></tr>
+    <% end %>
+  <% end %>
+</table>
