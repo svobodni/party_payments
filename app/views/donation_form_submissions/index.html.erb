@@ -5,6 +5,7 @@
     <tr>
       <th>ID</th>
       <th>Datum vyplnění</th>
+      <th>VS</th>
       <th>Jméno</th>
       <th>Částka</th>
       <th>Akce</th>
@@ -17,6 +18,7 @@
         <td><%= submission.id %></td>
         <td data-order="<%=submission.created_at%>">Před <%= time_ago_in_words(submission.created_at) %></td>
         <td><%= submission.params[:firstName] %> <%= submission.params[:lastName] %> <%= submission.params[:companyName] %></td>
+        <td><%= submission.params[:orderNumber] %></td>
         <td><%= number_to_currency(submission.params[:totalPrice].to_i/100) %></td>
         <td><%= link_to "Detail", organization_donation_form_submission_path(100, submission) %></td>
       </tr>
