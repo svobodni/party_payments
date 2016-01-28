@@ -1,4 +1,8 @@
 <h1>Finance Svobodní</h1>
 <p>Interní systém pro ekonomickou evidenci republiky a krajů.</p>
 
+<% if current_user %>
+<h2>Prosím, vyberte si kraj v pravém horním rohu</a>.</h2>
+<% else %>
 <h2>Prosím, <a href="/auth/registr">přihlašte se</a>.</h2>
+<% end %>
