@@ -4,8 +4,8 @@
   <tr><th>Organizace:</th><td><%=link_to @budget_category.organization.try(:name), @budget_category.organization%></td></tr>
   <tr><th>Hospodářský rok:</th><td><%=@budget_category.year%></td></tr>
   <tr><th>Název:</th><td><%=@budget_category.name%></td></tr>
-	<tr><th>Rozpočtovaná částka:</th><td><%=@budget_category.amount%></td></tr>
-	<tr><th>Vyúčtováno:</th><td><%=@budget_category.accounted_amount%></td></tr>
+	<tr><th>Rozpočtovaná částka:</th><td><%= number_to_currency @budget_category.amount%></td></tr>
+	<tr><th>Vyúčtováno:</th><td><%= number_to_currency @budget_category.accounted_amount%></td></tr>
 </table>
 
 <h2>Detailní plnění rozpočtu</h2>
@@ -24,11 +24,11 @@
   <tbody>
     <% @budget_category.accountings.each do |accounting| %>
       <tr>
-	    <td data-order="accounting.accountable.try(:payments).try(:last)"><%= accounting.accountable.try(:payments).try(:last) %></td>
+	    <td data-order="accounting.accountable.try(:payments).try(:last)"><%=l accounting.accountable.try(:payments).try(:last).try(:payment).try(:paid_on) %></td>
         <td><%= link_to accounting.accountable.class.try(:model_name).try(:human), accounting.accountable %></td>
         <td><%= link_to accounting.accountable.try(:description), accounting.accountable %></td>
         <td><%= accounting.tags.collect(&:name).join(', ')%></td>
-        <td><%= accounting.amount %></td>
+        <td><%= number_to_currency accounting.amount %></td>
       </tr>
     <% end %>
   </tbody>

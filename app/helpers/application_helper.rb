@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 module ApplicationHelper
 
+  def l(object, options = {})
+    super(object, options) if object
+  end
+
   def page_title(value)
     @page_title = value
   end

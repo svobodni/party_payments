@@ -7,8 +7,8 @@
       <th>Rok</th>
       <% end %>
       <th>Název</th>
-      <th>Rozpočtováno</th>
-      <th>Stav</th>
+      <th align='right'>Rozpočtováno</th>
+      <th align='right'>Stav</th>
       <th colspan="1"></th>
     </tr>
   </thead>
@@ -20,8 +20,8 @@
         <td><%= budget_category.year %></td>
         <% end %>
         <td><%= link_to budget_category.name, budget_category %></td>
-        <td><%= budget_category.amount %></td>
-        <td><%= budget_category.accounted_amount %></td>
+        <td align='right'><%= number_to_currency budget_category.amount %></td>
+        <td align='right'><%= number_to_currency budget_category.accounted_amount %></td>
         <td><% if can? :update, budget_category %><%= link_to "Upravit", edit_budget_category_path(budget_category), class: "btn btn-default btn-xs" %><% end %></td>
       </tr>
     <% end %>
