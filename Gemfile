@@ -74,6 +74,9 @@ gem 'prawn'
 gem 'prawn-table'
 gem 'prawn-rails'
 
+# XLS
+gem 'axlsx_rails'
+
 # testování
 gem 'factory_girl_rails', group: :test
 

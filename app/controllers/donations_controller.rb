@@ -11,6 +11,10 @@ class DonationsController < ApplicationController
     else
       @donations = Donation.all
     end
+    respond_to do |format|
+      format.html
+      format.xlsx
+    end
   end
 
   def above_limit
