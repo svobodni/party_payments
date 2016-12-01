@@ -39,7 +39,7 @@ class BudgetCategoriesController < ApplicationController
 
     respond_to do |format|
       if @budget_category.save
-        format.html { redirect_to organization_budget_categories_path(@organization), notice: 'Budget category was successfully created.' }
+        format.html { redirect_to year_organization_budget_categories_path(@budget_category.year, @organization), notice: 'Rozpočtová kapitola byla úspěšně založena.' }
         format.json { render :show, status: :created, location: @budget_category }
       else
         format.html { render :new }
