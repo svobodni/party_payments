@@ -1,4 +1,4 @@
-<%= form_for(@accounting) do |f| %>
+<%= simple_form_for(@accounting) do |f| %>
   <% if @accounting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@accounting.errors.count, "error") %> prohibited this accounting from being saved:</h2>
@@ -11,29 +11,10 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :accountable_type %><br>
-    <%= f.text_field :accountable_type %>
-  </div>
-  <div class="field">
-    <%= f.label :accountable_id %><br>
-    <%= f.number_field :accountable_id %>
-  </div>
-  <div class="field">
-    <%= f.label :budget_category_id %><br>
-    <%= f.select :budget_category_id, BudgetCategory.all.collect {|p| [ p.name, p.id ]} %>
-  </div>
-
-  <div class="field">
-    <%= f.label :tag_list %><br>
-    <%= f.text_field :tag_list %>
-  </div>
-
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.input :accountable_type %>
+  <%= f.input :accountable_id %>
+  <%= f.input :budget_category_id, collection: @accounting.accountable.organization.budget_categories.order(year: :desc), label_method: ->(p){ "#{p.year} - #{p.name}"} %>
+  <%= f.input :tag_list %>
+  <%= f.input :amount %>
+  <%= f.submit %>
 <% end %>
