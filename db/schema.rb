@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707101254) do
+ActiveRecord::Schema.define(version: 20161206230939) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 20150707101254) do
     t.string   "payment_type"
     t.integer  "payment_id"
     t.decimal  "amount",             precision: 10, scale: 2
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_accounts", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "account_type"
+    t.string   "account_number"
+    t.string   "bank_code"
+    t.decimal  "balance",        precision: 10, scale: 0
+    t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
