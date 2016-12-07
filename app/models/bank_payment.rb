@@ -46,7 +46,9 @@ class BankPayment < ActiveRecord::Base
           :ks => row.ks || '',
           :ss => row.ss || '',
           :info => row.message_for_recipient || '',
-          :account_name => row.user_identification || ''
+          :account_name => row.account_name || '',
+          :our_account_number => response.account.account_id,
+          :our_bank_code => response.account.bank_id
         ) unless find_by_transaction_id_and_organization_id(row.transaction_id,organization.id)
       end
     }
