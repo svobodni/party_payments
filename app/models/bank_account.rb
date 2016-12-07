@@ -17,7 +17,13 @@ class BankAccount < ActiveRecord::Base
   end
 
   def self.account_types
-    {"Dary"=>1, "Příspěvky členů"=>2}
+    # http://www.zakonyprolidi.cz/cs/1991-424#p17a-2
+    {
+      "příspěvky ze státního rozpočtu, příjmy z darů a jiných bezúplatných plnění" => 1,
+      "plnění vyplývající z pracovněprávního vztahu ke straně a hnutí a politickému institutu" => 2,
+      "financování volebních kampaní za podmínek stanovených volebními zákony" => 3,
+      "ostatní příjmy a výdaje" => 4
+    }
   end
 
   def import

@@ -1,5 +1,7 @@
 <% page_title "Pohyby na bankovním účtu #{@bank_account.full_account_number}" %>
 
+<div class="pull-right"><%= paginate @bank_payments %></div>
+
 <table class="table table-stripped">
   <thead>
     <tr>
@@ -13,7 +15,7 @@
 
   </thead>
   <tbody>
-  <% @bank_account.payments.order(created_at: :desc).each do |payment| %>
+  <% @bank_payments.each do |payment| %>
     <tr>
       <td><%=l payment.paid_on%></td>
       <td><%=link_to_registry_person payment.vs%></td>
@@ -21,9 +23,9 @@
       <td><%=payment.account_name%></td>
       <td><%=payment.info%></td>
       <td>
-        <%# if can? :create, Donation.new(organization: @organization)%>
+        <% if can? :create, Donation.new(organization: @organization)%>
           <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: payment.vs, amount: payment.remaining_amount, bank_payment_id: payment.id), class: "btn btn-default btn-xs" if payment.remaining_amount>0 %>
-        <%# end %>
+        <% end %>
         <%=link_to "Detail", payment, class: "btn btn-primary btn-xs" %>
       </td>
     </tr>
@@ -31,3 +33,4 @@
   </tbody>
 </table>
 
+<div class="pull-right"><%= paginate @bank_payments %></div>

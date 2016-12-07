@@ -83,3 +83,6 @@ gem 'factory_girl_rails', group: :test
 # autorizace
 gem 'omniauth-oauth2'
 gem 'cancancan', '~> 1.10'
+
+# paginace
+gem 'kaminari'

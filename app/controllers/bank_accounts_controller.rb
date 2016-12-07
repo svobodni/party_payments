@@ -11,6 +11,7 @@ class BankAccountsController < ApplicationController
   # GET /bank_accounts/1
   # GET /bank_accounts/1.json
   def show
+    @bank_payments=@bank_account.payments.order(created_at: :desc).page params[:page]
   end
 
   # GET /bank_accounts/new
@@ -43,7 +44,7 @@ class BankAccountsController < ApplicationController
   def update
     respond_to do |format|
       if @bank_account.update(bank_account_params)
-        format.html { redirect_to @bank_account, notice: 'Bank account was successfully updated.' }
+        format.html { redirect_to bank_accounts_path, notice: 'Bankovní účet byl úspěšně uložen.' }
         format.json { render :show, status: :ok, location: @bank_account }
       else
         format.html { render :edit }
