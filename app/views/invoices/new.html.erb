@@ -1,4 +1,4 @@
-<% page_title "Nová faktura" %>
+<% page_title "Vložení nové přijaté faktury" %>
 
 <%= simple_form_for(@invoice, html: { class: 'form-horizontal' }) do |f| %>
 
@@ -7,6 +7,6 @@
   <%= f.input :amount %>
   <%= f.input :organization_id, collection: @organizations %>
   <%= f.input :description %>
-  <%= f.button :submit %>
+  <%= f.button :submit, "Uložit fakturu", class: "btn-primary pull-right" %>
 
 <% end %>

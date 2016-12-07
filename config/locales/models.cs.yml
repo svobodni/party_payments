@@ -1,9 +1,9 @@
 cs:
   activerecord:
     models:
-      donation: Dar
-      accounting: Zaúčtování
-      invoice: Faktura
+      donation: dar
+      accounting: zaúčtování
+      invoice: faktura
       bank_account: bankovní účet
     attributes:
       bank_account:
@@ -32,3 +32,10 @@ cs:
         budget_categorie_id: "Rozpočet"
         amount: "Částka"
         tag_list: "Tagy"
+      invoice:
+        document: "Dokument"
+        amount: "Částka"
+        description: "Popis plnění"
+        organization_id: "Organizace"
+        account_number: "Číslo účtu"
+        bank_code: "Směrový kód banky"

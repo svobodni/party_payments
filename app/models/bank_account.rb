@@ -17,7 +17,7 @@ class BankAccount < ActiveRecord::Base
   end
 
   def self.account_types
-    {"Dary"=>"1", "Příspěvky členů"=>"2"}
+    {"Dary"=>1, "Příspěvky členů"=>2}
   end
 
   def import

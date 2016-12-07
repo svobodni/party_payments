@@ -17,10 +17,11 @@
       <tr>
         <td><%= bank_account.name %></td>
         <td><%= bank_account.full_account_number %></td>
-        <td><%= bank_account.balance %></td>
+        <td><%= number_to_currency(bank_account.balance) %></td>
         <td class="text-right">
           <%= link_to 'Zobrazit pohyby', bank_account_path(bank_account), class: "btn btn-xs btn-primary" %> |
-          <%= link_to 'Upravit', edit_bank_account_path(bank_account), class: "btn btn-xs btn-warning" %>
+          <%= link_to 'Upravit', edit_bank_account_path(bank_account), class: "btn btn-xs btn-warning" %> |
+          <%= link_to 'FIO', "https://www.fio.cz/ib2/transparent?a=#{bank_account.account_number}", class: "btn btn-xs btn-info" %>
         </td>
       </tr>
     <% end %>
