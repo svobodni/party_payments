@@ -1,0 +1,3 @@
+<% page_title "Detail pohybu na bankovním účtu" %>
+
+<pre><%= JSON.pretty_generate(JSON.parse(@bank_payment.to_json)) %></pre>

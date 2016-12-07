@@ -1,16 +1,14 @@
-<h1>Listing bank_accounts</h1>
+<% page_title 'Stav bankovních účtů' %>
 
-<table>
+<%= link_to ' + Přidat nový bankovní účet', new_bank_account_path, class: "btn btn-xs btn-primary pull-right"  %>
+
+<table class="table table-stripped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Account type</th>
-      <th>Account number</th>
-      <th>Bank code</th>
-      <th>Balance</th>
-      <th>Token</th>
-      <th colspan="3"></th>
+      <th><%=t("activerecord.attributes.bank_account.name")%></th>
+      <th><%=t("activerecord.attributes.bank_account.account_number")%></th>
+      <th><%=t("activerecord.attributes.bank_account.balance")%></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -18,20 +16,15 @@
     <% @bank_accounts.each do |bank_account| %>
       <tr>
         <td><%= bank_account.name %></td>
-        <td><%= bank_account.description %></td>
-        <td><%= bank_account.account_type %></td>
-        <td><%= bank_account.account_number %></td>
-        <td><%= bank_account.bank_code %></td>
+        <td><%= bank_account.full_account_number %></td>
         <td><%= bank_account.balance %></td>
-        <td><%= bank_account.token %></td>
-        <td><%= link_to 'Show', bank_account %></td>
-        <td><%= link_to 'Edit', edit_bank_account_path(bank_account) %></td>
-        <td><%= link_to 'Destroy', bank_account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="text-right">
+          <%= link_to 'Zobrazit pohyby', bank_account_path(bank_account), class: "btn btn-xs btn-primary" %> |
+          <%= link_to 'Upravit', edit_bank_account_path(bank_account), class: "btn btn-xs btn-warning" %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Bank account', new_bank_account_path %>

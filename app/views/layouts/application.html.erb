@@ -100,6 +100,7 @@
               </ul>
             </li>
             <% if @organization.id==100 %>
+            <li><%=link_to "Bankovní účty", bank_accounts_path %></li>
             <li><%=link_to "GoPay", organization_gopay_payments_path(@organization, year: @year) %></li>
             <li><%=link_to "Darovací formulář", organization_donation_form_submissions_path(@organization, year: @year) %></li>
             <li><%=link_to "Členské příspěvky", organization_membership_fees_path(@organization, year: @year) %>

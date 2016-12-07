@@ -1,39 +1,33 @@
-<p id="notice"><%= notice %></p>
+<% page_title "Pohyby na bankovním účtu #{@bank_account.full_account_number}" %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @bank_account.name %>
-</p>
+<table class="table table-stripped">
+  <thead>
+    <tr>
+      <th><%=t("activerecord.attributes.bank_payment.paid_on")%></th>
+      <th><%=t("activerecord.attributes.bank_payment.vs")%></th>
+      <th><%=t("activerecord.attributes.bank_payment.amount")%></th>
+      <th><%=t("activerecord.attributes.bank_payment.account_name")%></th>
+      <th><%=t("activerecord.attributes.bank_payment.info")%></th>
+      <th></th>
+    </tr>
 
-<p>
-  <strong>Description:</strong>
-  <%= @bank_account.description %>
-</p>
+  </thead>
+  <tbody>
+  <% @bank_account.payments.order(created_at: :desc).each do |payment| %>
+    <tr>
+      <td><%=l payment.paid_on%></td>
+      <td><%=link_to_registry_person payment.vs%></td>
+      <td><%=payment.amount%></td>
+      <td><%=payment.account_name%></td>
+      <td><%=payment.info%></td>
+      <td>
+        <%# if can? :create, Donation.new(organization: @organization)%>
+          <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: payment.vs, amount: payment.remaining_amount, bank_payment_id: payment.id), class: "btn btn-default btn-xs" if payment.remaining_amount>0 %>
+        <%# end %>
+        <%=link_to "Detail", payment, class: "btn btn-primary btn-xs" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 
-<p>
-  <strong>Account type:</strong>
-  <%= @bank_account.account_type %>
-</p>
-
-<p>
-  <strong>Account number:</strong>
-  <%= @bank_account.account_number %>
-</p>
-
-<p>
-  <strong>Bank code:</strong>
-  <%= @bank_account.bank_code %>
-</p>
-
-<p>
-  <strong>Balance:</strong>
-  <%= @bank_account.balance %>
-</p>
-
-<p>
-  <strong>Token:</strong>
-  <%= @bank_account.token %>
-</p>
-
-<%= link_to 'Edit', edit_bank_account_path(@bank_account) %> |
-<%= link_to 'Back', bank_accounts_path %>

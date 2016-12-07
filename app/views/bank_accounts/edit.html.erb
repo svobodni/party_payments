@@ -1,6 +1,5 @@
-<h1>Editing bank_account</h1>
+<% page_title "Úprava údajů bankovního účtu" %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @bank_account %> |
-<%= link_to 'Back', bank_accounts_path %>
+<%= button_to 'Smazat bankovní účet', @bank_account, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>

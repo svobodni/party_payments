@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206230939) do
+ActiveRecord::Schema.define(version: 20161207003803) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20161206230939) do
     t.string   "accounting_note"
     t.string   "transaction_id"
     t.date     "paid_on"
-    t.decimal  "amount",            precision: 10, scale: 2
+    t.decimal  "amount",             precision: 10, scale: 2
     t.string   "currency"
     t.string   "account_name"
     t.string   "info"
@@ -53,6 +53,8 @@ ActiveRecord::Schema.define(version: 20161206230939) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "organization_id"
+    t.string   "our_account_number"
+    t.string   "our_bank_code"
   end
 
   create_table "budget_categories", force: true do |t|

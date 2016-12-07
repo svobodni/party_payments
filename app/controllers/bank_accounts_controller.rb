@@ -1,4 +1,5 @@
 class BankAccountsController < ApplicationController
+  before_action :set_organization
   before_action :set_bank_account, only: [:show, :edit, :update, :destroy]
 
   # GET /bank_accounts
@@ -28,7 +29,7 @@ class BankAccountsController < ApplicationController
 
     respond_to do |format|
       if @bank_account.save
-        format.html { redirect_to @bank_account, notice: 'Bank account was successfully created.' }
+        format.html { redirect_to bank_accounts_path, notice: 'Nový bankovní účet byl úspěšně uložen.' }
         format.json { render :show, status: :created, location: @bank_account }
       else
         format.html { render :new }
@@ -65,6 +66,10 @@ class BankAccountsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_bank_account
       @bank_account = BankAccount.find(params[:id])
+    end
+
+    def set_organization
+      @organization = Organization.find(100)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

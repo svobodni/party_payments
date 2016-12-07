@@ -25,7 +25,7 @@
         <td><%= bank_payment.remaining_amount %></td>
         <td><%= bank_payment.account_name unless bank_payment.account_name==bank_payment.info%></td>
         <td><%= bank_payment.info %></td>
-        <td><%= bank_payment.registry_payment? ? link_to(bank_payment.vs, configatron.registry.uri+"/backoffice/people/#{bank_payment.vs}") : bank_payment.vs %></td>
+        <td><%= bank_payment.registry_payment? ? link_to_registry_person(bank_payment.vs) : bank_payment.vs %></td>
         <td><%= bank_payment.ss %></td>
         <td><%= bank_payment.account_number %>/<%= bank_payment.bank_code %></td>
         <td>

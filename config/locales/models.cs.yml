@@ -4,7 +4,20 @@ cs:
       donation: Dar
       accounting: Zaúčtování
       invoice: Faktura
+      bank_account: bankovní účet
     attributes:
+      bank_account:
+        name: "Název účtu"
+        description: "Popis využití"
+        account_type: "Druh účtu"
+        account_number: "Číslo účtu"
+        bank_code: "Směrový kód banky"
+        balance: "Zůstatek"
+      bank_payment:
+        paid_on: "Dne"
+        amount: "Částka"
+        account_name: "Název účtu"
+        info: "Účel"
       donation:
         organization_id: "Organizace"
         donor_type: "Typ dárce"

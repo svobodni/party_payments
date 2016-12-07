@@ -23,6 +23,10 @@ module ApplicationHelper
     nil
   end
 
+  def link_to_registry_person(vs)
+    link_to(vs, configatron.registry.uri+"/backoffice/people/#{vs}")
+  end
+
   def datatable(id)
     content_tag :script do
       "$(document).ready(function() {

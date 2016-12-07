@@ -22,4 +22,9 @@ class BankPaymentsController < ApplicationController
     end
   end
 
+  def show
+    @organization = Organization.find(100)
+    @bank_payment = BankPayment.find(params[:id])
+  end
+
 end

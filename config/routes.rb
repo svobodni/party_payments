@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  resources :bank_accounts
+  resources :bank_payments, only: [:show]
+
   resources 'donation_form_submissions', only: [:create]
 
   resources :membership_fees
@@ -39,6 +42,27 @@ Rails.application.routes.draw do
     resources :membership_fees, only: [:index] do
       collection do
         get 'distribution'
+      end
+    end
+  end
+
+  scope "/years/:year", as: 'year' do
+    resources :organizations, only: [:index, :show] do
+      resources :bank_payments, only: [:index]
+      resources :gopay_payments, only: [:index]
+      resources :budget_categories, only: [:index]
+      resources :invoices, only: [:index, :new]
+      resources :tags, only: [:index]
+      resources :accountings, only: [:index]
+      resources :donations, only: [:index] do
+        collection do
+          get 'above_limit'
+        end
+      end
+      resources :membership_fees, only: [:index] do
+        collection do
+          get 'distribution'
+        end
       end
     end
   end
