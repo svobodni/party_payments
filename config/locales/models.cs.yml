@@ -1,4 +1,6 @@
 cs:
+  income: Příjmy
+  outcome: Výdaje
   activerecord:
     models:
       donation: dar
@@ -24,6 +26,7 @@ cs:
         year: "Rok"
         name: "Název rozpočtové kapitoly"
         amount: "Rozpočtovaná částka"
+        budget_category_type: "Typ kategorie"
       donation:
         organization_id: "Organizace"
         donor_type: "Typ dárce"
