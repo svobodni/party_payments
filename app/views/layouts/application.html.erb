@@ -76,7 +76,7 @@
           <ul class="nav nav-sidebar">
             <li><%=link_to "Rozpočty", organization_budget_categories_path(@organization, year: @year) %>
               <ul>
-                <% for year in (2014..2016).to_a.reverse %>
+                <% for year in (2014..2017).to_a.reverse %>
                 <li><%=link_to year, organization_budget_categories_path(@organization, year: year) %></li>
                 <% end %>
               </ul>
