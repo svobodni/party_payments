@@ -54,7 +54,7 @@ class BudgetCategoriesController < ApplicationController
     authorize! :update, @budget_category
     respond_to do |format|
       if @budget_category.update(budget_category_params)
-        format.html { redirect_to organization_budget_categories_path(@organization), notice: 'Budget category was successfully updated.' }
+        format.html { redirect_to year_organization_budget_categories_path(@budget_category.year, @organization), notice: 'Rozpočtová kapitola byla úspěšně upravena.' }
         format.json { render :show, status: :ok, location: @budget_category }
       else
         format.html { render :edit }
@@ -83,6 +83,6 @@ class BudgetCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def budget_category_params
-      params.require(:budget_category).permit(:organization_id, :year, :name, :amount)
+      params.require(:budget_category).permit(:organization_id, :year, :name, :amount, :budget_category_type)
     end
 end
