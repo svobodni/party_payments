@@ -1,33 +1,7 @@
-<%= form_for(@budget_category) do |f| %>
-  <% if @budget_category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@budget_category.errors.count, "error") %> prohibited this budget_category from being saved:</h2>
-
-      <ul>
-      <% @budget_category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :organization_id %><br>
-    <%= f.select :organization_id, @organizations.collect {|p| [ p.name, p.id ] }%>
-  </div>
-  <div class="field">
-    <%= f.label :year %><br>
-    <%= f.select :year, (2014..2017).to_a.reverse %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for(@budget_category, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.input :organization_id, collection: @organizations.collect {|p| [ p.name, p.id ] }%>
+  <%= f.input :year, collection: (2014..2017).to_a.reverse %>
+  <%= f.input :name %>
+  <%= f.input :amount %>
+  <%= f.button :submit, "Uložit rozpočtovou kapitolu", class: "btn-primary pull-right" %>
 <% end %>

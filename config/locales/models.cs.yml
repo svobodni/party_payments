@@ -5,6 +5,7 @@ cs:
       accounting: zaúčtování
       invoice: faktura
       bank_account: bankovní účet
+      budget_category: rozpočtová kapitola
     attributes:
       bank_account:
         name: "Název účtu"
@@ -18,6 +19,11 @@ cs:
         amount: "Částka"
         account_name: "Název účtu"
         info: "Účel"
+      budget_category:
+        organization_id: "Organizace"
+        year: "Rok"
+        name: "Název rozpočtové kapitoly"
+        amount: "Rozpočtovaná částka"
       donation:
         organization_id: "Organizace"
         donor_type: "Typ dárce"
