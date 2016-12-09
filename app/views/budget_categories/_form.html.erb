@@ -3,5 +3,6 @@
   <%= f.input :year, collection: (2014..2017).to_a.reverse %>
   <%= f.input :name %>
   <%= f.input :amount %>
+  <%= f.input :budget_category_type, collection: BudgetCategory.budget_category_types %>
   <%= f.button :submit, "Uložit rozpočtovou kapitolu", class: "btn-primary pull-right" %>
 <% end %>

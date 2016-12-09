@@ -1,5 +1,13 @@
 <% page_title "Rozpočet - #{@organization.name} - #{@year}" %>
 
+<% if can? :create, BudgetCategory.new(organization_id: params[:organization_id]) %>
+<%= link_to '+ Nová položka rozpočtu', new_budget_category_path(organization_id: params[:organization_id], year: params[:year]), class: "btn btn-xs btn-primary pull-right" %>
+<% end %>
+
+<% @budget_categories.group_by(&:budget_category_type).each do |type,values| %>
+
+<h2><%= type ? t(type) : "Ostatní" %></h2>
+
 <table class="table table-stripped">
   <thead>
     <tr>
@@ -14,7 +22,12 @@
   </thead>
 
   <tbody>
-    <% @budget_categories.each do |budget_category| %>
+
+      <% amount = 0; accounted_amount = 0;
+        values.each do |budget_category|
+          amount += budget_category.amount
+          accounted_amount += budget_category.accounted_amount
+      %>
       <tr>
         <% unless @year %>
         <td><%= budget_category.year %></td>
@@ -25,11 +38,11 @@
         <td><% if can? :update, budget_category %><%= link_to "Upravit", edit_budget_category_path(budget_category), class: "btn btn-default btn-xs" %><% end %></td>
       </tr>
     <% end %>
+    <tr><th>Celkem</th><td align='right'><%=number_to_currency amount %></td><td align='right'><%=number_to_currency accounted_amount%></td><td></td></tr>
+
   </tbody>
 </table>
 
-<br>
-
-<% if can? :create, BudgetCategory.new(organization_id: params[:organization_id]) %>
-<%= link_to 'Nová položka rozpočtu', new_budget_category_path(organization_id: params[:organization_id], year: params[:year]), class: "btn btn-default" %>
 <% end %>
+
+<br>
