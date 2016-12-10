@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209222458) do
+ActiveRecord::Schema.define(version: 20161209234007) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -163,6 +163,8 @@ ActiveRecord::Schema.define(version: 20161209222458) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "payments", ["payable_id", "payable_type"], name: "index_payments_on_payable_id_and_payable_type", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

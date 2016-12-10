@@ -17,7 +17,10 @@ class BudgetCategoriesController < ApplicationController
   # GET /budget_categories/1
   # GET /budget_categories/1.json
   def show
-    @organization = @budget_category.organization
+    begin
+      @budget_category = BudgetCategory.includes(accountings:[accountable: [payments: :payment]]).find(params[:id])
+    rescue
+    end
   end
 
   # GET /budget_categories/new
