@@ -1,5 +1,7 @@
 <% page_title "Přijaté dary" %>
 
+<div class="pull-right"><%= paginate @donations %></div>
+
 <table id="donations" class="table table-striped">
   <thead>
     <tr>
@@ -16,7 +18,7 @@
     <% @donations.each do |donation| %>
       <tr>
         <td><%= link_to donation.id, donation %></td>
-        <td data-order="<%=donation.received_on%>"><%= l donation.received_on %></td>
+        <td><%= l donation.received_on %></td>
         <td><%= donation.amount %></td>
         <td><%= donation.name %></td>
         <td><%= donation.address %></td>
@@ -29,6 +31,6 @@
   </tbody>
 </table>
 
-<%= datatable(:donations)%>
+<div class="pull-right"><%= paginate @donations %></div>
 
-<%= link_to "Export", {format: :xls}, class: "btn btn-primary" %>
+<%= link_to "Export xls", {format: :xls}, class: "btn btn-primary" %>

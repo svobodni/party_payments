@@ -8,6 +8,7 @@ cs:
       invoice: faktura
       bank_account: bankovní účet
       budget_category: rozpočtová kapitola
+      membership_fee: členský příspěvek
     attributes:
       bank_account:
         name: "Název účtu"

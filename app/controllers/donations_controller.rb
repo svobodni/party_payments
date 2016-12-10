@@ -6,11 +6,9 @@ class DonationsController < ApplicationController
   # GET /donations.json
   def index
     @organization = Organization.find_by_id(params[:organization_id])
-    if @organization
-      @donations = @organization.donations
-    else
-      @donations = Donation.all
-    end
+    @donations = @organization ? @organization.donations : Donation.all
+    @donations = @donations.includes(accountings:[accountable: [payments: :payment]])
+    @donations = @donations.order(created_at: :desc).page params[:page]
     respond_to do |format|
       format.html
       format.xlsx

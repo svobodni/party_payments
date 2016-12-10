@@ -39,7 +39,7 @@ prawn_document(:left_margin => 60, :right_margin => 120, :bottom_margin => 25) d
   if @donation.donor_type=="juristic"
     pdf.text("Dárce: #{@donation.name}, #{@donation.street}, #{@donation.city}, IČ #{@donation.ic}")
   else
-    pdf.text("Dárce: #{@donation.name}, #{@donation.street}, #{@donation.city}, nar. #{l @donation.date_of_birth}")
+    pdf.text("Dárce: #{@donation.name}, #{@donation.street}, #{@donation.city}, nar. #{l Date.parse(@donation.date_of_birth)}")
   end
 
   pdf.move_down vspace
