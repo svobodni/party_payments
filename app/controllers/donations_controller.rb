@@ -23,6 +23,7 @@ class DonationsController < ApplicationController
       @donations = Donation.all
     end
     @donations = @donations.where("amount > 5000")
+    @donations = @donations.order(created_at: :desc).page params[:page]
     render action: :index
   end
 

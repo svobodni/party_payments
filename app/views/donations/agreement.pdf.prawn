@@ -31,7 +31,7 @@ prawn_document(:left_margin => 60, :right_margin => 60) do |pdf|
     pdf.table([
       ['Jméno a příjmení:', @donation.name],
       ['Bydliště:', @donation.address],
-      ['Datum narození:', l(@donation.date_of_birth)]
+      ['Datum narození:', l(Date.parse(@donation.date_of_birth.to_s))]
       ], :width => 550, :column_widths => [150, 400], :cell_style => { :border_width => 0, :padding => [0,0,0,5] })
   end
 
