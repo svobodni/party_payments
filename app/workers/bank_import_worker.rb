@@ -3,7 +3,7 @@ class BankImportWorker
 
   def perform
     BankPayment.import
-    BankPayment.where("paid_on>'2014-12-31'").each{|bp| bp.pair}
+    BankPayment.where("paid_on>'2015-12-31' and organization_id is not null").each{|bp| bp.pair}
     GopayPayment.import
     BankAccount.first.import
   end
