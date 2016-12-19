@@ -1,0 +1,42 @@
+<% page_title "Výpis plateb osoby #{params[:id]}" %>
+
+<h2>Členské příspěvky</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Částka</th>
+      <th>Platby</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @membership_fees.each do |membership_fee| %>
+    <tr>
+      <td><%=l membership_fee.received_on%></td>
+      <td><%=membership_fee.amount%></td>
+      <td><%=membership_fee.payments.collect{|a| link_to("platba",a)}.join(", ").html_safe%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<h2>Dary</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Částka</th>
+      <th>Organizace</th>
+      <th>Platby</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @donations.each do |donation| %>
+    <tr>
+      <td><%=l donation.received_on%></td>
+      <td><%=donation.amount%></td>
+      <td><%=donation.organization.name%></td>
+      <td><%=donation.payments.collect{|a| link_to("platba",a)}.join(", ").html_safe%></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
