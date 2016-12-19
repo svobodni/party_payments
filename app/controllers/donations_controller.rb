@@ -8,9 +8,10 @@ class DonationsController < ApplicationController
     @organization = Organization.find_by_id(params[:organization_id])
     @donations = @organization ? @organization.donations : Donation.all
     @donations = @donations.includes(accountings:[accountable: [payments: :payment]])
-    @donations = @donations.order(created_at: :desc).page params[:page]
     respond_to do |format|
-      format.html
+      format.html {
+        @donations = @donations.order(created_at: :desc).page params[:page]
+      }
       format.xlsx
     end
   end
