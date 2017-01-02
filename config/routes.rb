@@ -5,8 +5,6 @@ Rails.application.routes.draw do
     resources :bank_accounts
     resources :bank_payments, only: [:show]
 
-    resources 'donation_form_submissions', only: [:create]
-
     resources :membership_fees
 
     resources :people, only: [:show]
@@ -91,6 +89,7 @@ Rails.application.routes.draw do
   end
 
   resources :invoices, path: 'faktury'
+  resources 'donation_form_submissions', only: [:create]
 
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/sessions/destroy'
