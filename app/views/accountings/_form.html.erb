@@ -1,20 +1,7 @@
-<%= simple_form_for(@accounting) do |f| %>
-  <% if @accounting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@accounting.errors.count, "error") %> prohibited this accounting from being saved:</h2>
-
-      <ul>
-      <% @accounting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= simple_form_for(@accounting,  html: { class: 'form-horizontal' }) do |f| %>
   <%= f.input :accountable_type %>
   <%= f.input :accountable_id %>
   <%= f.input :budget_category_id, collection: @accounting.accountable.organization.budget_categories.order(year: :desc), label_method: ->(p){ "#{p.year} - #{p.name}"} %>
-  <%= f.input :tag_list %>
   <%= f.input :amount %>
-  <%= f.submit %>
+  <%= f.button :submit, class: "btn-primary pull-right"%>
 <% end %>
