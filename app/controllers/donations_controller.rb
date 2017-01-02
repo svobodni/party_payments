@@ -54,9 +54,11 @@ class DonationsController < ApplicationController
   # POST /donations
   # POST /donations.json
   def create
+    @bank_payment = BankPayment.find(params[:donation][:bank_payment_id])
     @donation = Donation.new(donation_params)
-    @donation.payments.build(payment: BankPayment.find(params[:donation][:bank_payment_id]))
+    @donation.payments.build(payment: @bank_payment)
     @donation.payments.first.amount = params[:donation][:amount]
+    @donation.received_on = @bank_payment.paid_on
     #@donation.accountings.build(budget_category_id: params[:donation][:budget_category_id])
     #@donation.accountings.first.amount = params[:donation][:amount]
     authorize! :create, @donation

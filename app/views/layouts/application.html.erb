@@ -78,6 +78,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <% if @organization %>
           <ul class="nav nav-sidebar">
+            <li><%=link_to "Přehled", organization_path(@organization) %></li>
             <li><%=link_to "Rozpočet", organization_budget_categories_path(@organization) %></li>
             <% if @year.to_i<2017 || @organization.id==100 %>
             <li><%=link_to "Banka", organization_bank_payments_path(@organization) %>
