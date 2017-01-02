@@ -1,80 +1,89 @@
 <% page_title "Přijatá faktura" %>
 
 <div class="jumbotrons">
+  <p class="pull-right">
+  <% if can? :update, @invoice %>
+  <%= link_to 'Upravit', edit_invoice_path(@invoice), class: "btn btn-default btn-primary" %>
+  <% end %>
+  <%= link_to "Zobrazit PDF", @invoice.document.url, class: "btn btn-default btn-info" %>
+  </p>
   <h2><small><%= @invoice.organization.try(:name) %>: </small>
-      <%= @invoice.description %></h2>
-  <p><%= link_to "Zobrazit PDF", @invoice.document.url, class: "btn btn-default" %></p>
+  <%= @invoice.description %></h2>
+
 </div>
 
-<div class="row">
-  <div class="col-xs-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h2 class="panel-title">Platební instrukce</h2>
-      </div>
-      <div class="panel-body">
-        <table class="table">
-          <tr><th>Částka:</th><td><%= @invoice.amount %></td></tr>
-          <tr><th>Variabilní symbol:</th><td><%= @invoice.vs %></td></tr>
-          <% unless @invoice.ss.blank? %>
-          <tr><th>Specifický symbol:</th><td><%= @invoice.ss %></td></tr>
-          <% end %>
-          <% unless @invoice.ks.blank? %>
-          <tr><th>Konstantní symbol:</th><td><%= @invoice.ks %></td></tr>
-          <% end %>
-          <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.      bank_code  %></td></tr>
-        </table>
-       <% if can? :update, @invoice %>
-       <%= link_to 'Upravit', edit_invoice_path(@invoice), class: "btn btn-default" %>
-       <% end %>
-      </div>
-    </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Platební instrukce</h2>
   </div>
-  <div class="col-xs-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h2 class="panel-title">Úhrada</h2>
-      </div>
-      <div class="panel-body">
-        <table class="table">
-        <thead>
-          <tr><th>Datum úhrady</th><th>Částka</th></tr>
-        </thead>
-        <tbody>
-          <% for payment in @invoice.payments %>
-          <tr><td><%= link_to payment.payment.paid_on, payment %></td><td><%= payment.    amount %></td></tr>
-          <% end %>
-        <tbody>
-        </table>
-      </div>
-    </div>
+  <div class="panel-body">
+    <table class="table">
+      <tr><th>Částka:</th><td><%= number_to_currency @invoice.amount %></td></tr>
+      <tr><th>Variabilní symbol:</th><td><%= @invoice.vs %></td></tr>
+      <% unless @invoice.ss.blank? %>
+      <tr><th>Specifický symbol:</th><td><%= @invoice.ss %></td></tr>
+      <% end %>
+      <% unless @invoice.ks.blank? %>
+      <tr><th>Konstantní symbol:</th><td><%= @invoice.ks %></td></tr>
+      <% end %>
+      <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.bank_code  %></td></tr>
+    </table>
   </div>
-  <div class="col-xs-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h2 class="panel-title">Zaúčtování v rozpočtu</h2>
-      </div>
-      <div class="panel-body">
-        <table class="table">
-        <thead>
-          <tr><th>Kategorie</th><th>Částka</th></tr>
-        </thead>
-        <tbody>
-          <% for accounting in @invoice.accountings %>
-          <tr><td><%= link_to accounting.budget_category.name, accounting.    budget_category if accounting.budget_category %><br/><%= accounting.tag_list %></td><td><%= accounting.amount %></td><td><%= link_to "Upravit",     edit_accounting_path(accounting) %></td></tr>
-          <% end %>
-        <tbody>
-        </table>
+</div>
 
-        <%= simple_form_for(@invoice.accountings.build(amount: @invoice.accounting_remainder), html: { class: 'form-horizontal' }) do |f| %>
-          <%= f.hidden_field :accountable_type %>
-          <%= f.hidden_field :accountable_id %>
-          <%= f.input :budget_category_id, collection: @invoice.organization.budget_categories.order(year: :desc), label_method: ->(p){ "#{p.year} - #{p.name}"} %>
-          <%= f.input :amount %>
-          <%= f.input :tag_list %>
-          <%= f.submit %>
-        <% end unless @invoice.accounting_remainder == 0%>
-      </div>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Úhrada</h2>
+  </div>
+  <div class="panel-body">
+    <div class="alert alert-danger text-center">
+      Schválení <strong>nevyznačeno</strong>.
     </div>
+    <table class="table">
+    <thead>
+      <tr><th>Datum úhrady</th><th>Částka</th></tr>
+    </thead>
+    <tbody>
+      <% for payment in @invoice.payments %>
+      <tr><td><%= link_to l(payment.payment.paid_on), payment %></td><td><%= number_to_currency payment.amount %></td></tr>
+      <% end %>
+    <tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Zaúčtování v rozpočtu</h2>
+  </div>
+  <div class="panel-body">
+    <% if @invoice.accountings.empty? %>
+    <div class="alert alert-danger text-center">
+      Zatím <strong>nezaúčtováno</strong>.
+    </div>
+    <% else %>
+    <table class="table">
+    <thead>
+      <tr><th>Kategorie</th><th>Částka</th><th></th></tr>
+    </thead>
+    <tbody>
+      <% for accounting in @invoice.accountings %>
+      <tr>
+        <td><%= link_to "#{accounting.budget_category.year} - #{accounting.budget_category.name}", accounting.budget_category if accounting.budget_category %><br/><%= accounting.tag_list %></td>
+        <td><%= number_to_currency accounting.amount %></td>
+        <td><%= link_to "Upravit", edit_accounting_path(accounting), class: "btn btn-primary btn-xs" %></td>
+      </tr>
+      <% end %>
+    <tbody>
+    </table>
+    <% end %>
+
+    <%= simple_form_for(@invoice.accountings.build(amount: @invoice.accounting_remainder), html: { class: 'form-horizontal' }) do |f| %>
+      <%= f.hidden_field :accountable_type %>
+      <%= f.hidden_field :accountable_id %>
+      <%= f.input :budget_category_id, collection: @invoice.organization.budget_categories.order(year: :desc), label_method: ->(p){ "#{p.year} - #{p.name}"} %>
+      <%= f.input :amount %>
+      <%= f.button :submit, class: "btn-primary pull-right" %>
+    <% end unless @invoice.accounting_remainder == 0%>
   </div>
 </div>

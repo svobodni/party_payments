@@ -38,7 +38,7 @@ Rails.application.routes.draw do
           get 'unrecognized', to: 'invoices#unrecognized', path: 'neprirazene'
           get 'unreaded', to: 'invoices#unreaded', path: 'nevytezene'
           get 'unpaid', to: 'invoices#unpaid', path: 'nezaplacene'
-          get 'unpaired', to: 'invoices#unapproved', path: 'nezauctovane'
+          get 'unpaired', to: 'invoices#unpaired', path: 'nezauctovane'
           get 'unapproved', to: 'invoices#unapproved', path: 'neschvalene'
         end
       end

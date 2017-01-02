@@ -39,9 +39,10 @@ cs:
         city: "Obec"
         zip: "PSČ"
       accounting:
-        budget_categorie_id: "Rozpočet"
+        budget_category_id: "Rozpočet"
         amount: "Částka"
-        tag_list: "Tagy"
+        accountable_type: "Typ dokladu"
+        accountable_id: "ID dokladu"
       invoice:
         document: "Dokument"
         amount: "Částka"
