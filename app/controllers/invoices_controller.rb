@@ -5,30 +5,36 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
+    @page_title = "Faktury - #{@organization.try(:name)}"
   end
 
   def unpaid
     @invoices = @invoices.reject{|p| p.payment_remainder == 0}
+    @page_title = "Nezaplacené faktury - #{@organization.try(:name)}"
     render :index
   end
 
   def unpaired
     @invoices = @invoices.reject{|p| p.accounting_remainder == 0}
+    @page_title = "Faktury nepřiřazené do rozpočtové kapitoly - #{@organization.try(:name)}"
     render :index
   end
 
   def unrecognized
     @invoices = @invoices.select{|p| p.organization.blank?}
+    @page_title = "Faktury nepřiřazené žádnému kraji ani republice"
     render :index
   end
 
   def unreaded
     @invoices = @invoices.select{|p| p.account_number.blank?}
+    @page_title = "Faktury čekající na vytěžení platebních instrukcí - #{@organization.try(:name)}"
     render :index
   end
 
   def unapproved
-    @invoices = @invoices.where.not(approved: true)
+#    @invoices = @invoices.where.not(approved: true)
+    @page_title = "Faktury čekající na vyznačení schválení - #{@organization.try(:name)}"
     render :index
   end
 

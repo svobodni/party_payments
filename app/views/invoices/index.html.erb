@@ -1,41 +1,43 @@
-<% page_title "Faktury - #{@organization.try(:name)}" %>
-
-<table id="invoices" class="table table-striped">
-  <thead>
-    <tr>
-      <th>Datum vložení</th>
-      <% unless @organization %>
-      <th>Organizace</th>
-      <% end %>
-      <% if params[:only]!="unreaded" %>
-      <th>Částka</th>
-      <th>K úhradě</th>
-      <th>VS</th>
-      <% end %>
-      <th>Popis</th>
-      <th>Akce</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @invoices.each do |invoice| %>
+<% if @invoices.empty? %>
+  <div class="alert alert-success text-center">
+    <%= fa_icon "check-circle 4x" %><br/>
+    Máte vše <strong>hotovo!</strong>
+  </div>
+<% else %>
+  <table id="invoices" class="table table-striped">
+    <thead>
       <tr>
-        <td data-order="<%=invoice.created_at%>">Před <%= time_ago_in_words(invoice.created_at) %></td>
+        <th>Datum vložení</th>
         <% unless @organization %>
-        <td><%= invoice.organization.try(:name) %></td>
+        <th>Organizace</th>
         <% end %>
         <% if params[:only]!="unreaded" %>
-        <td><%= invoice.amount %></td>
-        <td><%= invoice.payment_remainder==0 ? "zaplaceno" : invoice.payment_remainder  %></td>
-        <td><%= invoice.vs %></td>
+        <th>Částka</th>
+        <th>K úhradě</th>
+        <th>VS</th>
         <% end %>
-        <td><%= link_to invoice.description.blank? ? "- bez popisu -" : invoice.description, invoice %></td>
-        <td><%= link_to("Zaplatit", export_to_fio_invoice_path(invoice), method: :post, class: "btn btn-xs btn-info") if invoice.is_exportable? if can?(:pay, invoice)%></td>
+        <th>Popis</th>
+        <th>Akce</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
-<%= datatable(:invoices) %>
+    <tbody>
+      <% @invoices.each do |invoice| %>
+        <tr>
+          <td data-order="<%=invoice.created_at%>">Před <%= time_ago_in_words(invoice.created_at) %></td>
+          <% unless @organization %>
+          <td><%= invoice.organization.try(:name) %></td>
+          <% end %>
+          <% if params[:only]!="unreaded" %>
+          <td><%= invoice.amount %></td>
+          <td><%= invoice.payment_remainder==0 ? "zaplaceno" : invoice.payment_remainder  %></td>
+          <td><%= invoice.vs %></td>
+          <% end %>
+          <td><%= link_to invoice.description.blank? ? "- bez popisu -" : invoice.description, invoice %></td>
+          <td><%= link_to("Zaplatit", export_to_fio_invoice_path(invoice), method: :post, class: "btn btn-xs btn-info") if invoice.is_exportable? if can?(:pay, invoice)%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= datatable(:invoices) if @invoices.size > 20 %>
+<% end %>

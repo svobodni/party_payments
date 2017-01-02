@@ -68,6 +68,7 @@ gem 'rails-assets-bootstrap'
 gem 'rails-assets-angular'
 gem 'rails-assets-angular-ui-router'
 gem 'rails-assets-ng-grid'
+gem 'font-awesome-rails'
 
 # PDF
 gem 'prawn'

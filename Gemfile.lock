@@ -90,6 +90,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     friendly_id (5.2.0)
       activerecord (>= 4.0.0)
     hashie (3.4.0)
@@ -267,6 +269,7 @@ DEPENDENCIES
   configatron
   factory_girl_rails
   fio_api!
+  font-awesome-rails
   friendly_id
   jbuilder (~> 2.0)
   jquery-rails

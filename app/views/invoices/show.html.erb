@@ -39,6 +39,7 @@
     <div class="alert alert-danger text-center">
       Schválení <strong>nevyznačeno</strong>.
     </div>
+    <p class="text-center"><%= link_to("Zaplatit", export_to_fio_invoice_path(@invoice), method: :post, class: "btn btn-primary") if @invoice.is_exportable? if can?(:pay, @invoice)%></p>
     <table class="table">
     <thead>
       <tr><th>Datum úhrady</th><th>Částka</th></tr>
