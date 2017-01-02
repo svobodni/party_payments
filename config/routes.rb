@@ -37,11 +37,11 @@ Rails.application.routes.draw do
       resources :budget_categories, path: 'rozpocet', only: [:index, :new]
       resources :invoices, path: 'faktury', only: [:index, :new] do
         collection do
-          get 'unrecognized', to: 'invoices#index', only: :unrecognized, path: 'neprirazene'
-          get 'unreaded', to: 'invoices#index', only: :unreaded, path: 'nevytezene'
-          get 'unpaid', to: 'invoices#index', only: :unpaid, path: 'nezaplacene'
-          get 'unpaired', to: 'invoices#index', only: :unapproved, path: 'nezauctovane'
-          get 'unapproved', to: 'invoices#index', only: :unapproved, path: 'neschvalene'
+          get 'unrecognized', to: 'invoices#unrecognized', path: 'neprirazene'
+          get 'unreaded', to: 'invoices#unreaded', path: 'nevytezene'
+          get 'unpaid', to: 'invoices#unpaid', path: 'nezaplacene'
+          get 'unpaired', to: 'invoices#unapproved', path: 'nezauctovane'
+          get 'unapproved', to: 'invoices#unapproved', path: 'neschvalene'
         end
       end
       resources :tags, only: [:index]

@@ -1,27 +1,35 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :edit, :update, :destroy, :export_to_fio]
+  before_action :set_invoices, only: [:index, :unpaid, :unpaired, :unrecognized, :unreaded, :unapproved]
 
   # GET /invoices
   # GET /invoices.json
   def index
-    # @organization = Organization.find_by_id(params[:organization_id])
-    if @organization
-      @invoices = @organization.invoices
-    else
-      @invoices = Invoice.all
-    end
-    if params[:only]=="unpaid"
-      @invoices = @invoices.reject{|p| p.payment_remainder == 0}
-    elsif params[:only]=="unpaired"
-      @invoices = @invoices.reject{|p| p.accounting_remainder == 0}
-    elsif params[:only]=="unrecognized"
-      @invoices = @invoices.select{|p| p.organization.blank?}
-    elsif params[:only]=="unreaded"
-      @invoices = @invoices.select{|p| p.account_number.blank?}
-    elsif params[:only]=="unapproved"
-      @invoices = @invoices.where.not(approved: true)
-    end
+  end
 
+  def unpaid
+    @invoices = @invoices.reject{|p| p.payment_remainder == 0}
+    render :index
+  end
+
+  def unpaired
+    @invoices = @invoices.reject{|p| p.accounting_remainder == 0}
+    render :index
+  end
+
+  def unrecognized
+    @invoices = @invoices.select{|p| p.organization.blank?}
+    render :index
+  end
+
+  def unreaded
+    @invoices = @invoices.select{|p| p.account_number.blank?}
+    render :index
+  end
+
+  def unapproved
+    @invoices = @invoices.where.not(approved: true)
+    render :index
   end
 
   # GET /invoices/1
@@ -102,6 +110,14 @@ class InvoicesController < ApplicationController
     def set_invoice
       @invoice = Invoice.find(params[:id])
       @organization=@invoice.organization
+    end
+
+    def set_invoices
+      if @organization
+        @invoices = @organization.invoices
+      else
+        @invoices = Invoice.all
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
