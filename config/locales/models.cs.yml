@@ -38,6 +38,7 @@ cs:
         street: "Ulice a číslo"
         city: "Obec"
         zip: "PSČ"
+        person_id: "ID osoby"
       accounting:
         budget_category_id: "Rozpočet"
         amount: "Částka"

@@ -6,7 +6,7 @@
   <%= f.input :organization_id, collection: @organizations%>
   <%= f.input :amount %>
   <%= f.input :donor_type, collection: {"Osoba" => :natural, "Firma" => :juristic}, include_blank: false %>
-  <%= f.input :person_id, wrapper: :horizontal_input_group do %>
+  <%= f.input :person_id, hint: "Vložte ID osoby a klikněte pro načtení údajů z registru", wrapper: :horizontal_input_group do %>
 
     <%= f.input_field :person_id, class: "form-control" %>
     <span class="input-group-addon"><a href="#" id="load_person">Načíst z registru</a></span>
@@ -21,7 +21,6 @@
   <%= f.input :email %>
   <%= f.button :submit, class: "btn-primary pull-right" %>
 <% end %>
-
 
 <script>
 $( 'form' ).on( 'click', '#load_person' , function( event ) {
