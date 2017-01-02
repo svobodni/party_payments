@@ -1,7 +1,7 @@
 <% page_title "Rozpočet - #{@organization.name} - #{@year}" %>
 
 <% if can? :create, BudgetCategory.new(organization_id: params[:organization_id]) %>
-<%= link_to '+ Nová položka rozpočtu', new_budget_category_path(organization_id: params[:organization_id], year: params[:year]), class: "btn btn-xs btn-primary pull-right" %>
+<%= link_to '+ Nová položka rozpočtu', new_organization_budget_category_path(params[:organization_id], year: params[:year]), class: "btn btn-xs btn-primary pull-right" %>
 <% end %>
 
 <% @budget_categories.group_by(&:budget_category_type).each do |type,values| %>

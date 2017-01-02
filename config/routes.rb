@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       resources :donation_form_submissions, only: [:index, :show]
       resources :bank_payments, only: [:index]
       resources :gopay_payments, only: [:index]
-      resources :budget_categories, path: 'rozpocet', only: [:index]
+      resources :budget_categories, path: 'rozpocet', only: [:index, :new]
       resources :invoices, path: 'faktury', only: [:index, :new] do
         collection do
           get 'unrecognized', to: 'invoices#index', only: :unrecognized, path: 'neprirazene'
