@@ -6,4 +6,7 @@ class Organization < ActiveRecord::Base
   has_many :bank_payments
 
   acts_as_tagger
+
+  extend FriendlyId
+  friendly_id :slug, use: [:slugged, :finders]
 end

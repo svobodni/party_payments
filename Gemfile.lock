@@ -90,6 +90,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    friendly_id (5.2.0)
+      activerecord (>= 4.0.0)
     hashie (3.4.0)
     hike (1.2.3)
     hitimes (1.2.2)
@@ -265,6 +267,7 @@ DEPENDENCIES
   configatron
   factory_girl_rails
   fio_api!
+  friendly_id
   jbuilder (~> 2.0)
   jquery-rails
   kaminari

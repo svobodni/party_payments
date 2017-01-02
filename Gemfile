@@ -86,3 +86,5 @@ gem 'cancancan', '~> 1.10'
 
 # paginace
 gem 'kaminari'
+
+gem 'friendly_id'

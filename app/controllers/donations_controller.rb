@@ -5,9 +5,14 @@ class DonationsController < ApplicationController
   # GET /donations
   # GET /donations.json
   def index
-    @organization = Organization.find_by_id(params[:organization_id])
+#    @organization = Organization.find_by_id(params[:organization_id])
     @donations = @organization ? @organization.donations : Donation.all
     @donations = @donations.includes(accountings:[accountable: [payments: :payment]])
+
+    if params[:year]
+      @donations = @donations.where("received_on >= ? AND received_on <= ?", "#{params[:year]}-01-01", "#{params[:year]}-12-31")
+    end
+
     respond_to do |format|
       format.html {
         @donations = @donations.order(created_at: :desc).page params[:page]

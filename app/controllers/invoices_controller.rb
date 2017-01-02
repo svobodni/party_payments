@@ -4,7 +4,7 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @organization = Organization.find_by_id(params[:organization_id])
+    # @organization = Organization.find_by_id(params[:organization_id])
     if @organization
       @invoices = @organization.invoices
     else
