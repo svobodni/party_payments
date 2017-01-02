@@ -4,7 +4,7 @@ class Invoice < ActiveRecord::Base
   has_many :accountings, as: :accountable
   has_many :payments, as: :payable
 
-  has_attached_file :document, path: ":rails_root/data/invoices/:id.pdf", url: "/invoices/:id.pdf"
+  has_attached_file :document, path: ":rails_root/data/invoices/:id.pdf", url: "/faktury/:id.pdf"
   validates_attachment :document, content_type: { content_type: ["application/pdf"] }
 
 

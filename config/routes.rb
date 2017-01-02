@@ -90,6 +90,7 @@ Rails.application.routes.draw do
     get "/", to: 'static_pages#index', as: :dashboard
   end
 
+  resources :invoices, path: 'faktury'
 
   get '/auth/:provider/callback', to: 'sessions#create'
   get '/sessions/destroy'
