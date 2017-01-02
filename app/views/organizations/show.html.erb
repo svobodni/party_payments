@@ -1,10 +1,10 @@
-<% page_title @organization.name %>
+<% page_title "#{@organization.name} #{@year}" %>
 
 <h2>Rozpočty</h2>
 <ul>
-	<% for year in (2014..2016) %>
+	<% for year in (2014..2017) %>
 	<li><%=link_to year, organization_budget_categories_path(@organization, :year=>year)%></li>
 	<%end%>
 </ul>
 
-<h2><%= link_to 'Faktury', organization_invoices_path(@organization, :year=>year)%></h2>
+<h2><%= link_to 'Faktury', organization_invoices_path(@organization)%></h2>

@@ -8,9 +8,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied, :with => :authorization_error
 
+  def default_url_options(options={})
+    { year: @year }
+  end
+
   def load_organizations
   	@organizations = Organization.order(:id).all
   	@organization = Organization.find(params[:organization_id]) if params[:organization_id]
+    @years = (2014..2017).to_a.reverse
+    @year = (params[:year] || 2017).to_i
   end
 
   def authenticate_person!

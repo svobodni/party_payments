@@ -48,10 +48,14 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <% if current_user %>
-            <li><%=link_to "#{current_user['name']} / LOGOUT", '/sessions/destroy' %></li>
+            <li><%=link_to "#{current_user['name']} / Odhlásit", '/sessions/destroy' %></li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= @organization.try(:name) || "Organizace" %> <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= @organization.try(:name) || "Organizace" %> <%=params[:year]%><span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
+                <% @years.each do |y| %>
+                  <li><%=link_to y, params.merge(year: y) %></li>
+                <% end %>
+                <li role="presentation" class="divider"></li>
                 <% @organizations.each do |organization| %>
                   <li><%= link_to organization.name, organization %><!--#organization_budget_categories_path(organization, year: Date.today.year) --></li>
                 <% end %>
@@ -74,47 +78,47 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <% if @organization %>
           <ul class="nav nav-sidebar">
-            <li><%=link_to "Rozpočty", organization_budget_categories_path(@organization, year: @year) %>
+            <li><%=link_to "Rozpočet", organization_budget_categories_path(@organization) %></li>
+            <% if @year.to_i<2017 || @organization.id==100 %>
+            <li><%=link_to "Banka", organization_bank_payments_path(@organization) %>
               <ul>
-                <% for year in (2014..2017).to_a.reverse %>
-                <li><%=link_to year, organization_budget_categories_path(@organization, year: year) %></li>
-                <% end %>
+                <li><%=link_to "Nespárované", organization_bank_payments_path(@organization, only: :unpaired) %></li>
+                <li><%=link_to "Příjmy", organization_bank_payments_path(@organization, only: :incoming) %></li>
+                <li><%=link_to "Výdaje", organization_bank_payments_path(@organization, only: :outgoing) %></li>
               </ul>
             </li>
-            <li><%=link_to "Banka", organization_bank_payments_path(@organization, year: @year) %>
-              <ul>
-                <li><%=link_to "Nespárované", organization_bank_payments_path(@organization, year: @year, only: :unpaired) %></li>
-                <li><%=link_to "Příjmy", organization_bank_payments_path(@organization, year: @year, only: :incoming) %></li>
-                <li><%=link_to "Výdaje", organization_bank_payments_path(@organization, year: @year, only: :outgoing) %></li>
-              </ul>
-            </li>
+            <% end %>
             <li><%=link_to "Faktury", organization_invoices_path(@organization) %>
               <ul>
-                <li><%=link_to "Nepřiřazené", organization_invoices_path(@organization, year: @year, only: :unrecognized) %></li>
-                <li><%=link_to "Nevytěžené", organization_invoices_path(@organization, year: @year, only: :unreaded) %></li>
-                <li><%=link_to "Nezaplacené", organization_invoices_path(@organization, year: @year, only: :unpaid) %></li>
-                <li><%=link_to "Nezaúčtované", organization_invoices_path(@organization, year: @year, only: :unpaired) %></li>
-                <% if can?(:create, Invoice.new(organization_id: @organization.id)) %>
-                <li><%=link_to "Nahrát novou", new_organization_invoice_path(@organization, year: @year) %></li>
-                <% end %>
+                <li><%=link_to "Nepřiřazené", unrecognized_organization_invoices_path(@organization) %></li>
+                <li><%=link_to "Nevytěžené", unreaded_organization_invoices_path(@organization) %></li>
+                <li><%=link_to "Nezaplacené", unpaid_organization_invoices_path(@organization) %></li>
+                <li><%=link_to "Nezaúčtované", unpaired_organization_invoices_path(@organization) %></li>
+                <li><%=link_to "Neschválené", unapproved_organization_invoices_path(@organization) %></li>
+                <%# if can?(:create, Invoice.new(organization_id: @organization.id)) %>
+                <%# if can?(:create, Invoice.new(organization_id: params[:organization_id])) %>
+                <li><%=link_to "Nahrát novou", new_organization_invoice_path(@organization) %></li>
+                <%# end %>
               </ul>
             </li>
             <% if @organization.id==100 %>
             <li><%=link_to "Bankovní účty", bank_accounts_path %></li>
-            <li><%=link_to "GoPay", organization_gopay_payments_path(@organization, year: @year) %></li>
-            <li><%=link_to "Darovací formulář", organization_donation_form_submissions_path(@organization, year: @year) %></li>
-            <li><%=link_to "Členské příspěvky", organization_membership_fees_path(@organization, year: @year) %>
-            <ul><li><%=link_to "Rozúčtování", distribution_organization_membership_fees_path(@organization, year: @year) %></li></ul>
+            <% if @year<2017 %>
+            <li><%=link_to "GoPay", organization_gopay_payments_path(@organization) %></li>
+            <% end %>
+            <li><%=link_to "Darovací formulář", organization_donation_form_submissions_path(@organization) %></li>
+            <li><%=link_to "Členské příspěvky", organization_membership_fees_path(@organization) %>
+            <ul><li><%=link_to "Rozúčtování", distribution_organization_membership_fees_path(@organization) %></li></ul>
             </li>
 
             <% end %>
-            <li><%=link_to "Dary", organization_donations_path(@organization, year: @year) %>
+            <li><%=link_to "Dary", organization_donations_path(@organization) %>
               <ul>
-              <li><%=link_to "Přijaté dary", organization_donations_path(@organization, year: @year) %></li>
-              <li><%=link_to "Přijaté dary nad 5000", above_limit_organization_donations_path(@organization, year: @year) %></li>
+              <li><%=link_to "Přijaté dary", organization_donations_path(@organization) %></li>
+              <li><%=link_to "Přijaté dary nad 5000", above_limit_organization_donations_path(@organization) %></li>
               </ul>
             </li>
-            <li><%=link_to "Tagy", organization_tags_path(@organization, year: @year) %></li>
+            <!-- <li><%=link_to "Tagy", organization_tags_path(@organization) %></li> -->
           </ul>
           <% end %>
         </div>

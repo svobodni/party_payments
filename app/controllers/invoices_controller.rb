@@ -18,6 +18,8 @@ class InvoicesController < ApplicationController
       @invoices = @invoices.select{|p| p.organization.blank?}
     elsif params[:only]=="unreaded"
       @invoices = @invoices.select{|p| p.account_number.blank?}
+    elsif params[:only]=="unapproved"
+      @invoices = @invoices.where.not(approved: true)
     end
 
   end

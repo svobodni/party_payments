@@ -4,10 +4,8 @@ class BudgetCategoriesController < ApplicationController
   # GET /budget_categories
   # GET /budget_categories.json
   def index
-    @year = params[:year]
     @organization = Organization.find(params[:organization_id])
     if params[:year]
-      @year = params[:year]
       @budget_categories = @organization.budget_categories.where(year: @year)
     else
       @budget_categories = @organization.budget_categories.order(year: :desc)
