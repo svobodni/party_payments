@@ -22,7 +22,7 @@ class DonationsController < ApplicationController
   end
 
   def above_limit
-    @organization = Organization.find_by_id(params[:organization_id])
+    # @organization = Organization.find_by_id(params[:organization_id])
     if @organization
       @donations = @organization.donations
     else

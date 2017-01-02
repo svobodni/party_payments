@@ -13,7 +13,9 @@
   </thead>
 
   <tbody>
+    <% total = 0%>
     <% @bank_accounts.each do |bank_account| %>
+      <% total += bank_account.balance %>
       <tr>
         <td><%= bank_account.name %></td>
         <td><%= bank_account.full_account_number %></td>
@@ -25,6 +27,11 @@
         </td>
       </tr>
     <% end %>
+    <tr>
+      <th>CELKEM</th>
+      <th></th>
+      <th><%= number_to_currency(total) %></th>
+    </tr>
   </tbody>
 </table>
 

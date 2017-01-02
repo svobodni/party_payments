@@ -29,12 +29,11 @@ class BankAccount < ActiveRecord::Base
   def import
     FioAPI.token = token
     list = FioAPI::List.new
-    list.by_date_range(Date.new(2016,11,03), Date.today)
-    # list.set_last_fetch_date(Date.new(2016,11,05))
-    # list.from_last_fetch
-    account = list.response.account
+    list.from_last_fetch
+    response = list.response
+    account = response.account
     update_attribute :balance, account.closing_balance
-    list.response.transactions.each { |transaction|
+    response.transactions.each { |transaction|
       BankPayment.create!(
         amount: transaction.amount,
         paid_on: Date.parse(transaction.date),
