@@ -13,7 +13,7 @@ class Invoice < ActiveRecord::Base
   end
 
   def payment_remainder
-  	amount.to_f-payments.sum(:amount)
+  	(amount||0)-payments.sum(:amount)
   end
 
   def is_exportable?
