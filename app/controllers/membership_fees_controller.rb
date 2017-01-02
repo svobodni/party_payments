@@ -4,7 +4,7 @@ class MembershipFeesController < ApplicationController
   # GET /membership_fees
   # GET /membership_fees.json
   def index
-    if params[:organization_id]!="100"
+    if @organization.id!=100
       @membership_fees = Organization.find(params[:organization_id]).membership_fees
     else
       @membership_fees = MembershipFee.all
