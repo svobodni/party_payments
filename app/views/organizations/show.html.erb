@@ -2,16 +2,7 @@
 
 <h2>Stav prostředků</h2>
 <table class="table table-stripped">
-	<tr><td>Na bankovním účtu</td><td><%=number_to_currency @organization.bank_balance || "nezjištěno"%></td></tr>
-	<tr><td>V pokladně</td><td><%=number_to_currency @organization.cash_balance || "nezjištěno"%></td></tr>
-	<tr><td>Celkem</td><td><%=number_to_currency((@organization.cash_balance||0) + (@organization.bank_balance||0)) || "nezjištěno"%></td></tr>
+	<tr><td>Na bankovním účtu</td><td><%=number_to_currency @bank_balance || "nezjištěno"%></td></tr>
+	<tr><td>V pokladně</td><td><%=number_to_currency @cash_balance || "nezjištěno"%></td></tr>
+	<tr><td>Celkem</td><td><%=number_to_currency(@balance) || "nezjištěno"%></td></tr>
 </table>
-
-<h2>Rozpočty</h2>
-<ul>
-	<% for year in (2014..2017) %>
-	<li><%=link_to year, organization_budget_categories_path(@organization, :year=>year)%></li>
-	<%end%>
-</ul>
-
-<h2><%= link_to 'Faktury', organization_invoices_path(@organization)%></h2>
