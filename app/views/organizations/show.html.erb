@@ -1,4 +1,11 @@
-<% page_title "#{@organization.name} #{@year}" %>
+<% page_title "#{@organization.name}" %>
+
+<h2>Stav prostředků</h2>
+<table class="table table-stripped">
+	<tr><td>Na bankovním účtu</td><td><%=number_to_currency @organization.bank_balance || "nezjištěno"%></td></tr>
+	<tr><td>V pokladně</td><td><%=number_to_currency @organization.cash_balance || "nezjištěno"%></td></tr>
+	<tr><td>Celkem</td><td><%=number_to_currency((@organization.cash_balance||0) + (@organization.bank_balance||0)) || "nezjištěno"%></td></tr>
+</table>
 
 <h2>Rozpočty</h2>
 <ul>
