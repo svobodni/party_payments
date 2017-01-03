@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102021604) do
+ActiveRecord::Schema.define(version: 20170103002138) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -65,6 +65,18 @@ ActiveRecord::Schema.define(version: 20170102021604) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "budget_category_type"
+  end
+
+  create_table "budgets", force: true do |t|
+    t.integer  "organization_id"
+    t.integer  "year"
+    t.decimal  "opening_balance",                   precision: 10, scale: 0
+    t.decimal  "opening_bank_balance",              precision: 10, scale: 0
+    t.decimal  "opening_cash_balance",              precision: 10, scale: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "membership_fee_budget_category_id"
+    t.integer  "donation_budget_category_id"
   end
 
   create_table "donation_form_submissions", force: true do |t|
@@ -132,6 +144,8 @@ ActiveRecord::Schema.define(version: 20170102021604) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "exported_to_fio"
+    t.date     "approved_on"
+    t.string   "approval_url"
   end
 
   create_table "membership_fees", force: true do |t|

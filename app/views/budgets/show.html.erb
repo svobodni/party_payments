@@ -1,5 +1,23 @@
 <% page_title "Rozpočet - #{@organization.name} - #{@year}" %>
 
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Počáteční stav</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <tbody>
+          <tr><td>Bankovní účty</td><td align='right'><%= number_to_currency @budget.opening_bank_balance %></td></tr>
+          <tr><td>Pokladna</td><td align='right'><%= number_to_currency @budget.opening_cash_balance %></td></tr>
+          <tr><th>Celkem</th><td align='right'><%= number_to_currency @budget.opening_balance %></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer text-right">
+    <%= link_to "Upravit", edit_organization_budget_path(@organization, year: @year), class: "btn btn-primary" %>
+  </div>
+</div>
+
 <% @budget_categories.group_by(&:budget_category_type).each do |type,values| %>
 <div class="panel panel-default">
   <div class="panel-heading">
@@ -45,5 +63,5 @@
 <% end %>
 
 <% if can? :create, BudgetCategory.new(organization_id: params[:organization_id]) %>
-<div><%= link_to '+ Nová rozpočtová kapitola', new_organization_budget_category_path(params[:organization_id], year: params[:year]), class: "btn btn-xs btn-primary pull-right" %></div>
+<div><%= link_to '+ Nová rozpočtová kapitola', new_organization_budget_category_path(params[:organization_id], year: params[:year]), class: "btn btn-primary pull-right" %></div>
 <% end %>

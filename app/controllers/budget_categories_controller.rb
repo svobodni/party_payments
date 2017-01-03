@@ -40,7 +40,7 @@ class BudgetCategoriesController < ApplicationController
 
     respond_to do |format|
       if @budget_category.save
-        format.html { redirect_to organization_budget_categories_path(@organization, year: @budget_category.year), notice: 'Rozpočtová kapitola byla úspěšně založena.' }
+        format.html { redirect_to organization_budget_path(@organization, year: @budget_category.year), notice: 'Rozpočtová kapitola byla úspěšně založena.' }
         format.json { render :show, status: :created, location: @budget_category }
       else
         format.html { render :new }
@@ -55,7 +55,7 @@ class BudgetCategoriesController < ApplicationController
     authorize! :update, @budget_category
     respond_to do |format|
       if @budget_category.update(budget_category_params)
-        format.html { redirect_to organization_budget_categories_path(@organization, year: @budget_category.year), notice: 'Rozpočtová kapitola byla úspěšně upravena.' }
+        format.html { redirect_to organization_budget_path(@organization, year: @budget_category.year), notice: 'Rozpočtová kapitola byla úspěšně upravena.' }
         format.json { render :show, status: :ok, location: @budget_category }
       else
         format.html { render :edit }

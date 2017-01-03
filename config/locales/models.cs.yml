@@ -3,6 +3,7 @@ cs:
   outcome: Výdaje
   activerecord:
     models:
+      budget: rozpočet
       donation: dar
       accounting: zaúčtování
       invoice: faktura
@@ -22,6 +23,20 @@ cs:
         amount: "Částka"
         account_name: "Název účtu"
         info: "Účel"
+        paid_on: "Datum úhrady"
+        amount: "Částka"
+        vs: "Variabilní symbol"
+        ks: "Konstatní symbol"
+        ss: "Specifický symbol"
+        payable_type: "Likvidace"
+        account_name: "Název účtu"
+        info: "Zpráva"
+      budget:
+        opening_balance: "Počáteční stav celkem"
+        opening_bank_balance: "Počáteční stav bankovních účtů"
+        opening_cash_balance: "Počáteční stav pokladny"
+        membership_fee_budget_category_id: "Kapitola pro členské příspěvky"
+        donation_budget_category_id: "Kapitola pro dary"
       budget_category:
         organization_id: "Organizace"
         year: "Rok"
@@ -39,6 +54,17 @@ cs:
         city: "Obec"
         zip: "PSČ"
         person_id: "ID osoby"
+      membership_fee:
+        organization_id: "Organizace"
+        received_on: "Datum přijetí úhrady"
+        donor_type: "Typ dárce"
+        amount: "Částka"
+        name: "Jméno"
+        street: "Ulice a číslo"
+        city: "Obec"
+        zip: "PSČ"
+        person_id: "ID osoby"
+        region_id: "Kraj"
       accounting:
         budget_category_id: "Rozpočet"
         amount: "Částka"

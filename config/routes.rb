@@ -7,8 +7,6 @@ Rails.application.routes.draw do
 
     resources :membership_fees
 
-    resources :people, only: [:show]
-
     resources :donations, path: 'dary' do
       member do
         get 'confirmation', path: 'potvrzeni'
@@ -16,10 +14,11 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :payments
+    resources :payments, path: 'platby'
 
     resources :accountings
 
+    resources :budgets
     resources :budget_categories
     resources :invoices, path: 'faktury' do
       member do
@@ -32,7 +31,8 @@ Rails.application.routes.draw do
       resources :donation_form_submissions, only: [:index, :show]
       resources :bank_payments, only: [:index]
       resources :gopay_payments, only: [:index]
-      resources :budget_categories, path: 'rozpocet', only: [:index, :new]
+      resources :budget_categories, path: 'rozpoctova_kapitola', only: [:index, :new]
+      resource :budget, path: 'rozpocet', only: [:show, :edit, :update]
       resources :invoices, path: 'faktury', only: [:index, :new] do
         collection do
           get 'unrecognized', to: 'invoices#unrecognized', path: 'neprirazene'
@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   end
 
   resources :invoices, path: 'faktury'
+  resources :people, only: [:show]
   resources 'donation_form_submissions', only: [:create]
 
   get '/auth/:provider/callback', to: 'sessions#create'
