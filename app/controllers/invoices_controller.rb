@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :export_to_fio]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :pay, :export_to_fio]
   before_action :set_invoices, only: [:index, :unpaid, :unpaired, :unrecognized, :unreaded, :unapproved]
 
   # GET /invoices
@@ -102,12 +102,16 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def pay
+    authorize! :pay, @invoice
+  end
+
   def export_to_fio
     authorize! :pay, @invoice
 
-    result = @invoice.import_transaction_to_fio
+    result = @invoice.import_transaction_to_fio(params[:invoice][:account], params[:invoice][:description])
 
-    redirect_to(:back, :notice => "Import do Fio banky proběhl. Výsledek: #{result.inspect}")
+    redirect_to(@invoice, :notice => "Import do Fio banky proběhl. Výsledek: #{result.inspect}")
   end
 
 

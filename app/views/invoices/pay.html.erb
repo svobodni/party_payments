@@ -1,0 +1,12 @@
+<% page_title "Odeslání příkazu do banky k autorizaci" %>
+<%= simple_form_for(@invoice, url: export_to_fio_invoice_path, method: :post, html: { class: 'form-horizontal' }) do |f| %>
+
+  <%= f.error_notification %>
+
+  <%= f.input :account, collection: BankAccount.all, value_method: :account_number,label_method: ->(p){ "#{p.full_account_number} - #{p.name}"}, include_blank: false %>
+  <%= f.input :description %>
+  <%= f.button :submit, "Odeslat příkaz", class: "btn btn-primary pull-right" %>
+
+<% end %>
+<%= link_to "Zobrazit", @invoice, class: "btn btn-info" %>
+<%= link_to "Zobrazit PDF", @invoice.document.url, class: "btn btn-default btn-info" %>

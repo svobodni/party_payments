@@ -7,6 +7,7 @@ class Invoice < ActiveRecord::Base
   has_attached_file :document, path: ":rails_root/data/invoices/:id.pdf", url: "/faktury/:id.pdf"
   validates_attachment :document, content_type: { content_type: ["application/pdf"] }
 
+  attr_accessor :account
 
   def accounting_remainder
   	(amount||0)-accountings.sum(:amount)
@@ -20,19 +21,20 @@ class Invoice < ActiveRecord::Base
     !(exported_to_fio? || payment_remainder==0 || account_number.blank? || bank_code.blank?)
   end
 
-  def import_transaction_to_fio
-    FioAPI.token = organization.token
+  def import_transaction_to_fio(our_account_number,desc=description)
+    account=BankAccount.find_by_account_number(our_account_number)
+    FioAPI.token = account.token
 
     domestic_transaction = DomesticTransaction.new(
-    :account_from => organization.account_number,
+    :account_from => our_account_number,
     :currency => 'CZK',
     :amount => amount,
     :account_to => account_number,
     :bank_code => bank_code,
     :vs => vs || '',
     :date => Date.today,
-    :message_for_recipient => description,
-    :comment => description
+    :message_for_recipient => desc,
+    :comment => desc
     )
 
     result = domestic_transaction.import

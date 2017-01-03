@@ -34,7 +34,7 @@
           <td><%= invoice.vs %></td>
           <% end %>
           <td><%= link_to invoice.description.blank? ? "- bez popisu -" : invoice.description, invoice %></td>
-          <td><%= link_to("Zaplatit", export_to_fio_invoice_path(invoice), method: :post, class: "btn btn-xs btn-info") if invoice.is_exportable? if can?(:pay, invoice)%></td>
+          <td><%= link_to("Zaplatit", pay_invoice_path(invoice), class: "btn btn-xs btn-info") if invoice.is_exportable? if can?(:pay, invoice)%></td>
         </tr>
       <% end %>
     </tbody>
