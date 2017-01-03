@@ -7,8 +7,8 @@
   <%= f.input :opening_bank_balance %>
   <%= f.input :opening_cash_balance %>
   <%= f.input :opening_balance %>
-  <%= f.input :membership_fee_budget_category_id, collection: @organization.budget_categories.where(year: @budget.year), label_method: ->(p){ "#{p.year} - #{p.name}"} %>
-  <%= f.input :donation_budget_category_id, collection: @organization.budget_categories.where(year: @budget.year), label_method: ->(p){ "#{p.year} - #{p.name}"} %>
+  <%= f.input :membership_fee_budget_category_id, collection: @organization.budget_categories.where(year: @budget.year), label_method: ->(p){ "#{p.year} - #{p.organization.name} - #{p.name}"} %>
+  <%= f.input :donation_budget_category_id, collection: @organization.budget_categories.where(year: @budget.year), label_method: ->(p){ "#{p.year} - #{p.organization.name} - #{p.name}"} %>
   <%#= f.input :donor_type, collection: {"Osoba" => :natural, "Firma" => :juristic}, include_blank: false %>
   <%= f.button :submit, class: "btn-primary pull-right" %>
 <% end %>

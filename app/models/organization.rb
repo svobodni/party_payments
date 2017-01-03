@@ -4,6 +4,7 @@ class Organization < ActiveRecord::Base
   has_many :donations
   has_many :membership_fees, foreign_key: :region_id
   has_many :bank_payments
+  has_many :budgets
 
   acts_as_tagger
 
