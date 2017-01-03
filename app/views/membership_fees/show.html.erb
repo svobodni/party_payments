@@ -1,8 +1,26 @@
 <% @page_title = "Detail úhrady členského příspěvku" %>
 <table class="table">
-  <tr><th><%=t :region_id%></th><td><%= @membership_fee.region.try(:name) %></td></tr>
-  <tr><th><%=t :received_on%></th><td><%= l @membership_fee.received_on %></td></tr>
-  <tr><th><%=t :amount%></th><td><%= @membership_fee.amount %></td></tr>
-  <tr><th><%=t :person_id%></th><td><%= @membership_fee.person_id %></td></tr>
-  <tr><th><%=t :name%></th><td><%= @membership_fee.name %></td></tr>
+  <tr><th><%=MembershipFee.human_attribute_name(:region_id)%></th><td><%= @membership_fee.region.try(:name) %></td></tr>
+  <tr><th><%=MembershipFee.human_attribute_name(:received_on)%></th><td><%= l @membership_fee.received_on %></td></tr>
+  <tr><th><%=MembershipFee.human_attribute_name(:amount)%></th><td><%= number_to_currency @membership_fee.amount %></td></tr>
+  <tr><th><%=MembershipFee.human_attribute_name(:person_id)%></th><td><%= link_to @membership_fee.person_id, person_path(@membership_fee.person_id) %></td></tr>
+  <tr><th><%=MembershipFee.human_attribute_name(:name)%></th><td><%= @membership_fee.name %></td></tr>
 </table>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Zaúčtování</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+    <% @membership_fee.accountings.each do |accounting| %>
+      <tr>
+        <td><%= accounting.budget_category.organization.name %></td>
+        <td><%= accounting.budget_category.year %></td>
+        <td><%= link_to accounting.budget_category.name, accounting.budget_category %></td>
+        <td><%= number_to_currency accounting.amount %></td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
