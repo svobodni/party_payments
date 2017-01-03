@@ -1,5 +1,7 @@
 class Invoice < ActiveRecord::Base
 
+  has_many :events, as: :eventable
+
   belongs_to :organization
   has_many :accountings, as: :accountable
   has_many :payments, as: :payable

@@ -42,6 +42,10 @@ class InvoicesController < ApplicationController
   # GET /invoices/1.json
   # GET /invoices/1.pdf
   def show
+    @invoice.events.create(default_event_params.merge({
+      name: "InvoiceDisplayed",
+      data: params
+    }))
     respond_to do |format|
       format.html
       format.json
@@ -67,7 +71,11 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
+        @invoice.events.create(default_event_params.merge({
+          name: "InvoiceCreated",
+          changes: @invoice.previous_changes
+        }))
+        format.html { redirect_to @invoice, notice: 'Faktura byla úspěšně uložena.' }
         format.json { render :show, status: :created, location: @invoice }
       else
         format.html { render :new }
@@ -82,7 +90,11 @@ class InvoicesController < ApplicationController
     authorize! :update, @invoice
     respond_to do |format|
       if @invoice.update(invoice_params)
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
+        @invoice.events.create(default_event_params.merge({
+          name: "InvoiceUpdated",
+          changes: @invoice.previous_changes
+        }))
+        format.html { redirect_to @invoice, notice: 'Faktura byla úspěšně upravena.' }
         format.json { render :show, status: :ok, location: @invoice }
       else
         format.html { render :edit }
@@ -93,14 +105,14 @@ class InvoicesController < ApplicationController
 
   # DELETE /invoices/1
   # DELETE /invoices/1.json
-  def destroy
-    authorize! :destroy, @invoice
-    @invoice.destroy
-    respond_to do |format|
-      format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
+  # def destroy
+  #   authorize! :destroy, @invoice
+  #   @invoice.destroy
+  #   respond_to do |format|
+  #     format.html { redirect_to invoices_url, notice: 'Invoice was successfully destroyed.' }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   def pay
     authorize! :pay, @invoice
@@ -110,6 +122,10 @@ class InvoicesController < ApplicationController
     authorize! :pay, @invoice
 
     result = @invoice.import_transaction_to_fio(params[:invoice][:account], params[:invoice][:description])
+    @invoice.events.create(default_event_params.merge({
+      name: "InvoicePaid",
+      data: result.inspect
+    }))
 
     redirect_to(@invoice, :notice => "Import do Fio banky proběhl. Výsledek: #{result.inspect}")
   end

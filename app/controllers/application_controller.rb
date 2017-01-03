@@ -28,4 +28,15 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 
+  def default_event_params
+    {
+    requestor_id: current_user[:id],
+    params: params,
+    controller_path: controller_path,
+    action_name: action_name,
+    remote_ip: request.remote_ip,
+    referer: request.referer
+    }
+  end
+
 end
