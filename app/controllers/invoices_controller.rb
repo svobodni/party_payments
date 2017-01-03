@@ -61,6 +61,7 @@ class InvoicesController < ApplicationController
   # GET /invoices/1/edit
   def edit
     authorize! :update, @invoice
+    render layout: 'invoice_edit'
   end
 
   # POST /invoices

@@ -1,16 +1,15 @@
-<% page_title "Úprava faktury" %>
+<% page_title "Úprava faktury #{@invoice.id}" %>
 
 <div class="row">
-
-<div class="col-xs-10" style="width:800px">
-<object type="application/pdf" data="<%= @invoice.document.url%>" width="800" height="1100">this is not working as expected</object>
+  <div class="col-md-6">
+    <iframe id="attachment_display" src="<%= @invoice.document.url%>"></iframe>
+    <p>
+      <%= link_to("#{@invoice.id}.pdf", @invoice.document.url) %>
+    </p>
+  </div>
+  <div class="col-md-6">
+    <%= render 'form' %>
+  </div>
 </div>
 
-<div class="col-xs-2" style="margin-left: 1em">
-<%= render 'form' %>
-</div>
-
-</div>
-
-<%= link_to 'Show', @invoice %> |
-<%= link_to 'Back', invoices_path %>
+<%= link_to "Zpět", @invoice, class: "btn btn-default" %>
