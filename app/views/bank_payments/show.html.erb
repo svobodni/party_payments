@@ -1,3 +1,17 @@
 <% page_title "Detail pohybu na bankovním účtu" %>
 
-<pre><%= JSON.pretty_generate(JSON.parse(@bank_payment.to_json)) %></pre>
+<table class="table">
+  <tr><th><%=BankPayment.human_attribute_name(:paid_on)%></th><td><%= l @bank_payment.paid_on %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:amount)%></th><td><%= number_to_currency @bank_payment.amount %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:account_name)%></th><td><%= @bank_payment.account_name %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:info)%></th><td><%= @bank_payment.info %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:vs)%></th><td><%= @bank_payment.vs %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:ss)%></th><td><%= @bank_payment.ss %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:ks)%></th><td><%= @bank_payment.ks %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:transaction_id)%></th><td><%= @bank_payment.transaction_id %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:paid_on)%></th><td><%= l @bank_payment.paid_on %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:amount)%></th><td><%= @bank_payment.amount %> <%= @bank_payment.currency %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:account_number)%></th><td><%= @bank_payment.account_number %>/<%= @bank_payment.bank_code %></td></tr>
+  <tr><th><%=BankPayment.human_attribute_name(:our_account_number)%></th><td><%= @bank_payment.our_account_number %>/<%= @bank_payment.our_bank_code %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:payable_type)%></th><td><%= @bank_payment.payments.collect{|p| p.payable}.collect{|p| link_to("#{p.class.model_name.human} #{p.try(:name)}", p)}.join.html_safe %></td></tr>
+</table>

@@ -1,14 +1,14 @@
 <% @page_title = "Detail úhrady" %>
 <table class="table">
-  <tr><th><%=BankPayment.human_attribute_name(:payment_type)%></th><td><%= @payment.payment_type %></td></tr>
-  <tr><th><%=BankPayment.human_attribute_name(:paid_on)%></th><td><%= l @payment.payment.paid_on %></td></tr>
-  <tr><th><%=BankPayment.human_attribute_name(:amount)%></th><td><%= number_to_currency @payment.payment.amount %></td></tr>
-  <tr><th><%=BankPayment.human_attribute_name(:account_name)%></th><td><%= @payment.payment.account_name %></td></tr>
-  <tr><th><%=BankPayment.human_attribute_name(:info)%></th><td><%= @payment.payment.info %></td></tr>
-  <tr><th><%=BankPayment.human_attribute_name(:vs)%></th><td><%= @payment.payment.vs %></td></tr>
-  <tr><th><%=BankPayment.human_attribute_name(:ss)%></th><td><%= @payment.payment.ss %></td></tr>
-  <tr><th><%=BankPayment.human_attribute_name(:ks)%></th><td><%= @payment.payment.ks %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:payment_type)%></th><td><%= @payment.payment_type %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:paid_on)%></th><td><%= l @payment.payment.paid_on %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:amount)%></th><td><%= number_to_currency @payment.payment.amount %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:account_name)%></th><td><%= @payment.payment.account_name %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:info)%></th><td><%= @payment.payment.info %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:vs)%></th><td><%= @payment.payment.vs %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:ss)%></th><td><%= @payment.payment.ss %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:ks)%></th><td><%= @payment.payment.ks %></td></tr>
 
-  <tr><th><%=BankPayment.human_attribute_name(:payable_type) %></th><td><%= link_to t(@payment.payable_type), @payment.payable %></td></tr>
+  <tr><th><%=Payment.human_attribute_name(:payable_type) %></th><td><%= link_to t(@payment.payable_type), @payment.payable %></td></tr>
 
 </table>

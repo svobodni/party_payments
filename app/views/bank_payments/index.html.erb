@@ -19,7 +19,7 @@
   <tbody>
     <% @bank_payments.each do |bank_payment| %>
       <tr>
-        <td><%= bank_payment.id %></td>
+        <td><%= link_to bank_payment.id, bank_payment %></td>
         <td data-order="<%=bank_payment.paid_on%>"><%= l bank_payment.paid_on %></td>
         <td><%= bank_payment.amount %></td>
         <td><%= bank_payment.remaining_amount %></td>
@@ -35,6 +35,7 @@
           <% if can? :create, MembershipFee.new %>
           <%= link_to "Nový příspěvek", new_membership_fee_path(vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 && @organization.id==100%>
           <% end %>
+          <%= link_to "Detail", bank_payment, class: "btn btn-default btn-xs" %>
         </td>
       </tr>
     <% end %>
