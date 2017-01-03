@@ -1,0 +1,9 @@
+// @import "font-awesome-sprockets";
+@import "font-awesome";
+@import "bootstrap";
+
+// nahledy souboru prijatych faktur
+#attachment_display {
+  width: $container-desktop / 2 + 4 * $grid-gutter-width;
+  height: ($container-desktop / 2 + 4 * $grid-gutter-width) * 1.35;
+}

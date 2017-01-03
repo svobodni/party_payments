@@ -11,8 +11,6 @@
  * file per style scope.
  *
  *= require_tree .
- * #= xrequire bootstrap
- * #= xrequire ng-grid
- *= require font-awesome
+ *= require bs_setup
  *= require_self
  */
