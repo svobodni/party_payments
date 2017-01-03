@@ -9,7 +9,7 @@ class Invoice < ActiveRecord::Base
 
 
   def accounting_remainder
-  	amount.to_f-accountings.sum(:amount)
+  	(amount||0)-accountings.sum(:amount)
   end
 
   def payment_remainder
