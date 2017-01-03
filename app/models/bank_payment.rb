@@ -75,10 +75,12 @@ class BankPayment < ActiveRecord::Base
       if invoice = Invoice.where(amount: positive_amount).detect{|i| i.vs==vs && i.account_number==account_number}
         payments.create(payable: invoice, amount: positive_amount)
       end
-    elsif remaining_amount > 0 && organization.id==100 && vs.length==5 && (vs[0]=="1" || vs[0]=="5")
+    elsif remaining_amount > 0 &&
+        (our_account_number=="2601082960" || our_account_number==MembershipFee.account) &&
+        vs.length==5 && (vs[0]=="1" || vs[0]=="5")
       response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/payments.json", basic_auth: configatron.registry.auth)
       if response.success?
-        if response["payment"]["membership_type"]=="member" && vs[0]=="1"
+        if response["payment"]["membership_type"]=="member" && vs[0]=="1" && our_account_number==MembershipFee.account
           membership_fee = MembershipFee.create(
             region_id: response["payment"]["region_id"],
             amount: amount,
@@ -87,7 +89,7 @@ class BankPayment < ActiveRecord::Base
             received_on: paid_on
           )
           payments.create(payable: membership_fee, amount: positive_amount)
-        elsif response["payment"]["membership_type"]=="supporter" && vs[0]=="5"
+        elsif response["payment"]["membership_type"]=="supporter" && vs[0]=="5" && our_account_number=="2601082960"
           donation = Donation.create(
             organization_id: 100,
             amount: amount,

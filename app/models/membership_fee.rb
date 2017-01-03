@@ -7,6 +7,10 @@ class MembershipFee < ActiveRecord::Base
 
   attr_accessor :bank_payment_id, :budget_category_id
 
+  def self.account
+    '2100382818'
+  end
+
   def self.find_by_year_and_quarter(year,quarter)
     grouped_by_quarter_and_region.select{|key,val| key[0..6]=="#{year}, #{quarter}"}
   end
