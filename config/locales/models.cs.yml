@@ -93,3 +93,5 @@ cs:
         organization_id: "Organizace"
         account_number: "Číslo účtu"
         bank_code: "Směrový kód banky"
+        approval_url: "Odkaz na zápis"
+        approved_on: "Datum schválení"

@@ -18,16 +18,41 @@
   </div>
   <div class="panel-body">
     <table class="table">
-      <tr><th>Částka:</th><td><%= number_to_currency @invoice.amount %></td></tr>
-      <tr><th>Variabilní symbol:</th><td><%= @invoice.vs %></td></tr>
-      <% unless @invoice.ss.blank? %>
-      <tr><th>Specifický symbol:</th><td><%= @invoice.ss %></td></tr>
-      <% end %>
-      <% unless @invoice.ks.blank? %>
-      <tr><th>Konstantní symbol:</th><td><%= @invoice.ks %></td></tr>
-      <% end %>
-      <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.bank_code  %></td></tr>
+      <thead><tr><th style="width: 40%"></th><th></th></tr></thead>
+      <tbody>
+        <tr><th>Částka:</th><td><%= number_to_currency @invoice.amount %></td></tr>
+        <tr><th>Variabilní symbol:</th><td><%= @invoice.vs %></td></tr>
+        <% unless @invoice.ss.blank? %>
+        <tr><th>Specifický symbol:</th><td><%= @invoice.ss %></td></tr>
+        <% end %>
+        <% unless @invoice.ks.blank? %>
+        <tr><th>Konstantní symbol:</th><td><%= @invoice.ks %></td></tr>
+        <% end %>
+        <tr><th>Číslo účtu:</th><td><%= @invoice.account_number %>/<%= @invoice.bank_code  %></td></tr>
+      </tbody>
     </table>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Schválení</h2>
+  </div>
+  <div class="panel-body">
+    <% unless @invoice.approved? %>
+      <div class="alert alert-warning text-center">
+        <p>Schválení <strong>nevyznačeno</strong>.</p>
+        <p><%= link_to("Vyznačit schválení", approval_invoice_path(@invoice), class: "btn btn-primary") if can?(:approve, @invoice)%></p>
+      </div>
+    <% else %>
+      <table class="table">
+        <thead><tr><th style="width: 40%"></th><th></th></tr></thead>
+        <tbody>
+          <tr><th>Schváleno dne:</th><td><%= l @invoice.approved_on %></td></tr>
+          <tr><th>Zápis:</th><td><%= @invoice.approval_url ? link_to(@invoice.approval_url,@invoice.approval_url) : "nepřipojen" %></td></tr>
+        </tbody>
+      </table>
+    <% end %>
   </div>
 </div>
 
@@ -36,9 +61,11 @@
     <h2 class="panel-title">Úhrada</h2>
   </div>
   <div class="panel-body">
+    <% unless @invoice.approved? %>
     <div class="alert alert-danger text-center">
       Schválení <strong>nevyznačeno</strong>.
     </div>
+    <% end %>
     <p class="text-center"><%= link_to("Zaplatit", pay_invoice_path(@invoice), class: "btn btn-primary") if @invoice.is_exportable? if can?(:pay, @invoice)%></p>
     <table class="table">
     <thead>

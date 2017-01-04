@@ -19,6 +19,10 @@ class Invoice < ActiveRecord::Base
   	(amount||0)-payments.sum(:amount)
   end
 
+  def approved?
+    approved_on
+  end
+
   def is_exportable?
     !(exported_to_fio? || payment_remainder==0 || account_number.blank? || bank_code.blank?)
   end

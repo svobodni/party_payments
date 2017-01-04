@@ -1,5 +1,5 @@
 class InvoicesController < ApplicationController
-  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :pay, :export_to_fio]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy, :pay, :export_to_fio, :approval]
   before_action :set_invoices, only: [:index, :unpaid, :unpaired, :unrecognized, :unreaded, :unapproved]
 
   # GET /invoices
@@ -119,6 +119,10 @@ class InvoicesController < ApplicationController
     authorize! :pay, @invoice
   end
 
+  def approval
+    authorize! :approve, @invoice
+  end
+
   def export_to_fio
     authorize! :pay, @invoice
 
@@ -149,6 +153,6 @@ class InvoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:description, :amount, :vs, :ss, :ks, :account_number, :bank_code, :document, :organization_id)
+      params.require(:invoice).permit(:description, :amount, :vs, :ss, :ks, :account_number, :bank_code, :document, :organization_id, :approved_on, :approval_url)
     end
 end

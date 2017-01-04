@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :budget_categories
     resources :invoices, path: 'faktury' do
       member do
+        get 'approval', path: 'schvaleni'
         get 'pay'
         post 'export_to_fio'
       end

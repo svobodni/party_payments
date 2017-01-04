@@ -1,0 +1,7 @@
+<% page_title "Vyznačení schválení faktury #{@invoice.id}"  %>
+
+<%= simple_form_for(@invoice,  html: { class: 'form-horizontal' }) do |f| %>
+    <%= f.input :approved_on %>
+    <%= f.input :approval_url %>
+    <%= f.button :submit, "Vyznačit schválení", class: "btn-primary pull-right" %>
+<% end %>
