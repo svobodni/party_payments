@@ -1,5 +1,7 @@
 <% page_title "Vyznačení schválení faktury #{@invoice.id}"  %>
 
+<p class="well well-lg">Předseda krajského sdružení nebo pověřený místopředseda zajišťují označení dokladů, které byly schváleny
+krajským předsednictvem k proplacení. Vlastní úhradu krajských závazků pak provádí pověřený pracovník republikové kanceláře nebo předseda strany.</p>
 <%= simple_form_for(@invoice,  html: { class: 'form-horizontal' }) do |f| %>
     <%= f.input :approved_on %>
     <%= f.input :approval_url %>
