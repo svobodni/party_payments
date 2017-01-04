@@ -8,6 +8,7 @@ cs:
       accounting: zaúčtování
       invoice: faktura
       bank_account: bankovní účet
+      bank_payment: bankovní převod
       budget_category: rozpočtová kapitola
       membership_fee: členský příspěvek
     attributes:

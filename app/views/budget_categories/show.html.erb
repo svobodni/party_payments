@@ -24,9 +24,19 @@
   <tbody>
     <% @budget_category.accountings.each do |accounting| %>
       <tr>
-	    <td data-order="accounting.accountable.try(:payments).try(:last)"><%=l accounting.accountable.try(:payments).try(:last).try(:payment).try(:paid_on) %></td>
-        <td><%= link_to(accounting.accountable.class.try(:model_name).try(:human), accounting.accountable) if accounting.accountable %></td>
-        <td><%= link_to(accounting.accountable.try(:description) || accounting.accountable.try(:name), accounting.accountable) if accounting.accountable %></td>
+      <% if accounting.accountable %>
+        <td><%= l accounting.accountable.try(:payments).try(:last).try(:payment).try(:paid_on) %></td>
+        <td><%= link_to(accounting.accountable.class.try(:model_name).try(:human), accounting.accountable) %></td>
+        <td><%= link_to(accounting.accountable.try(:description) || accounting.accountable.try(:name), accounting.accountable) %></td>
+      <% elsif accounting.payment %>
+        <td><%= l accounting.payment.try(:paid_on) %></td>
+        <td><%= link_to(accounting.payment.class.try(:model_name).try(:human), accounting.payment) %></td>
+        <td><%= accounting.payment.try(:info) %></td>
+      <% else %>
+        <td></td>
+        <td></td>
+        <td></td>
+      <% end %>
         <td><%= number_to_currency accounting.amount %></td>
       </tr>
     <% end %>

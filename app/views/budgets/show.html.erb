@@ -24,16 +24,16 @@
     <h2 class="panel-title"><%= type ? t(type) : "Ostatní" %></h2>
   </div>
   <div class="panel-body">
-    <table class="table table-stripped">
+    <table class="table table-bordered">
       <thead>
         <tr>
           <% unless @year %>
           <th>Rok</th>
           <% end %>
-          <th>Název</th>
-          <th align='right'>Rozpočtováno</th>
-          <th align='right'>Stav</th>
-          <th colspan="1"></th>
+          <th style="width: 30%">Název</th>
+          <th style="width: 30%" class="text-right">Rozpočtováno</th>
+          <th style="width: 30%" class="text-right">Stav</th>
+          <th></th>
         </tr>
       </thead>
 
