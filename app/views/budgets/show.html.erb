@@ -30,19 +30,21 @@
           <% unless @year %>
           <th>Rok</th>
           <% end %>
-          <th style="width: 30%">Název</th>
-          <th style="width: 30%" class="text-right">Rozpočtováno</th>
-          <th style="width: 30%" class="text-right">Stav</th>
+          <th style="width: 25%">Název</th>
+          <th style="width: 25%" class="text-right">Rozpočtováno</th>
+          <th style="width: 25%" class="text-right">Stav</th>
+          <th style="width: 25%" class="text-right">Rozdíl</th>
           <th></th>
         </tr>
       </thead>
 
       <tbody>
 
-          <% amount = 0; accounted_amount = 0;
+          <% amount = 0; accounted_amount = 0; diff_amount = 0;
             values.each do |budget_category|
               amount += budget_category.amount
               accounted_amount += budget_category.accounted_amount
+              diff_amount += budget_category.accounted_amount-budget_category.amount
           %>
           <tr>
             <% unless @year %>
@@ -51,16 +53,72 @@
             <td><%= link_to budget_category.name, budget_category %></td>
             <td align='right'><%= number_to_currency budget_category.amount %></td>
             <td align='right'><%= number_to_currency budget_category.accounted_amount %></td>
+            <td align='right'><%= number_to_currency(budget_category.accounted_amount-budget_category.amount) %></td>
             <td><% if can? :update, budget_category %><%= link_to "Upravit", edit_budget_category_path(budget_category), class: "btn btn-default btn-xs" %><% end %></td>
           </tr>
         <% end %>
-        <tr><th>Celkem</th><td align='right'><%=number_to_currency amount %></td><td align='right'><%=number_to_currency accounted_amount%></td><td></td></tr>
+        <tr>
+          <th>Celkem</th>
+          <td align='right'><%=number_to_currency amount %></td>
+          <td align='right'><%=number_to_currency accounted_amount%></td>
+          <td align='right'><%=number_to_currency diff_amount%></td>
+          <td></td>
+        </tr>
 
       </tbody>
     </table>
   </div>
 </div>
 <% end %>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Celkový stav</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th style="width: 25%">Název</th>
+          <th style="width: 25%" class="text-right">Rozpočtováno</th>
+          <th style="width: 25%" class="text-right">Stav</th>
+          <th style="width: 25%" class="text-right">Rozdíl</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>Počáteční stav</td>
+          <td align='right'><%= number_to_currency @budget.opening_balance %></td>
+          <td align='right'><%= number_to_currency @budget.opening_balance %></td>
+          <td align='right'><%= number_to_currency 0 %></td>
+        </tr>
+
+        <tr>
+          <td>Příjmy</td>
+          <td align='right'><%= number_to_currency @budget.incomes_balance %></td>
+          <td align='right'><%= number_to_currency @budget.accounted_incomes_balance %></td>
+          <td align='right'><%= number_to_currency(@budget.accounted_incomes_balance - @budget.incomes_balance) %></td>
+        </tr>
+
+        <tr>
+          <td>Výdaje</td>
+          <td align='right'><%= number_to_currency @budget.outcomes_balance %></td>
+          <td align='right'><%= number_to_currency @budget.accounted_outcomes_balance %></td>
+          <td align='right'><%= number_to_currency(@budget.accounted_outcomes_balance - @budget.outcomes_balance) %></td>
+        </tr>
+
+        <tr>
+          <td>Celkem</td>
+          <td align='right'><%= number_to_currency(@budget.opening_balance+@budget.incomes_balance-@budget.outcomes_balance) %></td>
+          <td align='right'><%= number_to_currency(@budget.opening_balance+@budget.accounted_incomes_balance-@budget.accounted_outcomes_balance) %></td>
+          <td align='right'><%= number_to_currency(@budget.opening_balance+@budget.incomes_balance-@budget.outcomes_balance-@budget.opening_balance+@budget.accounted_incomes_balance-@budget.accounted_outcomes_balance) %></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <% if can? :create, BudgetCategory.new(organization_id: params[:organization_id]) %>
 <div><%= link_to '+ Nová rozpočtová kapitola', new_organization_budget_category_path(params[:organization_id], year: params[:year]), class: "btn btn-primary pull-right" %></div>
