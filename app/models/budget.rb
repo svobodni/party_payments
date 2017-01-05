@@ -11,11 +11,11 @@ class Budget < ActiveRecord::Base
   end
 
   def incomes_balance
-    balances["income"]
+    balances["income"] || 0
   end
 
   def outcomes_balance
-    balances["outcome"]
+    balances["outcome"] || 0
   end
 
   def accounted_incomes_balance
