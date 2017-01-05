@@ -71,6 +71,7 @@
 </div>
 <% end %>
 
+<% if @budget.opening_balance %>
 <div class="panel panel-default">
   <div class="panel-heading">
     <h2 class="panel-title">Celkový stav</h2>
@@ -119,6 +120,7 @@
     </table>
   </div>
 </div>
+<% end %>
 
 <% if can? :create, BudgetCategory.new(organization_id: params[:organization_id]) %>
 <div><%= link_to '+ Nová rozpočtová kapitola', new_organization_budget_category_path(params[:organization_id], year: params[:year]), class: "btn btn-primary pull-right" %></div>
