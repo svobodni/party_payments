@@ -113,7 +113,7 @@
           <td>Celkem</td>
           <td align='right'><%= number_to_currency(@budget.opening_balance+@budget.incomes_balance-@budget.outcomes_balance) %></td>
           <td align='right'><%= number_to_currency(@budget.opening_balance+@budget.accounted_incomes_balance-@budget.accounted_outcomes_balance) %></td>
-          <td align='right'><%= number_to_currency(@budget.opening_balance+@budget.incomes_balance-@budget.outcomes_balance-@budget.opening_balance+@budget.accounted_incomes_balance-@budget.accounted_outcomes_balance) %></td>
+          <td align='right'><%= number_to_currency((@budget.opening_balance+@budget.accounted_incomes_balance-@budget.accounted_outcomes_balance)-(@budget.opening_balance+@budget.incomes_balance-@budget.outcomes_balance)) %></td>
         </tr>
 
       </tbody>
