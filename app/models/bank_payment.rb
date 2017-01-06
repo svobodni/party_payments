@@ -60,9 +60,9 @@ class BankPayment < ActiveRecord::Base
 
   def remaining_amount
     if amount < 0
-      amount + payments.inject(0){|sum,p| sum + p.amount } - accountings.inject(0){|sum,p| sum + p.amount }
+      amount + payments.inject(0){|sum,p| sum + p.amount }
     else
-      amount - payments.inject(0){|sum,p| sum + p.amount } - accountings.inject(0){|sum,p| sum + p.amount }
+      amount - payments.inject(0){|sum,p| sum + p.amount }
     end
   end
 
