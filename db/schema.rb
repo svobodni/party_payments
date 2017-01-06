@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103003244) do
+ActiveRecord::Schema.define(version: 20170106030333) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(version: 20170103003244) do
     t.datetime "updated_at"
     t.integer  "membership_fee_budget_category_id"
     t.integer  "donation_budget_category_id"
+    t.string   "approved_url"
+    t.string   "approval_url"
   end
 
   create_table "donation_form_submissions", force: true do |t|

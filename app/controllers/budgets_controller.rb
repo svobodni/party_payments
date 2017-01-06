@@ -35,6 +35,6 @@ class BudgetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def budget_params
-      params.require(:budget).permit(:opening_balance, :opening_bank_balance, :opening_cash_balance, :membership_fee_budget_category_id, :donation_budget_category_id)
+      params.require(:budget).permit(:opening_balance, :opening_bank_balance, :opening_cash_balance, :membership_fee_budget_category_id, :donation_budget_category_id, :approval_url, :approved_url)
     end
 end

@@ -9,6 +9,8 @@
   <%= f.input :opening_balance %>
   <%= f.input :membership_fee_budget_category_id, collection: @organization.budget_categories.where(year: @budget.year), label_method: ->(p){ "#{p.year} - #{p.organization.name} - #{p.name}"} %>
   <%= f.input :donation_budget_category_id, collection: @organization.budget_categories.where(year: @budget.year), label_method: ->(p){ "#{p.year} - #{p.organization.name} - #{p.name}"} %>
+  <%= f.input :approved_url %>
+  <%= f.input :approval_url %>
   <%#= f.input :donor_type, collection: {"Osoba" => :natural, "Firma" => :juristic}, include_blank: false %>
   <%= f.button :submit, class: "btn-primary pull-right" %>
 <% end %>

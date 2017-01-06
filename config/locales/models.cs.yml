@@ -54,6 +54,8 @@ cs:
         opening_cash_balance: "Počáteční stav pokladny"
         membership_fee_budget_category_id: "Kapitola pro členské příspěvky"
         donation_budget_category_id: "Kapitola pro dary"
+        approval_url: "Odkaz na volební protokol"
+        approved_url: "Odkaz na schválený dokument"
       budget_category:
         organization_id: "Organizace"
         year: "Rok"

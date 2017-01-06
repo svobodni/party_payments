@@ -14,6 +14,11 @@
     </table>
   </div>
   <div class="panel-footer text-right">
+    <span class="pull-left">
+      <%= link_to("Schválený rozpočet", @budget.approved_url, class: 'btn btn-info') unless !@budget.approved_url || @budget.approved_url.empty? %>
+      <%= link_to("Protokol", @budget.approval_url, class: 'btn btn-info') unless !@budget.approval_url || @budget.approval_url.empty? %>
+    </span>
+
     <%= link_to "Upravit", edit_organization_budget_path(@organization, year: @year), class: "btn btn-primary" %>
   </div>
 </div>
