@@ -105,6 +105,7 @@ class BankPayment < ActiveRecord::Base
           )
           payments.create(payable: donation, amount: positive_amount)
         end
+        response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
       end
     end
   end
