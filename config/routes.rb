@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   scope ":year", year: /201[3-9]/, path_names: { new: 'pridat', edit: 'upravit' } do
 
     resources :bank_accounts
-    resources :bank_payments, only: [:show]
+    resources :bank_payments, only: [:show] do
+      member do
+        post 'pair'
+      end
+    end
 
     resources :membership_fees
 

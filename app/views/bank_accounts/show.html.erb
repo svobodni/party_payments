@@ -25,6 +25,7 @@
       <td>
         <% if can? :create, Donation.new(organization: @organization)%>
           <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: payment.vs, amount: payment.remaining_amount, bank_payment_id: payment.id), class: "btn btn-default btn-xs" if payment.remaining_amount>0 %>
+          <%= button_to("Párovat", pair_bank_payment_path(payment), class: "btn btn-danger btn-xs") if payment.remaining_amount>0 %>
         <% end %>
         <%=link_to "Detail", payment, class: "btn btn-primary btn-xs" %>
       </td>
