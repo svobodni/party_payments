@@ -30,7 +30,7 @@ class BankPaymentsController < ApplicationController
   def pair
     @bank_payment = BankPayment.find(params[:id])
     @bank_payment.pair
-    redirect_back(fallback_location: root_path, notice: 'Párování provedeno.')
+    redirect_to :back, notice: 'Párování provedeno.'
   end
 
 end
