@@ -1,4 +1,4 @@
-<% page_title "Pohyby na bankovním účtu #{@bank_account.full_account_number}" %>
+<% page_title "Pohyby na bankovním účtu #{@bank_account.full_account_number} - #{@bank_account.name}" %>
 
 <div class="pull-right"><%= paginate @bank_payments %></div>
 
@@ -21,10 +21,10 @@
       <td><%=link_to_registry_person payment.vs%></td>
       <td><%=payment.amount%></td>
       <td><%=payment.account_name%></td>
-      <td><%=payment.info%></td>
+      <td><%=highlight(payment.info, %w(dar prispevek příspěvek))%></td>
       <td>
         <% if can? :create, Donation.new(organization: @organization)%>
-          <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: payment.vs, amount: payment.remaining_amount, bank_payment_id: payment.id), class: "btn btn-default btn-xs" if payment.remaining_amount>0 %>
+          <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: payment.vs, amount: payment.remaining_amount, bank_payment_id: payment.id), class: "btn btn-default btn-xs" if payment.donation_expected? %>
           <%= button_to("Párovat", pair_bank_payment_path(payment), class: "btn btn-danger btn-xs") if payment.remaining_amount>0 %>
         <% end %>
         <%=link_to "Detail", payment, class: "btn btn-primary btn-xs" %>

@@ -7,6 +7,7 @@ class BankPayment < ActiveRecord::Base
 
   has_many :payments, as: :payment
   belongs_to :organization
+  # belongs_to :bank_account
 
   #has_one :payment
   #has_one :membership_fee
@@ -52,6 +53,15 @@ class BankPayment < ActiveRecord::Base
         ) unless find_by_transaction_id_and_organization_id(row.transaction_id,organization.id)
       end
     }
+  end
+
+  def bank_account
+    # FIXME: reference u importu
+    @bank_account ||= BankAccount.find_by_account_number(our_account_number)
+  end
+
+  def donation_expected?
+    bank_account.account_type==1 && remaining_amount>0
   end
 
   def positive_amount

@@ -7,6 +7,7 @@
       <th>Člen</th>
       <th>Kraj</th>
       <th>Částka</th>
+      <th></th>
     </tr>
   </thead>
 
@@ -17,6 +18,7 @@
         <td><%= link_to membership_fee.name, "#{configatron.registry.uri}/people/#{membership_fee.person_id}" %></td>
         <td><%= link_to membership_fee.region.name, organization_membership_fees_path(membership_fee.region) %></td>
         <td><%= membership_fee.amount %></td>
+        <td><%= link_to "detail", membership_fee, class: "btn btn-xs btn-info" %></td>
       </tr>
     <% end %>
   </tbody>

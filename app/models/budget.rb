@@ -18,6 +18,10 @@ class Budget < ActiveRecord::Base
     balances["outcome"] || 0
   end
 
+  def current_balance
+    (opening_balance||0)+accounted_incomes_balance-accounted_outcomes_balance
+  end
+
   def accounted_incomes_balance
     @accounted_incomes_balance ||= budget_categories.where(budget_category_type: "income").inject(0){|total,cat| total+=cat.accounted_amount }
   end
