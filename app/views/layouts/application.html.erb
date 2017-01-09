@@ -80,6 +80,15 @@
           <ul class="nav nav-sidebar">
             <li><%=link_to "Přehled", organization_path(@organization) %></li>
             <li><%=link_to "Rozpočet", organization_budget_path(@organization) %></li>
+            <% if @organization.id==100 && @year.to_i>=2017%>
+            <li><%=link_to "Bankovní účty", bank_accounts_path %>
+              <ul>
+                <% BankAccount.all.each do |account| %>
+                  <li><%=link_to account.name, bank_account_path(account) %></li>
+                <% end %>
+              </ul>
+            </li>
+            <% end %>
             <% if @year.to_i<2017 %>
             <li><%=link_to "Banka", organization_bank_payments_path(@organization) %>
               <ul>
@@ -103,14 +112,13 @@
               </ul>
             </li>
             <% if @organization.id==100 %>
-            <li><%=link_to "Bankovní účty", bank_accounts_path %></li>
+            <li><%=link_to "Darovací formulář", organization_donation_form_submissions_path(@organization) %></li>
             <% if @year<2017 %>
             <li><%=link_to "GoPay", organization_gopay_payments_path(@organization) %></li>
-            <% end %>
-            <li><%=link_to "Darovací formulář", organization_donation_form_submissions_path(@organization) %></li>
             <li><%=link_to "Členské příspěvky", organization_membership_fees_path(@organization) %>
             <ul><li><%=link_to "Rozúčtování", distribution_organization_membership_fees_path(@organization) %></li></ul>
             </li>
+            <% end %>
 
             <% end %>
             <li><%=link_to "Dary", organization_donations_path(@organization) %>
