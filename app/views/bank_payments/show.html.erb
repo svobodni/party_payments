@@ -1,5 +1,13 @@
 <% page_title "Detail pohybu na bankovním účtu" %>
 
+<% if @bank_payment.returned_payment %>
+<p class="alert alert-info">Vratka vadné platby <%= link_to @bank_payment.returned_payment.id, @bank_payment.returned_payment %></p>
+<% end %>
+
+<% if @bank_payment.returning_payment %>
+<p class="alert alert-info">Vadná platba - vrácena platbou <%= link_to @bank_payment.returning_payment.id, @bank_payment.returning_payment %></p>
+<% end %>
+
 <table class="table">
   <tr><th><%=BankPayment.human_attribute_name(:paid_on)%></th><td><%= l @bank_payment.paid_on %></td></tr>
   <tr><th><%=BankPayment.human_attribute_name(:amount)%></th><td><%= number_to_currency @bank_payment.amount %></td></tr>

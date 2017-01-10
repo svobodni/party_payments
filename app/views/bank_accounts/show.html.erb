@@ -23,7 +23,11 @@
       <td><%=payment.account_name%></td>
       <td><%=highlight(payment.info, %w(dar prispevek příspěvek))%></td>
       <td>
-        <% if can? :create, Donation.new(organization: @organization)%>
+        <% if payment.returning_payment %>
+          <span class="label label-info">Vráceno</span>
+        <% elsif payment.returned_payment %>
+          <span class="label label-info">Vratka</span>
+        <% elsif can? :create, Donation.new(organization: @organization)%>
           <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: payment.vs, amount: payment.remaining_amount, bank_payment_id: payment.id), class: "btn btn-default btn-xs" if payment.donation_expected? %>
           <%= button_to("Párovat", pair_bank_payment_path(payment), class: "btn btn-danger btn-xs") if payment.remaining_amount>0 %>
         <% end %>

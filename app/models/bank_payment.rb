@@ -15,6 +15,9 @@ class BankPayment < ActiveRecord::Base
 
   has_many :accountings, as: :payment
 
+  has_one :returning_payment, class_name: 'BankPayment', foreign_key: :returned_payment_id
+  belongs_to :returned_payment, class_name: 'BankPayment'
+
   include AASM
 
   aasm :column => 'accounting_status' do
