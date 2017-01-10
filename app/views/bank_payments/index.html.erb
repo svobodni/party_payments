@@ -30,10 +30,11 @@
         <td><%= bank_payment.account_number %>/<%= bank_payment.bank_code %></td>
         <td>
           <% if can? :create, Donation.new(organization: @organization)%>
+          <%= button_to("Párovat", pair_bank_payment_path(bank_payment), class: "btn btn-danger btn-xs") if bank_payment.remaining_amount>0 %>
           <%= link_to "Nový dar", new_donation_path(organization_id: @organization, vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 %>
           <% end %>
           <% if can? :create, MembershipFee.new %>
-          <%= link_to "Nový příspěvek", new_membership_fee_path(vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 && @organization.id==100%>
+          <%= link_to "Nový příspěvek", new_membership_fee_path(vs: bank_payment.vs, amount: bank_payment.remaining_amount, bank_payment_id: bank_payment), class: "btn btn-default btn-xs" if bank_payment.remaining_amount>0 && (@organization.nil? || @organization.id==100)%>
           <% end %>
           <%= link_to "Detail", bank_payment, class: "btn btn-default btn-xs" %>
         </td>

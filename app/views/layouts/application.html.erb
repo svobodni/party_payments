@@ -86,6 +86,7 @@
                 <% BankAccount.all.each do |account| %>
                   <li><%=link_to account.name, bank_account_path(account) %></li>
                 <% end %>
+                <li><%=link_to "Nespárované", organization_bank_payments_path(@organization, only: :unpaired) %></li>
               </ul>
             </li>
             <% end %>

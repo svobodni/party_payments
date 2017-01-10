@@ -4,10 +4,10 @@ class BankPaymentsController < ApplicationController
   # GET /bank_payments.json
   def index
     # @organization = Organization.find_by_id(params[:organization_id])
-    if @organization
+    if @organization && @year<2017
       @bank_payments = @organization.bank_payments.includes(:payments)
     else
-      @bank_payments = BankPayment.all
+      @bank_payments = BankPayment.includes(:payments).all
     end
     if params[:year]
       @bank_payments = @bank_payments.where("paid_on >= ? AND paid_on <= ?", "#{params[:year]}-01-01", "#{params[:year]}-12-31")
@@ -15,6 +15,7 @@ class BankPaymentsController < ApplicationController
     @bank_payments = @bank_payments.order(paid_on: :desc)
     if params[:only]=="unpaired"
       @bank_payments = @bank_payments.reject{|p| p.remaining_amount == 0}
+      @bank_payments = @bank_payments.reject{|p| p.returning_payment || p.returned_payment}
     elsif params[:only]=="incoming"
       @bank_payments = @bank_payments.select{|p| p.amount > 0}
     elsif params[:only]=="outgoing"

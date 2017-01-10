@@ -80,7 +80,7 @@ class BankPayment < ActiveRecord::Base
   end
 
   def registry_payment?
-    organization.id==100 && vs.length==5 && (vs[0]=="1" || vs[0]=="5")
+    (organization.nil? || organization.id==100) && vs.length==5 && (vs[0]=="1" || vs[0]=="5")
   end
 
   def pair
