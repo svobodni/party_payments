@@ -120,6 +120,26 @@ class BankPayment < ActiveRecord::Base
         end
         response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
       end
+    elsif remaining_amount > 0 &&
+        (our_account_number=="7505075050") &&
+        vs.length==5 && vs[0]=="8"
+      data = DonationFormSubmission.all.select{|d| d.params["orderNumber"]==vs}.last
+      if data && data.params["totalPrice"].to_f/100==amount
+        donation = Donation.create(
+          organization_id: 100,
+          amount: data.params["totalPrice"].to_f/100,
+          donor_type: (data.params["companyName"].blank? ? 'natural' : 'juristic'),
+          name: (data.params["companyName"].blank? ? [data.params["firstName"],data.params["lastName"]].join(" ") : data.params["companyName"]),
+          date_of_birth: data.params["birthdate"],
+          ic: data.params["companyId"],
+          street: data.params["street"],
+          city: data.params["city"],
+          zip: data.params["postalCode"],
+          email: data.params["email"],
+          received_on: paid_on
+        )
+        payments.create(payable: donation, amount: positive_amount)
+      end
     end
   end
 
