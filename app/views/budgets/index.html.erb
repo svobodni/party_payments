@@ -1,0 +1,26 @@
+<% page_title 'Přehled rozpočtů' %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Počáteční stav</th>
+      <th>Příjmy</th>
+      <th>Výdaje</th>
+      <th>Změna celkem</th>
+      <th>Aktuální stav</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @budgets.each do |budget| %>
+    <tr>
+      <th><%= link_to budget.organization.name, organization_budget_path(budget.organization) %></th>
+      <td class="text-right"><%= number_to_currency budget.opening_balance %></td>
+      <td class="text-right"><%= number_to_currency budget.accounted_incomes_balance %></td>
+      <td class="text-right"><%= number_to_currency budget.accounted_outcomes_balance %></td>
+      <td class="text-right"><%= number_to_currency budget.accounted_incomes_balance-budget.accounted_outcomes_balance %></td>
+      <td class="text-right"><%= number_to_currency budget.current_balance %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

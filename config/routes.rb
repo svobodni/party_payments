@@ -25,6 +25,13 @@ Rails.application.routes.draw do
     resources :budgets
     resources :budget_categories
     resources :invoices, path: 'faktury' do
+      collection do
+        get 'unrecognized', to: 'invoices#unrecognized', path: 'neprirazene'
+        get 'unreaded', to: 'invoices#unreaded', path: 'nevytezene'
+        get 'unpaid', to: 'invoices#unpaid', path: 'nezaplacene'
+        get 'unpaired', to: 'invoices#unpaired', path: 'nezauctovane'
+        get 'unapproved', to: 'invoices#unapproved', path: 'neschvalene'
+      end
       member do
         get 'approval', path: 'schvaleni'
         get 'pay'
@@ -84,6 +91,7 @@ Rails.application.routes.draw do
     # end
 
     get 'static_pages/index'
+    get '/prehled', to: 'static_pages#overview'
 
     get 'bank_payments', controller: :bank_payments, action: :index
     get 'supporter_fees', controller: :supporter_fees, action: :index

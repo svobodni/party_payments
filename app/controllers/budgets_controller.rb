@@ -6,6 +6,10 @@ class BudgetsController < ApplicationController
     @budget_categories = @budget.budget_categories
   end
 
+  def index
+    @budgets = Budget.where(year: @year)
+  end
+
   def edit
     authorize! :update, @budget
   end

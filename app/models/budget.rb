@@ -30,4 +30,7 @@ class Budget < ActiveRecord::Base
     @accounted_outcomes_balance ||= budget_categories.where(budget_category_type: "outcome").inject(0){|total,cat| total+=cat.accounted_amount }
   end
 
+  def self.current_balance(year)
+    where(year: year).all.inject(0){|total,b| total+=b.current_balance}
+  end
 end

@@ -50,6 +50,10 @@ class BankAccount < ActiveRecord::Base
         our_bank_code: account.bank_id,
       ) unless BankPayment.find_by_transaction_id_and_our_account_number(transaction.transaction_id,account.account_id)
     }
-
   end
+
+  def self.balance
+    all.sum(:balance)
+  end
+
 end

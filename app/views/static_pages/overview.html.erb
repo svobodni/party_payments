@@ -1,0 +1,10 @@
+<table class="table table-bordered">
+	<tbody>
+		<tr><th><%= link_to "Stav rozpočtů", budgets_path %>:</th><td class="text-right"><%= number_to_currency @budget_current_balance %></td></tr>
+		<tr><th><%= link_to "Nezaplacené faktury", unpaid_invoices_path %>:</th><td class="text-right"><%= number_to_currency @unpaired_invoices_balance %>
+		<tr><th><%= link_to "Nespárované platby", bank_payments_path(only: :unpaired) %>:</th><td class="text-right"><%= number_to_currency @unpaired_payments_balance %></td></tr>
+		<tr><th>Celkem:</th><td class="text-right"><%= number_to_currency(@budget_current_balance+@unpaired_invoices_balance+@unpaired_payments_balance) %></td></tr>
+		<tr><th><%= link_to "Stav účtů", bank_accounts_path %>:</th><td class="text-right"><%= number_to_currency @bank_accounts_balance %></td></tr>
+		<tr><th>Rozdíl:</th><td class="text-right"><%= number_to_currency(@budget_current_balance+@unpaired_invoices_balance+@unpaired_payments_balance-@bank_accounts_balance)%></td></tr>
+	</tbody>
+</table>
