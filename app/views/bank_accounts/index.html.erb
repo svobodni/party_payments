@@ -23,7 +23,11 @@
         <td class="text-right">
           <%= link_to 'Zobrazit pohyby', bank_account_path(bank_account), class: "btn btn-xs btn-primary" %> |
           <%= link_to 'Upravit', edit_bank_account_path(bank_account), class: "btn btn-xs btn-warning" %> |
+          <% if @year %>
+          <%= link_to 'FIO', "https://www.fio.cz/ib2/transparent?a=#{bank_account.account_number}&f=01.01.#{@year}&t=31.12.#{@year}", class: "btn btn-xs btn-info" %>
+          <% else %>
           <%= link_to 'FIO', "https://www.fio.cz/ib2/transparent?a=#{bank_account.account_number}", class: "btn btn-xs btn-info" %>
+          <% end %>
         </td>
       </tr>
     <% end %>
