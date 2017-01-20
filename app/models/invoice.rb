@@ -38,8 +38,8 @@ class Invoice < ActiveRecord::Base
     :account_to => account_number,
     :bank_code => bank_code,
     :vs => vs || '',
-    :vs => ss || '',
-    :vs => ks || '',
+    :ss => ss || '',
+    :ks => ks || '',
     :date => Date.today,
     :message_for_recipient => desc,
     :comment => desc
