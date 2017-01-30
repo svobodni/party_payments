@@ -102,6 +102,7 @@ class BankPayment < ActiveRecord::Base
             received_on: paid_on
           )
           payments.create(payable: membership_fee, amount: positive_amount)
+          response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
         elsif response["payment"]["membership_type"]=="supporter" && vs[0]=="5" && our_account_number=="2601082960"
           donation = Donation.create(
             organization_id: 100,
@@ -117,8 +118,8 @@ class BankPayment < ActiveRecord::Base
             received_on: paid_on
           )
           payments.create(payable: donation, amount: positive_amount)
+          response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
         end
-        response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
       end
     elsif remaining_amount > 0 &&
         (our_account_number=="7505075050") &&
