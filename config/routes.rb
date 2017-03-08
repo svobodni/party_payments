@@ -104,6 +104,11 @@ Rails.application.routes.draw do
 
   resources :invoices, path: 'faktury'
   resources :people, only: [:show]
+
+  namespace :api do
+    resources :bank_payments, only: :index
+  end
+
   resources 'donation_form_submissions', only: [:create]
 
   get '/auth/:provider/callback', to: 'sessions#create'
