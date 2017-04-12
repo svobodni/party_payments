@@ -5,7 +5,7 @@ class Donation < ActiveRecord::Base
   has_many :payments, as: :payable
   before_create :set_accounting
 
-  attr_accessor :bank_payment_id, :budget_category_id
+  attr_accessor :bank_payment_id, :budget_category_id, :vs
 
   def address
     "#{street}, #{zip} #{city}"

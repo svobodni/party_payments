@@ -115,7 +115,13 @@ class DonationsController < ApplicationController
   def agreement
     authorize! :read, @donation
     respond_to do |format|
-      format.pdf {}
+      format.pdf do
+        pdf = DonationAgreementPdf.new(@donation)
+        send_data pdf.render,
+                  filename: "svobodni_smlouva_#{@donation.id}.pdf",
+                  type: 'application/pdf',
+                  disposition: 'inline'
+      end
     end
   end
 
