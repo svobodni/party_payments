@@ -1,5 +1,5 @@
 class NonMonetaryDonationsController < ApplicationController
-  before_action :set_non_monetary_donation, only: [:shows]
+  before_action :set_non_monetary_donation, only: [:show]
   # GET /non_monetary_donations
   # GET /non_monetary_donations.json
   def index

@@ -40,7 +40,7 @@ class NonMonetaryDonation < ActiveRecord::Base
   end
 
   def send_email_with_agreement
-    DonationsMailer.non_monetary_agreement(self.to_donation).deliver
+    DonationsMailer.non_monetary_agreement(self).deliver
   end
 
 end
