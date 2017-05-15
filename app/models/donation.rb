@@ -7,6 +7,10 @@ class Donation < ActiveRecord::Base
 
   attr_accessor :bank_payment_id, :budget_category_id, :vs
 
+  def monetary?
+    true
+  end
+
   def address
     "#{street}, #{zip} #{city}"
   end

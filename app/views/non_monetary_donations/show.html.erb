@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @non_monetary_donation.amount %>
+</p>
+
+<p>
+  <strong>Donor type:</strong>
+  <%= @non_monetary_donation.donor_type %>
+</p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @non_monetary_donation.person_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @non_monetary_donation.name %>
+</p>
+
+<p>
+  <strong>Ic:</strong>
+  <%= @non_monetary_donation.ic %>
+</p>
+
+<p>
+  <strong>Date of birth:</strong>
+  <%= @non_monetary_donation.date_of_birth %>
+</p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @non_monetary_donation.street %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @non_monetary_donation.city %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @non_monetary_donation.zip %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @non_monetary_donation.email %>
+</p>
+
+<p>
+  <strong>Agreement received on:</strong>
+  <%= @non_monetary_donation.agreement_received_on %>
+</p>
+
+<%= link_to 'Edit', edit_non_monetary_donation_path(@non_monetary_donation) %> |
+<%= link_to 'Back', non_monetary_donations_path %>

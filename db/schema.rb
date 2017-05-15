@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110003429) do
+ActiveRecord::Schema.define(version: 20170514092624) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -157,6 +157,24 @@ ActiveRecord::Schema.define(version: 20170110003429) do
     t.integer  "person_id"
     t.string   "name"
     t.date     "received_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "non_monetary_donations", force: true do |t|
+    t.decimal  "amount",                precision: 10, scale: 2
+    t.string   "description"
+    t.string   "donor_type"
+    t.integer  "person_id"
+    t.string   "name"
+    t.string   "ic"
+    t.date     "date_of_birth"
+    t.string   "street"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "email"
+    t.date     "agreement_received_on"
+    t.string   "access_token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

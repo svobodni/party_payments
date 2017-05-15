@@ -1,0 +1,45 @@
+<h1>Listing non_monetary_donations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th>Donor type</th>
+      <th>Person</th>
+      <th>Name</th>
+      <th>Ic</th>
+      <th>Date of birth</th>
+      <th>Street</th>
+      <th>City</th>
+      <th>Zip</th>
+      <th>Email</th>
+      <th>Agreement received on</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @non_monetary_donations.each do |non_monetary_donation| %>
+      <tr>
+        <td><%= non_monetary_donation.amount %></td>
+        <td><%= non_monetary_donation.donor_type %></td>
+        <td><%= non_monetary_donation.person_id %></td>
+        <td><%= non_monetary_donation.name %></td>
+        <td><%= non_monetary_donation.ic %></td>
+        <td><%= non_monetary_donation.date_of_birth %></td>
+        <td><%= non_monetary_donation.street %></td>
+        <td><%= non_monetary_donation.city %></td>
+        <td><%= non_monetary_donation.zip %></td>
+        <td><%= non_monetary_donation.email %></td>
+        <td><%= non_monetary_donation.agreement_received_on %></td>
+        <td><%= link_to 'Show', non_monetary_donation %></td>
+        <td><%= link_to 'Edit', edit_non_monetary_donation_path(non_monetary_donation) %></td>
+        <td><%= link_to 'Destroy', non_monetary_donation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Non monetary donation', new_non_monetary_donation_path %>

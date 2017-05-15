@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :non_monetary_donations, path: :nepenezni_dary, path_names: { new: 'novy' }
   scope ":year", year: /201[3-9]/, path_names: { new: 'pridat', edit: 'upravit' } do
 
     resources :bank_accounts

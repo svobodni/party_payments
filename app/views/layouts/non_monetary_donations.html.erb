@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Finance - Svobodní</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.css">
+
+    <%= stylesheet_link_tag    'non_monetary_donations', media: 'all', 'data-turbolinks-track'   => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+
+    <meta name="turbolinks-cache-control" content="no-cache">
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="container" style="margin-top: 1em">
+      <div class="row">
+        <div class="col-sm-4">
+          <%= image_tag "Svobodni_logo_RGB.png", class: "img-responsive", alt: "Svobodní Logo" %>
+        </div>
+        <div class="col-sm-8">
+          <p class="pull-right"><span class="sitename">Finance na kampaň</span><br/><span class="pull-right"><small>Děkujeme za Vaši podporu</small></span></p>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 main">
+          <%= flash_messages %>
+          <h1><%= @page_title %></h1>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid footer">
+      <h3>Rychlá navigace</h3>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-2">
+          <h4>Nepeněžní dary</h4>
+          <ul>
+            <li><%= link_to "Výpis dárců", non_monetary_donations_path %></li>
+            <li><%= link_to "Nová osoba", new_non_monetary_donation_path %></li>
+            <li><%= link_to "Nová firma", new_non_monetary_donation_path(person_type: :juristic) %></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h4>Finanční dary</h4>
+          <ul>
+            <li><%= link_to "Transparentní účet", 'https://www.svobodni.cz/transparentni-ucet/' %></li>
+            <li><%= link_to "Darujte", 'https://prispet.svobodni.cz/' %></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <h4>Staňte se</h4>
+          <ul>
+            <li><%= link_to "Členem", 'https://www.svobodni.cz/registrace/stat-se-clenem/' %></li>
+            <li><%= link_to "Příznivcem", 'https://www.svobodni.cz/registrace/stat-se-priznivcem/' %></li>
+            <li><%= link_to "Dobrovolníkem", 'https://dobrovolnik.svobodni.cz/' %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="text-center">
+        <%= link_to "www.svobodni.cz", "http://www.svobodni.cz" %>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script> -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  </body>
+</html>
