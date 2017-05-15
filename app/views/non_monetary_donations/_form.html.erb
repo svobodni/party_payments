@@ -1,61 +1,34 @@
-<%= form_for(@non_monetary_donation) do |f| %>
-  <% if @non_monetary_donation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@non_monetary_donation.errors.count, "error") %> prohibited this non_monetary_donation from being saved:</h2>
-
-      <ul>
-      <% @non_monetary_donation.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-  <div class="field">
-    <%= f.label :donor_type %><br>
-    <%= f.text_field :donor_type %>
-  </div>
-  <div class="field">
-    <%= f.label :person_id %><br>
-    <%= f.number_field :person_id %>
-  </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :ic %><br>
-    <%= f.text_field :ic %>
-  </div>
-  <div class="field">
-    <%= f.label :date_of_birth %><br>
-    <%= f.text_field :date_of_birth %>
-  </div>
-  <div class="field">
-    <%= f.label :street %><br>
-    <%= f.text_field :street %>
-  </div>
-  <div class="field">
-    <%= f.label :city %><br>
-    <%= f.text_field :city %>
-  </div>
-  <div class="field">
-    <%= f.label :zip %><br>
-    <%= f.text_field :zip %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :agreement_received_on %><br>
-    <%= f.date_select :agreement_received_on %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for(@non_monetary_donation, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.error_notification %>
+  <fieldset class="form-group">
+    <legend>Údaje dárce</legend>
+    <%= f.input :donor_type, as: :hidden, input_html: {value: (@non_monetary_donation.juristic? ? "juristic" : "natural")} %>
+    <%= f.input :person_id, as: :hidden %>
+    <%= f.input :name, label: (@non_monetary_donation.juristic? ? "Firma" : "Jméno a příjmení") %>
+    <% if @non_monetary_donation.juristic? %>
+    <%= f.input :ic, required: true %>
+    <% else %>
+    <%= f.input :date_of_birth, start_year: Date.today.year - 17, end_year: Date.today.year - 99 %>
+    <% end %>
+    <%= f.input :email %>
+  </fieldset>
+  <fieldset class="form-group">
+    <% if @non_monetary_donation.juristic? %>
+    <legend>Adresa sídla</legend>
+    <% else %>
+    <legend>Adresa podle občanky</legend>
+    <% end %>
+    <%= f.input :street %>
+    <%= f.input :city %>
+    <%= f.input :zip %>
+  </fieldset>
+  <fieldset class="form-group">
+    <legend>Popis a cena plnění</legend>
+    <%= f.input :description, hint: "Např.: poskytnutí plochy na plotě" %>
+    <%= f.input :amount, wrapper: :horizontal_input_group do %>
+         <%= f.input_field :amount, class: "form-control" %>
+         <span class="input-group-addon">Kč</span>
+       <% end %>
+  </fieldset>
+  <%= f.submit "Uložit a vygenerovat darovací smlouvu", class: "btn btn-success btn-block" %>
 <% end %>

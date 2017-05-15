@@ -1,59 +1,24 @@
-<p id="notice"><%= notice %></p>
+<% @page_title = "Evidence nepeněžního daru na kampaň" %>
 
-<p>
-  <strong>Amount:</strong>
-  <%= @non_monetary_donation.amount %>
-</p>
+<% unless @non_monetary_donation.agreement_received_on %>
+ <div class="panel panel-info">
+   <div class="panel-body">
+     Vytiskněte si prosím <%= link_to 'darovací smlouvu', non_monetary_donation_path(@non_monetary_donation, format: :pdf)%> a zašlete ji na naši adresu.
+   </div>
+ </div>
+<% end %>
 
-<p>
-  <strong>Donor type:</strong>
-  <%= @non_monetary_donation.donor_type %>
-</p>
-
-<p>
-  <strong>Person:</strong>
-  <%= @non_monetary_donation.person_id %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @non_monetary_donation.name %>
-</p>
-
-<p>
-  <strong>Ic:</strong>
-  <%= @non_monetary_donation.ic %>
-</p>
-
-<p>
-  <strong>Date of birth:</strong>
-  <%= @non_monetary_donation.date_of_birth %>
-</p>
-
-<p>
-  <strong>Street:</strong>
-  <%= @non_monetary_donation.street %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @non_monetary_donation.city %>
-</p>
-
-<p>
-  <strong>Zip:</strong>
-  <%= @non_monetary_donation.zip %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @non_monetary_donation.email %>
-</p>
-
-<p>
-  <strong>Agreement received on:</strong>
-  <%= @non_monetary_donation.agreement_received_on %>
-</p>
-
-<%= link_to 'Edit', edit_non_monetary_donation_path(@non_monetary_donation) %> |
-<%= link_to 'Back', non_monetary_donations_path %>
+<table class="table">
+  <tbody>
+    <tr><th colspan="2" class="info">Dárce</th></tr>
+    <tr><th>Jméno</th><td><%= @non_monetary_donation.name %></td></tr>
+    <tr><th>Adresa</th><td><%= @non_monetary_donation.address %></td></tr>
+    <tr><th>Email</th><td><%= @non_monetary_donation.email %></td></tr>
+    <tr><th colspan="2" class="info">Dar</th></tr>
+    <tr><th>Popis plnění</th><td><%= @non_monetary_donation.description %></td></tr>
+    <tr><th>Hodnota daru</th><td><%= number_to_currency(@non_monetary_donation.amount) %> Kč</td></tr>
+    <tr><th colspan="2" class="info">Smlouva</th></tr>
+    <tr><th>Text smlouvy k podpisu</th><td><%= link_to 'PDF', non_monetary_donation_path(@non_monetary_donation, format: :pdf), class: "btn btn-success" %></td></tr>
+    <tr><th>Podepsaná smlouva doručena</th><td><%=  @non_monetary_donation.agreement_received_on ? l(@non_monetary_donation.agreement_received_on) : "NE - Prosím, zašlete nám podepsanou smlouvu" %></td></tr>
+  </tbody>
+</table>

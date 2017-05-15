@@ -1,5 +1,47 @@
-<h1>New non_monetary_donation</h1>
+<% if @non_monetary_donation.juristic? %>
+<% @page_title="Nepeněžní plnění - nová smlouva - právnická osoba" %>
+<% else %>
+<% @page_title="Nepeněžní plnění - nová smlouva - fyzická osoba" %>
+<% end %>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Návrh darovací smlouvy na nepeněžní plnění od <% if @non_monetary_donation.juristic? %>právnické<%else%>fyzické<%end%> osoby
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-10 col-xs-offset-1">
+            <%= render 'form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <% if @non_monetary_donation.juristic? %>
+        <p>Jste fyzická osoba? Přejděte na</p>
+        <%= link_to "Formulář pro fyzické osoby", new_non_monetary_donation_path, class:"btn btn-primary" %>
+        <% else %>
+        <p>Jste právnická osoba? Přejděte na</p>
+        <%= link_to "Formulář pro firmy", new_non_monetary_donation_path(person_type: :juristic), class:"btn btn-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <p>Novela zákona o politických stranách a o volbách přinesla nesmyslné požadavky a dokumentaci financování politických stan a kampaní.</p>
+        <p>Každý, kdo chce nějak podpořit politickou stranu, by se měl zaregistrovat jako tzv. třetí strana u Úřadu pro dohled nad hospodařením politických stran a politických hnutí a všude by pak měl uvádět úřadem přidělené číslo.</p>
+        <p><strong>Abyste se nemuseli u úřadu registrovat, můžete nám svou podporu Svobodným nahlásit přímo přes tento formulář a my Vás pak zapíšeme do <%= link_to "seznamu dárců", non_monetary_donations_path %>.</strong></p>
+        <p>Pokud jste nás podpořili např. reklamou na facebooku, napište cenu, jakou jste za nás zaplatili. Pokud nám poskytujete např. plot pro reklamní plachtu, je běžná cena asi 1000&nbsp;Kč za měsíc. Napište rovnou cenu za celé období.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'Back', non_monetary_donations_path %>
+<%#= link_to 'Back', non_monetary_donations_path %>
