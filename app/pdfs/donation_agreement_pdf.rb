@@ -87,7 +87,7 @@ class DonationAgreementPdf < Prawn::Document
 
     par_2 = donation.monetary? ?
       "Dárce poskytne obdarovanému na jeho činnost finanční dar v hodnotě #{number_to_currency(donation.amount)} (dále jen dar). Dar bude obdarovanému splacen na jeho účet vedený u Fio banky č.#{Prawn::Text::NBSP}ú.:#{Prawn::Text::NBSP}7505075050/2010 a Obdarovaný dar přijímá." :
-      "Dárce poskytne obdarovanému na jeho činnost nepeněžní dar - #{donation.description}. Hodnota daru je stanovena na částku #{number_to_currency(donation.amount)} Kč a vychází z obvyklých cenových podmínek dárce. Obdarovaný dar přijímá."
+      "Dárce poskytne obdarovanému na jeho činnost nepeněžní dar - #{donation.description}. Hodnota daru je stanovena na částku #{number_to_currency(donation.amount)} a vychází z obvyklých cenových podmínek dárce. Obdarovaný dar přijímá."
     move_down vspace
     table([
       ["1.","#{configatron.party.name} je politická strana, založená dle zákona č. 424/1991 Sb., o#{Prawn::Text::NBSP}sdružování v politických stranách a v politických hnutích, registrovaná u MV ČR pod#{Prawn::Text::NBSP}číslem #{configatron.party.register_number}."],

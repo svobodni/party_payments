@@ -16,7 +16,7 @@
     <tr><th>Email</th><td><%= @non_monetary_donation.email %></td></tr>
     <tr><th colspan="2" class="info">Dar</th></tr>
     <tr><th>Popis plnění</th><td><%= @non_monetary_donation.description %></td></tr>
-    <tr><th>Hodnota daru</th><td><%= number_to_currency(@non_monetary_donation.amount) %> Kč</td></tr>
+    <tr><th>Hodnota daru</th><td><%= number_to_currency(@non_monetary_donation.amount) %></td></tr>
     <tr><th colspan="2" class="info">Smlouva</th></tr>
     <tr><th>Text smlouvy k podpisu</th><td><%= link_to 'PDF', non_monetary_donation_path(@non_monetary_donation, format: :pdf), class: "btn btn-success" %></td></tr>
     <tr><th>Podepsaná smlouva doručena</th><td><%=  @non_monetary_donation.agreement_received_on ? l(@non_monetary_donation.agreement_received_on) : "NE - Prosím, zašlete nám podepsanou smlouvu" %></td></tr>
