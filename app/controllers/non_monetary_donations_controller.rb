@@ -1,5 +1,6 @@
 class NonMonetaryDonationsController < ApplicationController
-  before_action :set_non_monetary_donation, only: [:show]
+  skip_before_filter :authenticate_person!
+  before_action :set_non_monetary_donation, only: [:show, :update]
   # GET /non_monetary_donations
   # GET /non_monetary_donations.json
   def index
@@ -42,6 +43,18 @@ class NonMonetaryDonationsController < ApplicationController
         format.json { render :show, status: :created, location: @non_monetary_donation }
       else
         format.html { render :new }
+        format.json { render json: @non_monetary_donation.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @non_monetary_donation.update(params.require(:non_monetary_donation).permit(:agreement))
+        format.html { redirect_to @non_monetary_donation, notice: 'Smlouva úspěšně uložena, děkujeme.' }
+        format.json { render :show, status: :ok, location: @non_monetary_donation }
+      else
+        format.html { render :show }
         format.json { render json: @non_monetary_donation.errors, status: :unprocessable_entity }
       end
     end

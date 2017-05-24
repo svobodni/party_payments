@@ -3,6 +3,7 @@ require 'securerandom'
 class NonMonetaryDonation < ActiveRecord::Base
   before_create :set_access_token
   after_create :send_email_with_agreement
+  before_update :set_agreement_received_on
 
   validates :amount, presence: true
   validates :description, presence: true
@@ -17,6 +18,9 @@ class NonMonetaryDonation < ActiveRecord::Base
   validates :email, presence: true
 
   scope :agreement_received, -> { where("agreement_received_on IS NOT NULL") }
+
+  has_attached_file :agreement, path: ":rails_root/data/non_monetary_agreements/:id.pdf", url: "/smlouvy-nepenezni/:id.pdf"
+  validates_attachment :agreement, content_type: { content_type: ["application/pdf"], message: "musí být PDF" }
 
   def monetary?
     false
@@ -41,6 +45,10 @@ class NonMonetaryDonation < ActiveRecord::Base
 
   def send_email_with_agreement
     DonationsMailer.non_monetary_agreement(self).deliver
+  end
+
+  def set_agreement_received_on
+    self.agreement_received_on = Date.today if agreement_file_size
   end
 
 end

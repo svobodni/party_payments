@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170514092624) do
+ActiveRecord::Schema.define(version: 20170524202055) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -177,6 +177,10 @@ ActiveRecord::Schema.define(version: 20170514092624) do
     t.string   "access_token"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "agreement_file_name"
+    t.string   "agreement_content_type"
+    t.integer  "agreement_file_size"
+    t.datetime "agreement_updated_at"
   end
 
   create_table "organizations", force: true do |t|
