@@ -1,0 +1,34 @@
+<% @page_title = 'Seznam finančních darů na kampaň' %>
+
+<p>Seznam všech osob, které ve prospěch Svobodných nebo jejich kandidáta poskytly peněžitý dar.</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Jméno a příjmení/obchodní firma</th>
+      <th>Obvyklá cena</th>
+      <th>Obec / Sídlo</th>
+      <th>Datum narození / IČ</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @campaign_donations.each do |campaign_donation| %>
+      <tr>
+        <td><%= campaign_donation.name %></td>
+        <td><%= number_to_currency(campaign_donation.amount) %></td>
+        <% if campaign_donation.juristic? %>
+          <td><%= campaign_donation.address %></td>
+          <td><%= campaign_donation.ic %></td>
+        <% else %>
+          <td><%= campaign_donation.city %></td>
+          <td><%= l campaign_donation.date_of_birth %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%#= link_to 'Nahlásit nový dar', new_campaign_donation_path, class: 'btn btn-primary btn-block' %>

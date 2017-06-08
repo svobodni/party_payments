@@ -23,6 +23,10 @@ class Donation < ActiveRecord::Base
     end
   end
 
+  def juristic?
+    donor_type == "juristic"
+  end
+
   def number
     "#{received_on.year}#{organization.id.to_s.rjust(2,'0')}#{id.to_s.rjust(3,'0')}"
   end
