@@ -121,5 +121,6 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   root 'static_pages#index'
+  get '/zprava', to: 'static_pages#campaign_report', as: :campaign_report
 
 end

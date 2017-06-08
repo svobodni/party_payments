@@ -18,4 +18,17 @@ class StaticPagesController < ApplicationController
 		@bank_accounts_balance = BankAccount.balance
   end
 
+  def campaign_report
+    respond_to do |format|
+      format.html
+      format.pdf {
+        pdf = CampaignReportPdf.new()
+        send_data pdf.render,
+                  filename: "svobodni_zprava_o_financovani_volebni_kampane.pdf",
+                  type: 'application/pdf',
+                  disposition: 'inline'
+      }
+    end
+  end
+
 end
