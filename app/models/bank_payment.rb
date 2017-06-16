@@ -84,62 +84,53 @@ class BankPayment < ActiveRecord::Base
   end
 
   def pair
-    if remaining_amount < 0
-      if invoice = Invoice.where(amount: positive_amount).detect{|i| i.vs==vs && i.account_number==account_number}
-        payments.create(payable: invoice, amount: positive_amount)
-      end
-    elsif remaining_amount > 0 &&
-        (our_account_number=="2601082960" || our_account_number==MembershipFee.account) &&
-        vs.length==5 && (vs[0]=="1" || vs[0]=="5")
-      response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/payments.json", basic_auth: configatron.registry.auth)
-      if response.success?
-        if response["payment"]["membership_type"]=="member" && vs[0]=="1" && our_account_number==MembershipFee.account
-          membership_fee = MembershipFee.create(
-            region_id: response["payment"]["region_id"],
-            amount: amount,
-            person_id: response["payment"]["id"],
-            name: response["payment"]["name"],
-            received_on: paid_on
-          )
-          payments.create(payable: membership_fee, amount: positive_amount)
-          response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
-        elsif response["payment"]["membership_type"]=="supporter" && vs[0]=="5" && our_account_number=="2601082960"
-          donation = Donation.create(
-            organization_id: 100,
-            amount: amount,
-            donor_type: 'natural',
-            person_id: response["payment"]["id"],
-            name: response["payment"]["name"],
-            date_of_birth: response["payment"]["date_of_birth"],
-            street: response["payment"]["street"],
-            city: response["payment"]["city"],
-            zip: response["payment"]["zip"],
-            email: response["payment"]["email"],
-            received_on: paid_on
-          )
-          payments.create(payable: donation, amount: positive_amount)
-          response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
+    if !(returning_payment || returned_payment)
+      if remaining_amount < 0
+        if invoice = Invoice.where(amount: positive_amount).detect{|i| i.vs==vs && i.account_number==account_number}
+          payments.create(payable: invoice, amount: positive_amount)
         end
-      end
-    elsif remaining_amount > 0 &&
-        (our_account_number=="7505075050") &&
-        vs.length==5 && vs[0]=="8"
-      data = DonationFormSubmission.all.select{|d| d.params["orderNumber"]==vs}.last
-      if data && data.params["totalPrice"].to_f/100==amount
-        donation = Donation.create(
-          organization_id: 100,
-          amount: data.params["totalPrice"].to_f/100,
-          donor_type: (data.params["companyName"].blank? ? 'natural' : 'juristic'),
-          name: (data.params["companyName"].blank? ? [data.params["firstName"],data.params["lastName"]].join(" ") : data.params["companyName"]),
-          date_of_birth: data.params["birthdate"],
-          ic: data.params["companyId"],
-          street: data.params["street"],
-          city: data.params["city"],
-          zip: data.params["postalCode"],
-          email: data.params["email"],
-          received_on: paid_on
-        )
-        payments.create(payable: donation, amount: positive_amount)
+      elsif remaining_amount > 0 &&
+          (our_account_number=="2601082960" || our_account_number==MembershipFee.account) &&
+          vs.length==5 && (vs[0]=="1" || vs[0]=="5")
+        response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/payments.json", basic_auth: configatron.registry.auth)
+        if response.success?
+          if response["payment"]["membership_type"]=="member" && vs[0]=="1" && our_account_number==MembershipFee.account
+            membership_fee = MembershipFee.create(
+              region_id: response["payment"]["region_id"],
+              amount: amount,
+              person_id: response["payment"]["id"],
+              name: response["payment"]["name"],
+              received_on: paid_on
+            )
+            payments.create(payable: membership_fee, amount: positive_amount)
+            response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
+          elsif response["payment"]["membership_type"]=="supporter" && vs[0]=="5" && our_account_number=="2601082960"
+            donation = Donation.create(
+              organization_id: 100,
+              amount: amount,
+              donor_type: 'natural',
+              person_id: response["payment"]["id"],
+              name: response["payment"]["name"],
+              date_of_birth: response["payment"]["date_of_birth"],
+              street: response["payment"]["street"],
+              city: response["payment"]["city"],
+              zip: response["payment"]["zip"],
+              email: response["payment"]["email"],
+              received_on: paid_on
+            )
+            payments.create(payable: donation, amount: positive_amount)
+            response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/paid.json", basic_auth: configatron.registry.auth)
+          end
+        end
+      elsif remaining_amount > 0 &&
+          (our_account_number=="7505075050") &&
+          vs.length==5 && vs[0]=="8"
+        data = DonationFormSubmission.all.select{|d| d.params["orderNumber"]==vs}.last
+        if data && data.params["totalPrice"].to_f/100==amount
+          donation = data.to_donation
+          donation.received_on = paid_on
+          payments.create(payable: donation, amount: positive_amount)
+        end
       end
     end
   end
