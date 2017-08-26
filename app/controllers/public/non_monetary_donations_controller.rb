@@ -1,4 +1,6 @@
-class NonMonetaryDonationsController < ApplicationController
+class Public::NonMonetaryDonationsController < ApplicationController
+  layout 'non_monetary_donations'
+
   skip_before_filter :authenticate_person!
   before_action :set_non_monetary_donation, only: [:show, :update]
   # GET /non_monetary_donations

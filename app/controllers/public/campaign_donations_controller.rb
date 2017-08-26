@@ -1,4 +1,4 @@
-class CampaignDonationsController < ApplicationController
+class Public::CampaignDonationsController < ApplicationController
   skip_before_filter :authenticate_person!
 
   def index

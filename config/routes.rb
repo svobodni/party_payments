@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :non_monetary_donations, path: :nepenezni_dary, path_names: { new: 'novy' }
-  resources :campaign_donations, path: :penezni_dary, path_names: { new: 'novy' }, only: :index
+  scope module: :public do
+    resources :non_monetary_donations, path: :nepenezni_dary, path_names: { new: 'novy' }
+    resources :campaign_donations, path: :penezni_dary, path_names: { new: 'novy' }, only: :index
+  end
 
   scope ":year", year: /201[3-9]/, path_names: { new: 'pridat', edit: 'upravit' } do
 
