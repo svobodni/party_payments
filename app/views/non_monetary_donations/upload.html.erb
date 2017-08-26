@@ -1,0 +1,17 @@
+<% unless @non_monetary_donation.agreement_received_on %>
+<a name="nahrat"></a>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h2>Nahrání naskenované podepsané smlouvy</h2>
+  </div>
+  <div class="panel-body">
+    <%= simple_form_for(@non_monetary_donation,  html: { class: 'form-horizontal' }) do |f| %>
+      <%= f.input :id, disabled: true %>
+      <%= f.input :name, disabled: true %>
+      <%= f.input :amount, disabled: true %>
+      <%= f.input :agreement, label: "PDF soubor se smlouvou" %>
+      <%= f.button :submit, "Uložit smlouvu", class: "btn-primary pull-right" %>
+    <% end %>
+  </div>
+</div>
+<% end %>

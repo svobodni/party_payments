@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
-  scope module: :public do
-    resources :non_monetary_donations, path: :nepenezni_dary, path_names: { new: 'novy' }
+  scope module: :public, as: 'public' do
+    resources :non_monetary_donations, path: :nepenezni_dary, path_names: { new: 'novy' } do
+      member do
+        get 'signed'
+      end
+    end
     resources :campaign_donations, path: :penezni_dary, path_names: { new: 'novy' }, only: :index
   end
 
@@ -16,6 +20,12 @@ Rails.application.routes.draw do
 
     resources :membership_fees
 
+    resources :non_monetary_donations do
+      member do
+        get 'upload'
+        get 'agreement', path: 'smlouva'
+      end
+    end
     resources :donations, path: 'dary' do
       member do
         get 'confirmation', path: 'potvrzeni'

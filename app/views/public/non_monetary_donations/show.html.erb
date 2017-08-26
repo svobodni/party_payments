@@ -3,7 +3,7 @@
 <% unless @non_monetary_donation.agreement_received_on %>
  <div class="panel panel-info">
    <div class="panel-body" style="font-size: 200%">
-     Vytiskněte si prosím <%= link_to 'darovací smlouvu', non_monetary_donation_path(@non_monetary_donation, format: :pdf)%> a zašlete ji na naši adresu nebo ji <a href="#nahrat">nahrajte naskenovanou</a>.
+     Vytiskněte si prosím <%= link_to 'darovací smlouvu', public_non_monetary_donation_path(@non_monetary_donation, format: :pdf)%> a zašlete ji na naši adresu nebo ji <a href="#nahrat">nahrajte naskenovanou</a>.
    </div>
  </div>
 <% end %>
@@ -18,7 +18,7 @@
     <tr><th>Popis plnění</th><td><%= @non_monetary_donation.description %></td></tr>
     <tr><th>Hodnota daru</th><td><%= number_to_currency(@non_monetary_donation.amount) %></td></tr>
     <tr><th colspan="2" class="info">Smlouva</th></tr>
-    <tr><th>Text smlouvy k podpisu</th><td><%= link_to 'PDF', non_monetary_donation_path(@non_monetary_donation, format: :pdf), class: "btn btn-success" %></td></tr>
+    <tr><th>Text smlouvy k podpisu</th><td><%= link_to 'PDF', public_non_monetary_donation_path(@non_monetary_donation, format: :pdf), class: "btn btn-success" %></td></tr>
     <tr>
       <th>Podepsaná smlouva doručena</th>
       <td>
@@ -39,7 +39,7 @@
     <h2>Nahrání naskenované podepsané smlouvy</h2>
   </div>
   <div class="panel-body">
-    <%= simple_form_for(@non_monetary_donation,  html: { class: 'form-horizontal' }) do |f| %>
+    <%= simple_form_for([:public, @non_monetary_donation],  html: { class: 'form-horizontal' }) do |f| %>
       <%= f.input :agreement, label: "PDF soubor se smlouvou" %>
       <%= f.button :submit, "Uložit smlouvu", class: "btn-primary pull-right" %>
     <% end %>

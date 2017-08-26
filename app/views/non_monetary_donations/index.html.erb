@@ -1,0 +1,40 @@
+<% page_title "Nepeněžní dary" %>
+
+<div class="pull-right"><%= paginate @non_monetary_donations %></div>
+
+<table id="donations" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Datum</th>
+      <th>Částka</th>
+      <th>Dárce</th>
+      <th>Adresa</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @non_monetary_donations.each do |non_monetary_donation| %>
+      <tr>
+        <td><%= non_monetary_donation.id %></td>
+        <td><%= l non_monetary_donation.created_at.to_date %></td>
+        <td><%= non_monetary_donation.amount %></td>
+        <td><%= non_monetary_donation.name %></td>
+        <td><%= non_monetary_donation.city %></td>
+        <td>
+        <% if non_monetary_donation.agreement_received_on %>
+          <%= link_to 'Podepsaná smlouva', signed_public_non_monetary_donation_path(non_monetary_donation, format: :pdf), class: "btn btn-xs btn-success" %>
+        <% else %>
+          <%= link_to 'Smlouva', public_non_monetary_donation_path(non_monetary_donation, format: :pdf), class: "btn btn-xs btn-default" %>
+          <%= link_to 'Nahrát smlouvu', upload_non_monetary_donation_path(non_monetary_donation), class: "btn btn-xs btn-default" %>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pull-right"><%#= paginate @donations %></div>
+
+<%#= link_to "Export xlsx", {format: :xlsx}, class: "btn btn-primary" %>
