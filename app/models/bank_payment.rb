@@ -90,8 +90,9 @@ class BankPayment < ActiveRecord::Base
           payments.create(payable: invoice, amount: positive_amount)
         end
       elsif remaining_amount > 0 &&
-          (our_account_number=="2601082960" || our_account_number==MembershipFee.account) &&
-          vs.length==5 && (vs[0]=="1" || vs[0]=="5")
+          vs.length==5 &&
+          ((our_account_number=="7505075050" && vs[0]=="5") ||
+          (our_account_number==MembershipFee.account && vs[0]=="1"))
         response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/payments.json", basic_auth: configatron.registry.auth)
         if response.success?
           if response["payment"]["membership_type"]=="member" && vs[0]=="1" && our_account_number==MembershipFee.account
