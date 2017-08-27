@@ -11,11 +11,11 @@ Zpráva pro příjemce (nutno uvést): Dar
 Vaši platbu poté naleznete na našem transparentním účtu:
 
 https://www.fio.cz/ib2/transparent?a=7505075050
-
+<% if @donation.needs_agreement? %>
 V příloze Vám zasíláme darovací smlouvu. Tu prosím dvojmo vytiskněte, podepište a
 zašlete poštou na naši adresu. Obratem Vám vrátíme jeden výtisk námi podepsaný.
 Pokud nemáte tiskárnu, napište nám a oba výtisky Vám pošleme poštou.
-
+<% end %>
 Děkujeme za Vaši podporu
 
 Svobodní

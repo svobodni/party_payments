@@ -13,11 +13,11 @@ pro poukázání daru:</p>
 </table>
 
 <p>Vaši platbu poté naleznete na našem <a href="https://www.fio.cz/ib2/transparent?a=7505075050">transparentním účtu</a>.</p>
-
+<% if @donation.needs_agreement? %>
 <p>V příloze Vám zasíláme darovací smlouvu. Tu prosím dvojmo vytiskněte, podepište a
 zašlete poštou na naši adresu. Obratem Vám vrátíme jeden výtisk námi podepsaný.
 Pokud nemáte tiskárnu, napište nám a oba výtisky Vám pošleme poštou.</p>
-
+<% end %>
 <p>Děkujeme za Vaši podporu</p>
 
 <p>Svobodní</p>

@@ -31,6 +31,10 @@ class Donation < ActiveRecord::Base
     "#{received_on.year}#{organization.id.to_s.rjust(2,'0')}#{id.to_s.rjust(3,'0')}"
   end
 
+  def needs_agreement?
+    amount > 1000
+  end
+
   def set_accounting
     if received_on > Date.parse("2016-12-31")
       if organization_id==100
