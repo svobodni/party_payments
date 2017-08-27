@@ -58,15 +58,37 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
+    <h2 class="panel-title">Události</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+    <thead>
+      <tr><th>ID</th><th>Datum události</th><th>Osoba</th><th>Událost</th></tr>
+    </thead>
+    <tbody>
+      <% @invoice.events.order(id: :desc).each do |event| %>
+      <% if event.name=="InvoiceUpdated" && =event.data["params"].try(:fetch, "commit")=="Vyznačit schválení" %>
+      <tr><td><%= event.id %></td><td><%= l event.created_at.to_date %></td><td><%= link_to event.requestor_id, "https://registr.svobodni.cz/people/#{event.requestor_id}" %></td><td>Vyznačil schválení</td></tr>
+      <% end %>
+      <% end %>
+    <tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
     <h2 class="panel-title">Úhrada</h2>
   </div>
   <div class="panel-body">
-    <% unless @invoice.approved? %>
-    <div class="alert alert-danger text-center">
-      Schválení <strong>nevyznačeno</strong>.
-    </div>
+    <% if @invoice.is_exportable? && can?(:pay, @invoice) %>
+      <% unless @invoice.approved? %>
+      <div class="alert alert-danger text-center">
+        Schválení <strong>nevyznačeno</strong>.
+      </div>
+      <% end %>
+      <p class="text-center"><%= link_to("Zaplatit", pay_invoice_path(@invoice), class: "btn btn-primary") %></p>
     <% end %>
-    <p class="text-center"><%= link_to("Zaplatit", pay_invoice_path(@invoice), class: "btn btn-primary") if @invoice.is_exportable? if can?(:pay, @invoice)%></p>
     <table class="table">
     <thead>
       <tr><th>Datum úhrady</th><th>Částka</th></tr>
