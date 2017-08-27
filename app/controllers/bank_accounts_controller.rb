@@ -5,29 +5,31 @@ class BankAccountsController < ApplicationController
   # GET /bank_accounts
   # GET /bank_accounts.json
   def index
-    @bank_accounts = BankAccount.all
+    @bank_accounts = BankAccount.accessible_by(current_ability).all
   end
 
   # GET /bank_accounts/1
   # GET /bank_accounts/1.json
   def show
-    @bank_payments=@bank_account.payments.order(created_at: :desc).page params[:page]
+    @bank_payments=@bank_account.payments.accessible_by(current_ability).order(created_at: :desc).page params[:page]
   end
 
   # GET /bank_accounts/new
   def new
     @bank_account = BankAccount.new
+    authorize! :create, @bank_account
   end
 
   # GET /bank_accounts/1/edit
   def edit
+    authorize! :update, @bank_account
   end
 
   # POST /bank_accounts
   # POST /bank_accounts.json
   def create
     @bank_account = BankAccount.new(bank_account_params)
-
+    authorize! :create, @bank_account
     respond_to do |format|
       if @bank_account.save
         format.html { redirect_to bank_accounts_path, notice: 'Nový bankovní účet byl úspěšně uložen.' }
@@ -42,6 +44,7 @@ class BankAccountsController < ApplicationController
   # PATCH/PUT /bank_accounts/1
   # PATCH/PUT /bank_accounts/1.json
   def update
+    authorize! :update, @bank_account
     respond_to do |format|
       if @bank_account.update(bank_account_params)
         format.html { redirect_to bank_accounts_path, notice: 'Bankovní účet byl úspěšně uložen.' }
@@ -50,16 +53,6 @@ class BankAccountsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @bank_account.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /bank_accounts/1
-  # DELETE /bank_accounts/1.json
-  def destroy
-    @bank_account.destroy
-    respond_to do |format|
-      format.html { redirect_to bank_accounts_url, notice: 'Bank account was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

@@ -1,6 +1,6 @@
 class MembershipFee < ActiveRecord::Base
 
-  belongs_to :region, class: Organization
+  belongs_to :region, class_name: 'Organization'
   has_many :accountings, as: :accountable
   has_many :payments, as: :payable
   before_create :set_accounting

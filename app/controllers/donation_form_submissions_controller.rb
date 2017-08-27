@@ -9,11 +9,11 @@ class DonationFormSubmissionsController < ApplicationController
   end
 
   def index
-    @donation_form_submissions = DonationFormSubmission.all
+    @donation_form_submissions = DonationFormSubmission.accessible_by(current_ability)
   end
 
   def show
-    @donation_form_submission = DonationFormSubmission.find(params[:id])
+    @donation_form_submission = DonationFormSubmission.accessible_by(current_ability).find(params[:id])
   end
 
 end

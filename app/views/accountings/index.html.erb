@@ -12,7 +12,7 @@
   <tbody>
     <% @accountings.each do |accounting| %>
       <tr>
-        <td><%= accounting.accountable.class.model_name.human %>: <%= link_to accounting.accountable.try(:description) || accounting.accountable.try(:name), accounting.accountable %></td>
+        <td><%= accounting.accountable.class.try(:model_name).try(:human) %>: <%= link_to accounting.accountable.try(:description) || accounting.accountable.try(:name), accounting.accountable %></td>
         <td><%= accounting.amount %></td>
         <td><%= link_to "#{accounting.budget_category.try(:year)} : #{accounting.budget_category.try(:name)}", accounting.budget_category %></td>
       </tr>

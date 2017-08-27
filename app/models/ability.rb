@@ -3,6 +3,13 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    if [42, 342, 344, 2804, 3860].member?(user['id'])
+      can :manage, :all
+    end
+
+    if user['id']==2522
+      can :read, :all
+    end
 
     orgs={1 => 100, 2 => 100, 3 => 100, 4 => 100, 5 => 100, 6 => 1, 7 => 2, 8 => 3, 9 => 4, 10 => 5, 11 => 6, 12 => 7, 13 => 8, 14 => 9, 15 => 10, 16 => 11, 17 => 12, 18 => 13, 19 => 14}
     # can :read, :all
@@ -19,14 +26,5 @@ class Ability
         can :read, :all
       end
     end
-
-    if [42, 342, 344, 2804, 3860].member?(user['id'])
-      can :manage, :all
-    end
-
-    if user['id']==2522
-      can :read, :all
-    end
-
   end
 end

@@ -7,6 +7,7 @@ class DonationsController < ApplicationController
   def index
     @donations = @organization ? @organization.donations : Donation.all
     @donations = @donations.includes(accountings:[accountable: [payments: :payment]])
+    @donations = @donations.accessible_by(current_ability)
 
     # if params[:year]
     #   @donations = @donations.where("received_on >= ? AND received_on <= ?", "#{params[:year]}-01-01", "#{params[:year]}-12-31")
@@ -28,6 +29,7 @@ class DonationsController < ApplicationController
       @donations = Donation.all
     end
     @donations = @donations.where("amount > 999")
+    @donations = @donations.accessible_by(current_ability)
     @donations = @donations.order(created_at: :desc).page params[:page]
     render action: :index
   end

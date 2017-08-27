@@ -6,7 +6,7 @@ class BankAccount < ActiveRecord::Base
   validates :account_number, presence: true, format: { with: /\A[0-9\-]{2,20}\z/ }
   validates :bank_code, presence: true, format: { with: /\A[0-9]{4}\z/ }
 
-  has_many :payments, class: BankPayment, foreign_key: :our_account_number, primary_key: :account_number
+  has_many :payments, class_name: "BankPayment", foreign_key: :our_account_number, primary_key: :account_number
 
   def full_account_number
     [account_number, bank_code].join('/')

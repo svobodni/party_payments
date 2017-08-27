@@ -139,7 +139,7 @@ class InvoicesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice
-      @invoice = Invoice.find(params[:id])
+      @invoice = Invoice.accessible_by(current_ability).find(params[:id])
       @organization=@invoice.organization
     end
 
@@ -149,6 +149,7 @@ class InvoicesController < ApplicationController
       else
         @invoices = Invoice.all
       end
+      @invoices = @invoices.accessible_by(current_ability)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

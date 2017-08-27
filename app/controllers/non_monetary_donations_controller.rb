@@ -9,6 +9,7 @@ class NonMonetaryDonationsController < ApplicationController
       @non_monetary_donations = @non_monetary_donations.where("created_at >= ? AND created_at <= ?", "#{params[:year]}-01-01", "#{params[:year]}-12-31")
     end
 
+    @non_monetary_donations = @non_monetary_donations.accessible_by(current_ability)
     respond_to do |format|
       format.html {
         @non_monetary_donations = @non_monetary_donations.order(created_at: :desc).page params[:page]
