@@ -11,7 +11,7 @@ Rails.application.routes.draw do
         get 'signed'
       end
     end
-    resources :crowdfundings, only: [:index, :show]
+    resources :crowdfundings, path: :crowdfunding, only: [:index, :show]
   end
 
   scope ":year", year: /201[3-9]/, path_names: { new: 'pridat', edit: 'upravit' } do
