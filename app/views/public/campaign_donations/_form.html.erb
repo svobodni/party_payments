@@ -1,0 +1,34 @@
+<%= simple_form_for([:public, :campaign, @donation], wrapper: :customized_form, html: { class: 'form-horizontal' }) do |f| %>
+  <%= f.error_notification %>
+  <fieldset class="form-group">
+    <legend>Údaje dárce</legend>
+    <%= f.input :vs_prefix, as: :hidden %>
+    <%= f.input :donor_type, as: :hidden, input_html: {value: (@donation.juristic? ? "juristic" : "natural")} %>
+    <%= f.input :name, label: (@donation.juristic? ? "Firma" : "Jméno a příjmení") %>
+    <% if @donation.juristic? %>
+    <%= f.input :ic, required: true %>
+    <% else %>
+    <%= f.input :date_of_birth, start_year: Date.today.year - 17, end_year: Date.today.year - 99 %>
+    <% end %>
+    <%= f.input :email %>
+  </fieldset>
+  <fieldset class="form-group">
+    <% if @donation.juristic? %>
+    <legend>Adresa sídla</legend>
+    <% else %>
+    <legend>Adresa podle občanky</legend>
+    <% end %>
+    <%= f.input :street %>
+    <%= f.input :city %>
+    <%= f.input :zip %>
+  </fieldset>
+  <fieldset class="form-group">
+    <legend>Výše daru</legend>
+    <%#= f.input :description, hint: "Např.: poskytnutí plochy na plotě" %>
+    <%= f.input :amount, wrapper: :horizontal_input_group do %>
+         <%= f.input_field :amount, class: "form-control" %>
+         <span class="input-group-addon">Kč</span>
+       <% end %>
+  </fieldset>
+  <%= f.submit "Uložit a vygenerovat darovací smlouvu", class: "btn btn-success btn-block" %>
+<% end %>

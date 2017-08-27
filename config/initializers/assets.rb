@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( non_monetary_donations.css )
+Rails.application.config.assets.precompile += %w( public.css )

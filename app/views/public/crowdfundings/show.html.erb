@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="jumbotron">
+      <h1 class="display-3"><%=@crowdfunding.title%></h1>
+      <p class="lead"><%=@crowdfunding.perex%></p>
+      <hr class="my-4">
+      <p><%=@crowdfunding.description%></p>
+      <hr class="my-4">
+      <p class="lead text-center">
+        <%=@crowdfunding.human_price%>
+      </p>
+    </div>
+    <% unless @crowdfunding.image_url.blank? %>
+      <%= image_tag "crowdfunding/#{@crowdfunding.image_url}", class: "img-responsive" %>
+    <% end %>
+  </div>
+  <div class="col-md-6">
+    <% @donation = Donation.new(vs_prefix:@crowdfunding.vs_prefix, amount: @crowdfunding.price) %>
+    <%= render 'public/campaign_donations/form' %>
+  </div>
+</div>

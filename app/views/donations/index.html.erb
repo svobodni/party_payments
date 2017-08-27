@@ -23,8 +23,13 @@
         <td><%= donation.name %></td>
         <td><%= donation.address %></td>
         <td>
-        <%= link_to 'Potvrzení', confirmation_donation_path(donation, format: :pdf), class: "btn btn-default" %>
-        <%= link_to 'Smlouva', agreement_donation_path(donation, format: :pdf), class: "btn btn-default" %>
+        <% if donation.agreement_received_on %>
+          <%= link_to 'Podepsaná smlouva', signed_public_campaign_donation_path(donation, format: :pdf), class: "btn btn-xs btn-success" %>
+        <% else %>
+          <%= link_to 'Potvrzení', confirmation_donation_path(donation, format: :pdf), class: "btn btn-xs btn-default" %>
+          <%= link_to 'Smlouva', agreement_donation_path(donation, format: :pdf), class: "btn btn-xs btn-default" %>
+          <%= link_to 'Nahrát smlouvu', upload_donation_path(donation), class: "btn btn-xs btn-default" %>
+        <% end %>
         </td>
       </tr>
     <% end %>

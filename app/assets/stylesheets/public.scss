@@ -1,0 +1,53 @@
+// Place all the styles related to the NonMonetaryDonations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$brand-primary:         #009681; //darken(#00654E, 6.5%);
+$svobodni-lighter:      #C9DAD5;
+$svobodni-secondary:    #6C2D7A;
+
+$headings-color:        $brand-primary;
+
+$font-family-base:      "Montserrat", "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$headings-font-family:  "Montserrat-Bold", "Roboto-Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+@import "bootstrap-sprockets";
+// Import Bootstrap Compass integration
+// @import "bootstrap-compass";
+// Import custom Bootstrap variables
+@import "bootstrap-variables";
+// Import Bootstrap for Sass
+// @import "bootstrap";
+
+.sitename {
+  color: $brand-primary;
+  font-size: 200%;
+}
+
+.footer {
+  background-color: $brand-primary;
+  color: #fff;
+  margin-top: 2em;
+  padding-top: 1em;
+  padding-bottom: 3em;
+  margin-bottom: 2em;
+}
+
+.footer h3 {
+  margin-left: 10%
+  // text-align: center;
+}
+
+.footer ul {
+  // list-style-type: none;
+}
+
+.footer a:link, .footer a:visited {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.footer a:hover, .footer a:active {
+    text-decoration: underline;
+}

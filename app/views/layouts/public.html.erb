@@ -14,7 +14,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.css">
 
-    <%= stylesheet_link_tag    'non_monetary_donations', media: 'all', 'data-turbolinks-track'   => true %>
+    <%= stylesheet_link_tag    'public', media: 'all', 'data-turbolinks-track'   => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
 
@@ -62,8 +62,8 @@
           <h4>Nepeněžní dary</h4>
           <ul>
             <li><%= link_to "Výpis dárců", public_non_monetary_donations_path %></li>
-            <li><%= link_to "Nová osoba", new_public_non_monetary_donation_path %></li>
-            <li><%= link_to "Nová firma", new_public_non_monetary_donation_path(person_type: :juristic) %></li>
+            <li><%= link_to "Nová dar od voliče", new_public_non_monetary_donation_path %></li>
+            <li><%= link_to "Nová dar od firmy", new_public_non_monetary_donation_path(person_type: :juristic) %></li>
           </ul>
         </div>
         <div class="col-md-3">
@@ -72,6 +72,7 @@
             <li><%= link_to "Výpis dárců", public_campaign_donations_path %></li>
             <li><%= link_to "Transparentní účet", 'https://www.svobodni.cz/transparentni-ucet/' %></li>
             <li><%= link_to "Darujte", 'https://prispet.svobodni.cz/' %></li>
+            <li><%= link_to "Crowdfunging", public_crowdfundings_path %></li>
           </ul>
         </div>
         <div class="col-md-3">

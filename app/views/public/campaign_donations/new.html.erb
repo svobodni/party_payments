@@ -1,0 +1,37 @@
+<% if @donation.juristic? %>
+<% @page_title="Finanční dar - nová smlouva - právnická osoba" %>
+<% else %>
+<% @page_title="Finanční dar - nová smlouva - fyzická osoba" %>
+<% end %>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        Návrh darovací smlouvy na finanční dar od <% if @donation.juristic? %>právnické<%else%>fyzické<%end%> osoby
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-xs-10 col-xs-offset-1">
+            <%= render 'form' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-primary">
+      <div class="panel-body">
+        <% if @donation.juristic? %>
+        <p>Jste fyzická osoba? Přejděte na</p>
+        <%= link_to "Formulář pro fyzické osoby", new_public_campaign_donation_path, class:"btn btn-primary" %>
+        <% else %>
+        <p>Jste právnická osoba? Přejděte na</p>
+        <%= link_to "Formulář pro firmy", new_public_campaign_donation_path(person_type: :juristic), class:"btn btn-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%#= link_to 'Back', public_donations_path %>

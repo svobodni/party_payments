@@ -1,0 +1,26 @@
+<p>Dobrý den,</p>
+
+<p>velice děkujeme za Váš příslib daru. Dovolujeme si Vám zaslat platební instrukce
+pro poukázání daru:</p>
+
+<table>
+  <tbody>
+    <tr><td>Číslo účtu:</td><td>7505075050/2010</td></tr>
+    <tr><td>Částka:</td><td><%= number_to_currency(@donation.amount) %></td></tr>
+    <tr><td>Variabilní symbol:</td><td><%= @donation.vs %></td></tr>
+    <tr><td>Zpráva pro příjemce (nutno uvést):</td><td>Dar</td></tr>
+  </tbody>
+</table>
+
+<p>Vaši platbu poté naleznete na našem <a href="https://www.fio.cz/ib2/transparent?a=7505075050">transparentním účtu</a>.</p>
+
+<% if @donation.needs_agreement? %>
+<p>V příloze Vám zasíláme darovací smlouvu. Tu prosím dvojmo vytiskněte, podepište a
+zašlete poštou na naši adresu. Obratem Vám vrátíme jeden výtisk námi podepsaný.
+Pokud nemáte tiskárnu, napište nám a oba výtisky Vám pošleme poštou.</p>
+
+<p>Smlouvu můžete také naskenovat a <%= link_to "nahrát nám ji", public_campaign_donation_url(@donation) %>.</p>
+<% end %>
+<p>Děkujeme za Vaši podporu</p>
+
+<p>Svobodní</p>

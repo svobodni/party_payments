@@ -1,17 +1,16 @@
 class DonationsController < ApplicationController
-  before_action :set_donation, only: [:show, :edit, :update, :destroy, :confirmation, :agreement]
+  before_action :set_donation, only: [:show, :edit, :update, :destroy, :confirmation, :agreement, :upload]
   respond_to :pdf, only: [:confirmation, :agreement]
 
   # GET /donations
   # GET /donations.json
   def index
-#    @organization = Organization.find_by_id(params[:organization_id])
     @donations = @organization ? @organization.donations : Donation.all
     @donations = @donations.includes(accountings:[accountable: [payments: :payment]])
 
-    if params[:year]
-      @donations = @donations.where("received_on >= ? AND received_on <= ?", "#{params[:year]}-01-01", "#{params[:year]}-12-31")
-    end
+    # if params[:year]
+    #   @donations = @donations.where("received_on >= ? AND received_on <= ?", "#{params[:year]}-01-01", "#{params[:year]}-12-31")
+    # end
 
     respond_to do |format|
       format.html {
@@ -128,12 +127,12 @@ class DonationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_donation
-      @donation = Donation.find(params[:id])
+      @donation = Donation.friendly.find(params[:id])
       @organization = @donation.organization
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def donation_params
-      params.require(:donation).permit(:organization_id, :amount, :donor_type, :person_id, :name, :ic, :date_of_birth, :street, :city, :zip, :email)
+      params.require(:donation).permit(:organization_id, :amount, :donor_type, :person_id, :name, :ic, :date_of_birth, :street, :city, :zip, :email, :agreement)
     end
 end

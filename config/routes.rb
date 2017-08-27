@@ -6,7 +6,12 @@ Rails.application.routes.draw do
         get 'signed'
       end
     end
-    resources :campaign_donations, path: :penezni_dary, path_names: { new: 'novy' }, only: :index
+    resources :campaign_donations, path: :penezni_dary, path_names: { new: 'novy' } do
+      member do
+        get 'signed'
+      end
+    end
+    resources :crowdfundings, only: [:index, :show]
   end
 
   scope ":year", year: /201[3-9]/, path_names: { new: 'pridat', edit: 'upravit' } do
@@ -30,6 +35,7 @@ Rails.application.routes.draw do
       member do
         get 'confirmation', path: 'potvrzeni'
         get 'agreement', path: 'smlouva'
+        get 'upload'
       end
     end
 

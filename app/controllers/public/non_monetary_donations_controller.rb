@@ -71,7 +71,7 @@ class Public::NonMonetaryDonationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_non_monetary_donation
-      @non_monetary_donation = NonMonetaryDonation.find_by(access_token: params[:id])
+      @non_monetary_donation = NonMonetaryDonation.find_by!(access_token: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

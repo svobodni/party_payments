@@ -1,0 +1,90 @@
+<% @page_title = "Finanční dar na kampaň" %>
+
+<% if @donation.needs_agreement? %>
+  <% unless @donation.agreement_received_on %>
+   <div class="panel panel-info">
+     <div class="panel-body" style="font-size: 200%">
+       Vytiskněte si prosím <%= link_to 'darovací smlouvu', public_campaign_donation_path(@donation, format: :pdf)%> a zašlete ji na naši adresu nebo ji <a href="#nahrat">nahrajte naskenovanou</a>.
+     </div>
+   </div>
+  <% end %>
+<% end %>
+
+<% unless @donation.payment_received_on %>
+<div class="panel panel-info">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-8">
+        <h3>Zaplaťte prosím</h3>
+        <table class="table">
+          <tr>
+            <th>Variabilní symbol</th>
+            <td><%= @donation.vs || "9#{@donation.id}" %></td>
+          </tr>
+          <tr>
+            <th>Zpráva pro příjemce (nutno uvést)</th>
+            <td>DAR</td>
+          </tr>
+          <tr>
+            <th>Částka</th>
+            <td><%= number_to_currency(@donation.amount) %></td>
+          </tr>
+          <tr>
+            <th>Číslo účtu</th>
+            <td>7505075050/2010</td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-4">
+        <img class="img-responsive" src="http://api.paylibo.com/paylibo/generator/czech/image?accountNumber=7505075050&bankCode=2010&amount=<%=@donation.amount%>&currency=CZK&vs=<%=@donation.vs%>&message=DAR">
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+
+<table class="table">
+  <tbody>
+    <tr><th colspan="2" class="info">Dárce</th></tr>
+    <tr><th>Jméno</th><td><%= @donation.name %></td></tr>
+    <tr><th>Adresa</th><td><%= @donation.address %></td></tr>
+    <tr><th>Email</th><td><%= @donation.email %></td></tr>
+    <tr><th colspan="2" class="info">Dar</th></tr>
+    <!-- <tr><th>Popis plnění</th><td><%#= @donation.description %></td></tr> -->
+    <tr><th>Hodnota daru</th><td><%= number_to_currency(@donation.amount) %></td></tr>
+    <% if @donation.needs_agreement? %>
+    <tr><th colspan="2" class="info">Smlouva</th></tr>
+    <% if @donation.agreement_received_on %>
+      <tr><th>Podepsaná smlouva</th><td><%= link_to 'PDF', signed_public_campaign_donation_path(@donation, format: :pdf), class: "btn btn-success" %></td></tr>
+    <% else %>
+      <tr><th>Text smlouvy k podpisu</th><td><%= link_to 'PDF', public_campaign_donation_path(@donation, format: :pdf), class: "btn btn-success" %></td></tr>
+    <% end %>
+    <tr>
+      <th>Podepsaná smlouva doručena</th>
+      <td>
+        <% if @donation.agreement_received_on %>
+          <%= l(@donation.agreement_received_on) %>
+        <% else %>
+          NE - Prosím, zašlete nám podepsanou smlouvu nebo nahrajte naskenovanou
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% unless @donation.agreement_received_on %>
+<a name="nahrat"></a>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h2>Nahrání naskenované podepsané smlouvy</h2>
+  </div>
+  <div class="panel-body">
+    <%= simple_form_for([:public, :campaign, @donation],  html: { class: 'form-horizontal' }) do |f| %>
+      <%= f.input :agreement, label: "PDF soubor se smlouvou" %>
+      <%= f.button :submit, "Uložit smlouvu", class: "btn-primary pull-right" %>
+    <% end %>
+  </div>
+</div>
+<% end %>

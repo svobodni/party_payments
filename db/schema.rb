@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170524202055) do
+ActiveRecord::Schema.define(version: 20170827155223) do
 
   create_table "accountings", force: true do |t|
     t.string   "accountable_type"
@@ -82,6 +82,18 @@ ActiveRecord::Schema.define(version: 20170524202055) do
     t.string   "approval_url"
   end
 
+  create_table "crowdfundings", force: true do |t|
+    t.string   "vs_prefix"
+    t.string   "title"
+    t.text     "perex"
+    t.integer  "price"
+    t.string   "unit"
+    t.string   "image_url"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "donation_form_submissions", force: true do |t|
     t.text     "params"
     t.datetime "created_at"
@@ -90,7 +102,7 @@ ActiveRecord::Schema.define(version: 20170524202055) do
 
   create_table "donations", force: true do |t|
     t.integer  "organization_id"
-    t.decimal  "amount",          precision: 10, scale: 2
+    t.decimal  "amount",                 precision: 10, scale: 2
     t.string   "donor_type"
     t.integer  "person_id"
     t.string   "name"
@@ -103,6 +115,12 @@ ActiveRecord::Schema.define(version: 20170524202055) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "received_on"
+    t.string   "agreement_file_name"
+    t.string   "agreement_content_type"
+    t.integer  "agreement_file_size"
+    t.datetime "agreement_updated_at"
+    t.string   "access_token"
+    t.string   "vs"
   end
 
   create_table "events", force: true do |t|
@@ -120,7 +138,7 @@ ActiveRecord::Schema.define(version: 20170524202055) do
   create_table "gopay_payments", force: true do |t|
     t.string   "transaction_id"
     t.date     "paid_on"
-    t.float    "amount"
+    t.float    "amount",         limit: 24
     t.string   "currency"
     t.string   "account_name"
     t.string   "info"
@@ -162,7 +180,7 @@ ActiveRecord::Schema.define(version: 20170524202055) do
   end
 
   create_table "non_monetary_donations", force: true do |t|
-    t.decimal  "amount",                precision: 10, scale: 2
+    t.decimal  "amount",                 precision: 10, scale: 2
     t.string   "description"
     t.string   "donor_type"
     t.integer  "person_id"

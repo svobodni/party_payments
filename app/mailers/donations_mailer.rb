@@ -3,7 +3,17 @@ class DonationsMailer < ActionMailer::Base
 
   def agreement(donation)
     @donation = donation
-    attachments['svobodni_smlouva.pdf'] = DonationAgreementPdf.new(donation).render
+    if donation.needs_agreement?
+      attachments['svobodni_smlouva.pdf'] = DonationAgreementPdf.new(donation).render
+    end
+    mail(to: donation.email, subject: 'Svobodní - darovací smlouva')
+  end
+
+  def campaign_donation_agreement(donation)
+    @donation = donation
+    if donation.needs_agreement?
+      attachments['svobodni_smlouva.pdf'] = DonationAgreementPdf.new(donation).render
+    end
     mail(to: donation.email, subject: 'Svobodní - darovací smlouva')
   end
 
