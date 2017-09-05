@@ -8,7 +8,7 @@
     <% if @donation.juristic? %>
     <%= f.input :ic, required: true %>
     <% else %>
-    <%= f.input :date_of_birth, start_year: Date.today.year - 17, end_year: Date.today.year - 99 %>
+    <%= f.input :date_of_birth, start_year: Date.today.year - 17, end_year: Date.today.year - 99, required: true %>
     <% end %>
     <%= f.input :email %>
   </fieldset>
