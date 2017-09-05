@@ -9,6 +9,7 @@ class Public::CrowdfundingsController < ApplicationController
 
   def show
     @crowdfunding = Crowdfunding.find(params[:id])
+    @donation = Donation.new(vs_prefix:@crowdfunding.vs_prefix, amount: @crowdfunding.price)
   end
 
 end

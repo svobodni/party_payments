@@ -15,7 +15,6 @@
     <% end %>
   </div>
   <div class="col-md-6">
-    <% @donation = Donation.new(vs_prefix:@crowdfunding.vs_prefix, amount: @crowdfunding.price) %>
     <%= render 'public/campaign_donations/form' %>
   </div>
 </div>

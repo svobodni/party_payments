@@ -43,7 +43,12 @@ class Public::CampaignDonationsController < ApplicationController
         DonationsMailer.campaign_donation_agreement(@donation).deliver
         format.html { redirect_to [:public, :campaign, @donation], notice: 'Smlouva úspěšně vygenerována.' }
       else
-        format.html { render :new }
+        if @donation.vs_prefix
+          @crowdfunding = Crowdfunding.find_by(vs_prefix: @donation.vs_prefix)
+          format.html { render "public/crowdfundings/show" }
+        else
+          format.html { render :new }
+        end
       end
     end
   end
