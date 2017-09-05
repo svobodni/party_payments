@@ -1,6 +1,6 @@
 class Public::CrowdfundingsController < ApplicationController
 
-  layout 'public'
+  layout 'crowdfunding'
   skip_before_filter :authenticate_person!
 
   def index
