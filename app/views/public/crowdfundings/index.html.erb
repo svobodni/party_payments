@@ -8,7 +8,6 @@
         <h4><%=card.title%></h4>
         <% unless card.image_url.blank? %>
           <%= image_tag "crowdfunding/#{card.image_url}", class: "img-responsive" %>
-          <img class="img-responsive" src="<%= card.image_url %>" alt="">
         <% end %>
       </div>
       <div class="panel-body">
@@ -19,97 +18,3 @@
   </div>
   <% end %>
 </div>
-<!-- <div class="row">
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-bodxy">
-        <h3>Billboard ve Vašem okolí</h3>
-        <p>Chcete, aby Svobodní byli více vidět? Zaplaťte nám prosím billboard.</p>
-        <%= link_to "Vybrat plochu", "#", class: "btn btn-primary btn-block" %>
-      </div>
-      <div class="panel-foote">
-        Vybráno<br>3000 Kč ze 180000 Kč
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="10"
-          aria-valuemin="0" aria-valuemax="100" style="width:10%">
-            <span class="sr-only">70% Complete</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-bodyx">
-        <h3>TV klip</h3>
-        <p>Chcete, aby Svobodní v televizi nejlepší klip? Přispějte prosím na soutěž.</p>
-        <%= link_to "Přispět", "#", class: "btn btn-primary btn-block" %>
-      </div>
-      <div class="panel-foote">
-        Vybráno<br>3000 Kč ze 200000 Kč
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="10"
-          aria-valuemin="0" aria-valuemax="100" style="width:10%">
-            <span class="sr-only">70% Complete</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-bodyx">
-        <h3>Kontaktní kampaň</h3>
-        <img src="http://www.reformy.cz/wp-content/uploads/2013/09/sofie-620x300.jpg" class="img-responsive">
-        <p>Chcete, aby Svobodní byli více vidět v ulicích? Zaplaťte nám prosím brigádníky na kontaktní kampaň.</p>
-        <%= link_to "Přispět", "#", class: "btn btn-primary btn-block" %>
-      </div>
-      <div class="panel-foote">
-        Vybráno<br>3000 Kč ze 180000 Kč
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="10"
-          aria-valuemin="0" aria-valuemax="100" style="width:10%">
-            <span class="sr-only">70% Complete</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-headingx">
-        <h3>Mobilní billboard</h3>
-        <img src="https://scontent-amt2-1.cdninstagram.com/t51.2885-15/e35/18513421_970235226412853_9031423394276442112_n.jpg" class="img-responsive">
-      </div>
-      <div class="panel-body">
-        <p>Chcete, aby Svobodní byli více vidět v ulicích? Zaplaťte nám prosím mobilní billboard.</p>
-        <%= link_to "Přispět", "#", class: "btn btn-primary btn-block" %>
-      </div>
-      <div class="panel-footer">
-        Vybráno<br>3000 Kč ze 180000 Kč
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="10"
-          aria-valuemin="0" aria-valuemax="100" style="width:10%">
-            <span class="sr-only">70% Complete</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-bodx">
-        <h3>Reklama na facebooku</h3>
-        <p>Chcete, aby Svobodní byli více vidět na facebooku? Zaplaťte nám prosím reklamu.</p>
-        <%= link_to "Přispět", "#", class: "btn btn-primary btn-block" %>
-      </div>
-      <div class="panel-foote">
-        Vybráno<br>2400 Kč ze 18000 Kč
-        <div class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="12"
-          aria-valuemin="0" aria-valuemax="100" style="width:12%">
-            <span class="sr-only">70% Complete</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
