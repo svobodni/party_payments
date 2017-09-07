@@ -1,0 +1,33 @@
+<% page_title "Crowdfunding" %>
+
+<div class="pull-right"><%= paginate @donations %></div>
+
+<table id="donations" class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID daru</th>
+      <th>Částka</th>
+      <th>Dárce</th>
+      <th>Email</th>
+      <th>Platba</th>
+      <th>Smlouva</th>
+      <th>Účel</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @donations.each do |donation| %>
+      <tr>
+        <td><%= link_to donation.id, donation %></td>
+        <td align="right"><%= number_to_currency donation.amount %></td>
+        <td><%= donation.name %></td>
+        <td><%= donation.email %></td>
+        <td><%= donation.received_on ? donation.received_on : "NE" %></td>
+        <td><%= donation.agreement_received_on ? l(donation.agreement_received_on.to_date) : "NE" %></td>
+        <td><%= Crowdfunding.find_by(vs_prefix: donation.vs[0..3]).try(:title) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pull-right"><%= paginate @donations %></div>

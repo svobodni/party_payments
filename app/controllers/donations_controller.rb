@@ -38,6 +38,12 @@ class DonationsController < ApplicationController
     render action: :index
   end
 
+  def crowdfunding
+    @donations = Donation.where("vs like '99%' and LENGTH(vs)=8")
+    @donations = @donations.accessible_by(current_ability)
+    @donations = @donations.order(created_at: :desc).page params[:page]
+  end
+
   # GET /donations/1
   # GET /donations/1.json
   def show

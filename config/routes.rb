@@ -81,6 +81,7 @@ Rails.application.routes.draw do
       resources :donations, path: 'dary', only: [:index] do
         collection do
           get 'above_limit', path: 'nad_limit'
+          get 'crowdfunding'
         end
       end
       resources :membership_fees, path: 'clenske_prispevky', only: [:index] do
