@@ -23,12 +23,16 @@ class DonationsController < ApplicationController
 
   def above_limit
     # @organization = Organization.find_by_id(params[:organization_id])
-    if @organization
+    if @organization && @organization.id != 100
       @donations = @organization.donations
     else
       @donations = Donation.all
     end
-    @donations = @donations.where("amount > 999")
+    if params[:limit]
+      @donations = @donations.where("amount > ?", params[:limit])
+    else
+      @donations = @donations.where("amount > 1000")
+    end
     @donations = @donations.accessible_by(current_ability)
     @donations = @donations.order(created_at: :desc).page params[:page]
     render action: :index
