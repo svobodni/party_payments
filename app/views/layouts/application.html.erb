@@ -128,6 +128,7 @@
               <li><%=link_to "Přijaté dary nad 1000", above_limit_organization_donations_path(@organization) %></li>
               <li><%=link_to "Přijaté dary nad 10000", above_limit_organization_donations_path(@organization,limit: 10000) %></li>
               <li><%=link_to "Přijaté dary nad 50000", above_limit_organization_donations_path(@organization,limit: 50000) %></li>
+              <li><%=link_to "Crowdfunding", crowdfunding_organization_donations_path(@organization) %></li>
               </ul>
             </li>
             <!-- <li><%=link_to "Tagy", organization_tags_path(@organization) %></li> -->

@@ -39,7 +39,7 @@ class DonationsController < ApplicationController
   end
 
   def crowdfunding
-    @donations = Donation.where("vs like '99%' and LENGTH(vs)=8")
+    @donations = Donation.where("vs like '99%' and LENGTH(vs)=10")
     @donations = @donations.accessible_by(current_ability)
     @donations = @donations.order(created_at: :desc).page params[:page]
   end
