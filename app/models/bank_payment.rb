@@ -132,6 +132,16 @@ class BankPayment < ActiveRecord::Base
           donation.received_on = paid_on
           payments.create(payable: donation, amount: positive_amount)
         end
+      elsif remaining_amount > 0 &&
+          (our_account_number=="7505075050") &&
+          vs.length==10 && vs[0..1]=="99"
+        donation = Donation.find_by(vs: vs)
+        if donation && donation.amount==amount
+          donation.received_on = paid_on
+          donation.set_accounting
+          donation.save
+          payments.create(payable: donation, amount: positive_amount)
+        end
       end
     end
   end
