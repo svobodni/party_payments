@@ -50,7 +50,7 @@ class AccountingsController < ApplicationController
   def update
     respond_to do |format|
       if @accounting.update(accounting_params)
-        format.html { redirect_to @accounting, notice: 'Accounting was successfully updated.' }
+        format.html { redirect_to @accounting.accountable, notice: 'Accounting was successfully updated.' }
         format.json { render :show, status: :ok, location: @accounting }
       else
         format.html { render :edit }

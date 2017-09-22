@@ -114,11 +114,12 @@
     <% else %>
     <table class="table">
     <thead>
-      <tr><th>Kategorie</th><th>Částka</th><th></th></tr>
+      <tr><th></th><th>Kategorie</th><th>Částka</th><th></th></tr>
     </thead>
     <tbody>
       <% for accounting in @invoice.accountings %>
       <tr>
+        <td><%= accounting.budget_category.organization.name%></td>
         <td><%= link_to "#{accounting.budget_category.year} - #{accounting.budget_category.name}", accounting.budget_category if accounting.budget_category %><br/><%= accounting.tag_list %></td>
         <td><%= number_to_currency accounting.amount %></td>
         <td><%= link_to "Upravit", edit_accounting_path(accounting), class: "btn btn-primary btn-xs" %></td>
@@ -131,7 +132,11 @@
     <%= simple_form_for(@invoice.accountings.build(amount: @invoice.accounting_remainder), html: { class: 'form-horizontal' }) do |f| %>
       <%= f.hidden_field :accountable_type %>
       <%= f.hidden_field :accountable_id %>
+      <% if @invoice.organization_id==100 %>
+      <%= f.input :budget_category_id, collection: BudgetCategory.all.order(year: :desc, organization_id: :desc), label_method: ->(p){ "#{p.organization.name} - #{p.year} - #{p.name}"} %>
+      <% else %>
       <%= f.input :budget_category_id, collection: @invoice.organization.budget_categories.order(year: :desc), label_method: ->(p){ "#{p.year} - #{p.name}"} %>
+      <% end %>
       <%= f.input :amount %>
       <%= f.button :submit, class: "btn-primary pull-right" %>
     <% end unless @invoice.accounting_remainder == 0%>
