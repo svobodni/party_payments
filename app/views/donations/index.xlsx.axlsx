@@ -1,12 +1,14 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Dary") do |sheet|
-  sheet.add_row ['Organizace','Typ dárce','Datum','Částka','VS','Jméno a příjmení','Identifikace','Adresa']
+  sheet.add_row ['ID','Organizace','Typ dárce','Datum','Částka','VS','Číslo našeho účtu','Jméno a příjmení','Identifikace','Adresa']
   @donations.each do |donation|
     sheet.add_row [
+      donation.id,
       donation.organization.name,
       donation.donor_type,
       donation.received_on,
-      donation.payments.last.payment.vs,
+      donation.payments.try(:last).try(:payment).try(:vs),
+      donation.payments.try(:last).try(:payment).try(:our_account_number),
       donation.amount,
       donation.name,
       (donation.donor_type=="juristic" ? donation.ic : donation.date_of_birth),
