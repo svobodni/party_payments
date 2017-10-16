@@ -6,6 +6,10 @@ class Public::NonMonetaryDonationsController < ApplicationController
   # GET /non_monetary_donations
   # GET /non_monetary_donations.json
   def index
+    redirect_to "https://public.svobodni.cz/svobodni/2017-PSP/nepenezni-plneni.pdf"
+  end
+
+  def index_campaign
     @non_monetary_donations = NonMonetaryDonation.agreement_received.order(created_at: :desc)
     respond_to do |format|
       format.html

@@ -5,7 +5,10 @@ class Public::CampaignDonationsController < ApplicationController
   before_action :set_donation, only: [:show, :update, :signed]
 
   def index
-    @campaign_donations = Donation.where("received_on > ?","2017-05-01").order(created_at: :desc)
+    redirect_to "https://public.svobodni.cz/svobodni/2017-PSP/financni-dary.pdf"
+  end
+
+  def index_campaign
     respond_to do |format|
       format.html
     end
