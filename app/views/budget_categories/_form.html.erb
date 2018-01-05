@@ -1,6 +1,6 @@
 <%= simple_form_for(@budget_category, html: { class: 'form-horizontal' }) do |f| %>
   <%= f.input :organization_id, collection: @organizations.collect {|p| [ p.name, p.id ] }%>
-  <%= f.input :year, collection: (2014..2017).to_a.reverse %>
+  <%= f.input :year, collection: (2014..2018).to_a.reverse %>
   <%= f.input :name %>
   <%= f.input :amount %>
   <%= f.input :budget_category_type, collection: BudgetCategory.budget_category_types %>

@@ -15,8 +15,8 @@ class ApplicationController < ActionController::Base
   def load_organizations
   	@organizations = Organization.order(:id).all
   	@organization = Organization.find(params[:organization_id]) if params[:organization_id]
-    @years = (2014..2017).to_a.reverse
-    @year = (params[:year] || 2017).to_i
+    @years = (2014..2018).to_a.reverse
+    @year = (params[:year] || 2018).to_i
   end
 
   def authenticate_person!
