@@ -20,7 +20,10 @@ class MembershipFee < ActiveRecord::Base
   end
 
   def set_accounting
-    if received_on > Date.parse("2016-12-31")
+    if received_on > Date.parse("2017-12-31")
+      self.accountings.build(budget_category_id: 262, amount: amount/2)
+      self.accountings.build(budget_category_id: self.region.budgets.where(year:2018).first.membership_fee_budget_category_id, amount: amount/2)
+    elsif received_on > Date.parse("2016-12-31")
       self.accountings.build(budget_category_id: 165, amount: amount/2)
       self.accountings.build(budget_category_id: self.region.budgets.where(year:2017).first.membership_fee_budget_category_id, amount: amount/2)
     elsif received_on > Date.parse("2015-12-31")
