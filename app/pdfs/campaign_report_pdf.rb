@@ -36,7 +36,7 @@ class CampaignReportPdf < Prawn::Document
       move_down vspace/4
       text('Peněžité dary poskytnuté kandidujícímu subjektu', style: :bold)
       text('počet stran ..... v části I.')
-      @donations=Donation.where("received_on > ?","2016-12-31")
+      @donations=Donation.where("received_on > ? AND received_on < ?","2016-12-31", "2017-10-16")
       text("Celkem #{number_to_currency @donations.sum(:amount)} v části I.")
       move_down vspace
       @data=@donations.order(created_at: :desc).collect{|d|
