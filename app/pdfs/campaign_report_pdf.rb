@@ -107,7 +107,8 @@ class CampaignReportPdf < Prawn::Document
           :width => 700, :column_widths => [200,500], :cell_style => { :border_width => 1, :padding => [0,5,1,5] }) do
             style(column(0), align: :right)
           end
-
+        move_down vspace/4
+        text('Žádná plnění nebyla poskytnuta za cenu nižší, než obvyklou.')
       start_new_page()
         text('Část V.', style: :bold)
         move_down vspace/4
