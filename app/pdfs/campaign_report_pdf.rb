@@ -36,8 +36,8 @@ class CampaignReportPdf < Prawn::Document
       move_down vspace/4
       text('Peněžité dary poskytnuté kandidujícímu subjektu', style: :bold)
       text('počet stran ..... v části I.')
-      @donations=Donation.where("received_on > ? AND received_on < ?","2016-12-31", "2017-10-16")
-      text("Celkem #{number_to_currency @donations.sum(:amount)} v části I.")
+      @donations=Donation.where("received_on > ? AND received_on < ?","2016-12-31", "2017-10-17")
+      text("Celkem #{number_to_currency @donations.sum(:amount)+250000+70000+200000+100000} v části I.")
       move_down vspace
       @data=@donations.order(created_at: :desc).collect{|d|
         if d.juristic?
@@ -46,6 +46,12 @@ class CampaignReportPdf < Prawn::Document
           [[d.name, d.city].join(', '), l(d.date_of_birth), number_to_currency(d.amount)]
         end
       }
+
+      # darci z roku 2016
+      @data << ["Hrabanek s.r.o, Horšovská 274/3, 155 00 Praha", "47118865", number_to_currency(250000)]
+      @data << ["Laissez Faire, z.s., Jungmannovo nám. 765/5, 11000 Praha 1", "26608197", number_to_currency(70000)]
+      @data << ["Troax CZ s.r.o., Kročehlavská 1008, 27201 Kladno", "26436221", number_to_currency(200000)]
+      @data << ["Vestav Kladno, s.r.o., Kročehlavská 1008, Dubí, Kladno", "26480123", number_to_currency(100000)]
 
       table(
         [['Dárce', 'Datum narození / identifikační číslo dárce','Výše peněžitého daru']]+@data,
@@ -97,7 +103,7 @@ class CampaignReportPdf < Prawn::Document
         move_down vspace/4
         text('Výdaje na volební kampaň', style: :bold)
         text('počet stran ..... v části IV.')
-        @payments=BankAccount.find(6).payments.where("amount < 0")
+        @payments=BankAccount.find(6).payments.where("amount < 0").where.not("info like '%zaslene na spatny ucet%'")
         text("Celkem #{number_to_currency @payments.sum(:amount)*-1} v části IV.")
         move_down vspace
         @data=@payments.collect{|p| [number_to_currency(p.positive_amount), p.info]}
