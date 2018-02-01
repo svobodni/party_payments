@@ -99,9 +99,11 @@ class DonationAgreementPdf < Prawn::Document
 
     move_down vspace*2
 
-    sig_1 = donation.monetary? ?
-      { :content => 'Podpis:', :height => line_height * 5 } :
-      { :image=> File.join(Rails.root, 'assets', 'petr_mach_w.png'), :height => line_height * 5 }
+    # sig_1 = donation.monetary? ?
+    #   { :content => 'Podpis:', :height => line_height * 5 } :
+    #   { :image=> File.join(Rails.root, 'assets', 'petr_mach_w.png'), :height => line_height * 5 }
+
+    sig_1 = { :content => 'Podpis:', :height => line_height * 5 }
 
     table([
       ["V Praze dne #{donation.monetary? ? '' : l(donation.created_at.to_date)}", "V .................... dne ...................."],
