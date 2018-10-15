@@ -84,6 +84,7 @@
             <li><%=link_to "Bankovní účty", bank_accounts_path %>
               <ul>
                 <% BankAccount.all.each do |account| %>
+                  <% next if @year.to_i>2017 && account.account_number=="2601082960" %>
                   <li><%=link_to account.name, bank_account_path(account) %></li>
                 <% end %>
                 <li><%=link_to "Nespárované", organization_bank_payments_path(@organization, only: :unpaired) %></li>

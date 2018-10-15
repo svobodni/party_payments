@@ -57,7 +57,7 @@ class DonationsController < ApplicationController
       amount: params[:amount],
       bank_payment_id: params[:bank_payment_id],
       budget_category_id: 4,
-      person_id: params[:vs][1..-1]
+      person_id: params[:vs][-4..-1]
     )
     authorize! :create, @donation
   end
