@@ -118,10 +118,10 @@ class BankPayment < ActiveRecord::Base
             name: response["payment"]["name"],
             received_on: paid_on
           )
-          payments.create(payable: membership_fee, amount: positive_amount)
           if remaining_amount > 299
             response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/member_paid.json", basic_auth: configatron.registry.auth)
           end
+          payments.create(payable: membership_fee, amount: positive_amount)
         end
       elsif remaining_amount > 0 &&
           (our_account_number=="7505075050") &&
