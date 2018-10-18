@@ -6,10 +6,17 @@ class Invoice < ActiveRecord::Base
   has_many :accountings, as: :accountable
   has_many :payments, as: :payable
 
+  before_validation :sanitize_arguments
+
   has_attached_file :document, path: ":rails_root/data/invoices/:id.pdf", url: "/faktury/:id.pdf"
   validates_attachment :document, content_type: { content_type: ["application/pdf"] }
 
   attr_accessor :account
+
+  def sanitize_arguments
+    self.vs=self.vs.strip
+    self.account_number=self.account_number.strip.sub!(/^[0]+/,'')
+  end
 
   def accounting_remainder
   	(amount||0)-accountings.sum(:amount)
