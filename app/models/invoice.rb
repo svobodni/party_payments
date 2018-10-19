@@ -15,7 +15,7 @@ class Invoice < ActiveRecord::Base
 
   def sanitize_arguments
     self.vs=self.vs.strip
-    self.account_number=self.account_number.strip.sub!(/^[0]+/,'')
+    self.account_number=self.account_number.strip.sub!(/^[0]*/,'')
   end
 
   def accounting_remainder
