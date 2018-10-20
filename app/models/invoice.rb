@@ -14,8 +14,8 @@ class Invoice < ActiveRecord::Base
   attr_accessor :account
 
   def sanitize_arguments
-    self.vs=self.vs.strip
-    self.account_number=self.account_number.strip.sub!(/^[0]*/,'')
+    self.vs=self.vs.strip if self.vs
+    self.account_number=self.account_number.strip.sub!(/^[0]*/,'') if self.account_number
   end
 
   def accounting_remainder
