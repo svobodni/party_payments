@@ -22,4 +22,14 @@
   <tr><th><%=BankPayment.human_attribute_name(:account_number)%></th><td><%= @bank_payment.account_number %>/<%= @bank_payment.bank_code %></td></tr>
   <tr><th><%=BankPayment.human_attribute_name(:our_account_number)%></th><td><%= @bank_payment.our_account_number %>/<%= @bank_payment.our_bank_code %></td></tr>
   <tr><th><%=Payment.human_attribute_name(:payable_type)%></th><td><%= @bank_payment.payments.collect{|p| p.payable}.collect{|p| link_to("#{p.class.model_name.human} #{p.try(:name)}", p)}.join.html_safe %></td></tr>
+  <tr><th>Přímé zaúčtování v rozpočtu</th><td>
+    <table class="table">
+    <% @bank_payment.accountings.each do |accounting| %>
+      <tr>
+        <td><%=link_to accounting.budget_category.name, accounting.budget_category %></td>
+        <td><%= accounting.amount %></td>
+      </tr>
+    <% end %>
+    </table>
+  </td></tr>
 </table>
