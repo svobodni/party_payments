@@ -25,7 +25,7 @@ class MembershipFeesController < ApplicationController
     @membership_fee = MembershipFee.new(
       amount: params[:amount],
       bank_payment_id: params[:bank_payment_id],
-      person_id: params[:vs][-4..-1]
+      person_id: params[:vs] ? params[:vs].reverse[0..3].reverse.to_i : nil
     )
     authorize! :create, @donation
   end
