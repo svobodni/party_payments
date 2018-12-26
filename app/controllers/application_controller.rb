@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   def load_organizations
   	@organizations = Organization.order(:id).all
   	@organization = Organization.find(params[:organization_id]) if params[:organization_id]
-    @years = (2014..2018).to_a.reverse
+    @years = (2014..2019).to_a.reverse
     @year = (params[:year] || 2018).to_i
   end
 
