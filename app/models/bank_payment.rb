@@ -89,7 +89,7 @@ class BankPayment < ActiveRecord::Base
         if invoice = Invoice.where(amount: positive_amount).detect{|i| i.vs==vs && i.account_number==account_number}
           payments.create(payable: invoice, amount: positive_amount)
         end
-      elsif remaining_amount > 0 && vs.length.between?(4,5) && our_account_number=="7505075050"
+      elsif remaining_amount > 0 && vs.length.between?(3,5) && our_account_number=="7505075050"
         response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/donation_payments.json", basic_auth: configatron.registry.auth)
         if response.success?
           donation = Donation.create(
@@ -108,7 +108,7 @@ class BankPayment < ActiveRecord::Base
           payments.create(payable: donation, amount: positive_amount)
           response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/supporter_paid.json", basic_auth: configatron.registry.auth)
         end
-      elsif remaining_amount > 0 && vs.length.between?(4,5) && our_account_number==MembershipFee.account
+      elsif remaining_amount > 0 && vs.length.between?(3,5) && our_account_number==MembershipFee.account
         response = HTTParty.post("#{configatron.registry.uri}/people/#{vs}/membership_payments.json", basic_auth: configatron.registry.auth)
         if response.success?
           membership_fee = MembershipFee.create(
