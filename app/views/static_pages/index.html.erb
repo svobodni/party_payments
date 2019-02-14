@@ -8,8 +8,8 @@
 <% unless current_user %>
 <h2>Prosím, <a href="/auth/registr">přihlašte se</a>.</h2>
 <% else %>
-<% if [2804,342].member?(current_user['id']) %>
-<% @invoices = Invoice.where('created_at > "2016-12-31"').reject{|p| p.payment_remainder == 0} %>
+<% if [2804,342,7873].member?(current_user['id']) %>
+<% @invoices = Invoice.where('created_at > "2017-12-31"').reject{|p| p.payment_remainder == 0} %>
 <h2>Nezaplacené faktury</h2>
 <table id="invoices" class="table table-striped">
   <thead>
