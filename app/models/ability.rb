@@ -3,7 +3,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if [42, 342, 344, 2804, 3860, 7873].member?(user['id'])
+    if [342, 1728, 4039, 7873].member?(user['id'])
       can :manage, :all
     end
 
