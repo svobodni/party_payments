@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :crowdfundings, path: :crowdfunding, only: [:index, :show]
   end
 
-  scope ":year", year: /201[3-9]/, path_names: { new: 'pridat', edit: 'upravit' } do
+  scope ":year", year: /20[1-2][0-9]/, path_names: { new: 'pridat', edit: 'upravit' } do
 
     resources :bank_accounts
     resources :bank_payments, only: [:show] do
