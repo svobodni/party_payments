@@ -64,7 +64,13 @@ class Donation < ActiveRecord::Base
   end
 
   def set_accounting
-    if received_on > Date.parse("2018-12-31")
+    if received_on > Date.parse("2019-12-31")
+      if organization_id==100
+        self.accountings.build(budget_category_id: 456, amount: amount)
+      else
+        self.accountings.build(budget_category_id: self.organization.budgets.where(year:2020).first.donation_budget_category_id, amount: amount)
+      end
+    elsif received_on > Date.parse("2018-12-31")
       if organization_id==100
         self.accountings.build(budget_category_id: 372, amount: amount)
       else
