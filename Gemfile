@@ -65,7 +65,7 @@ gem 'simple_form'
 
 source 'https://rails-assets.org'
 
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-rails'
 
 # PDF
