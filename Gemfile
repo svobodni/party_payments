@@ -55,7 +55,7 @@ gem 'aasm'
 gem 'fio_api', :git => 'https://github.com/kubicek/fio_api', :branch => 'import'
 
 # Nahrávání souborů
-gem "paperclip", "~> 4.2"
+gem "paperclip", "~> 4.3"
 
 # Tagy
 gem 'acts-as-taggable-on', '~> 3.4'
